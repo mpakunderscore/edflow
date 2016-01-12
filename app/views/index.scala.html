@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+
+<html data-ng-app="edflow" data-ng-controller="edflowController as edflow">
+    <head>
+
+        <title>edflow.io</title>
+
+        <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/main.css")">
+        <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/menu.css")">
+        <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/content.css")">
+
+        <link rel="shortcut icon" type="image/png" href="@routes.Assets.at("images/favicon1.png")">
+
+        <script src="@routes.Assets.at("javascripts/jquery-1.9.0.min.js")" type="text/javascript"></script>
+        <script src="@routes.Assets.at("javascripts/angular.min.js")"></script>
+        <script src="@routes.Assets.at("javascripts/app.js")" type="text/javascript"></script>
+        <script src="@routes.Assets.at("javascripts/edflowController.js")" type="text/javascript"></script>
+
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    </head>
+    <body>
+
+        <div class="menu">
+            <ul>
+                <li ng-repeat="item in dataSet"><a href="">{{item[0]}}</a></li>
+            </ul>
+        </div>
+
+        <div class="content">
+            <ul>
+                <li ng-repeat="item in dataSet">
+
+                    <div class="image"></div>
+
+                    <div class="text">
+
+                        <a href="https://google.com/?q={{item[1]}}" target="_blank"><div class="title">{{item[1]}}</div></a>
+
+                        <div class="description">{{item[2] + " " + item[3]}}</div>
+
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+
+    </body>
+</html>
