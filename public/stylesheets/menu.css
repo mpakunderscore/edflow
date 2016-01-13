@@ -1,18 +1,27 @@
 .menu {
     position: fixed;
+    /*position: absolute;*/
     top: 0;
     left: 0;
-    right: 75%;
     bottom: 0;
+
+    min-width: 20%;
+    /*right: 75%;*/
 
     box-shadow: 4px 0px 10px 0px rgba(0, 0, 0, 0.3);
 
-    padding: 12px 20px 12px 0;
+    padding: 10px 20px 10px 20px;
 
     text-align: right;
     overflow-y: scroll;
+    overflow-x: hidden;
 
     z-index: 3;
+}
+
+.menu input {
+    width: 100%;
+    font-size: 14px;
 }
 
 .menu::-webkit-scrollbar {
@@ -33,5 +42,12 @@
 
 .menu ul a:hover {
     color: red;
-    text-decoration: none;
+}
+
+.menu ul a.selected {
+    color: red;
+}
+
+.menu ul a.selected:hover {
+    color: #000;
 }
