@@ -1,12 +1,3 @@
-.content {
-    position: absolute;
-    top: 0;
-    /*float: left;*/
-    /*width: 100%;*/
-    /*width: 75%;*/
-    right: 0;
-}
-
 .content ul {
     list-style: none;
     margin: 0;
@@ -69,7 +60,7 @@
 }
 
 .content ul li div.text a:hover {
-    color: #2ca8ff;
+    color: #1989ff;
 }
 
 /*.content ul li div.text a:visited {*/

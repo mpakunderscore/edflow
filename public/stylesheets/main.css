@@ -1,3 +1,63 @@
 html {
     font-family: 'Open Sans', sans-serif;
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+.menu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+
+    min-width: 20%;
+
+    box-shadow: 4px 0px 10px 0px rgba(0, 0, 0, 0.3);
+
+    padding: 10px 20px 10px 20px;
+
+    text-align: right;
+    overflow-y: scroll;
+    overflow-x: hidden;
+
+    z-index: 3;
+
+    background-color: white;
+}
+
+.content {
+    position: absolute;
+    top: 0;
+    /*float: left;*/
+    /*width: 100%;*/
+    width: 70%;
+    right: 0;
+
+    background-color: white;
+}
+
+.material-icons {
+    font-family: 'Material Icons';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 10px !important;  /* Preferred icon size */
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    line-height: 1;
+    text-transform: none;
+    letter-spacing: normal;
+    word-wrap: normal;
+    white-space: nowrap;
+    direction: ltr;
+
+    /* Support for all WebKit browsers. */
+    -webkit-font-smoothing: antialiased;
+    /* Support for Safari and Chrome. */
+    text-rendering: optimizeLegibility;
+
+    /* Support for Firefox. */
+    -moz-osx-font-smoothing: grayscale;
+
+    /* Support for IE. */
+    font-feature-settings: 'liga';
 }
