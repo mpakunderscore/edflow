@@ -1,10 +1,18 @@
 html {
     font-family: 'Open Sans', sans-serif;
-    background-color: rgba(0, 0, 0, 0.05);
+    background-color: rgba(0, 0, 0, 0.02);
     font-size: 16px;
 }
 
-.menu {
+#language {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    z-index: 4;
+    background-color: rgba(255, 255, 255, 0.7);
+}
+
+#menu {
     position: fixed;
     top: 0;
     left: 0;
@@ -18,14 +26,14 @@ html {
     overflow-y: scroll;
     overflow-x: hidden;
 
-    z-index: 3;
+    /*z-index: 3;*/
 
     background-color: white;
     -webkit-transition: width 1s; /* Safari */
     transition: width 1s;
 }
 
-.content {
+#content {
 
     position: absolute;
     top: 0;
@@ -33,6 +41,8 @@ html {
     /*width: 100%;*/
     width: 80%;
     right: 0;
+
+    margin-bottom: 200px;
 
     background-color: white;
     -webkit-transition: width 1s; /* Safari */

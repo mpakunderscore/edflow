@@ -6,10 +6,11 @@
         <title>edflow.in</title>
 
         <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/main.css")">
+        <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/language.css")">
         <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/menu.css")">
         <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/content.css")">
 
-        <link rel="shortcut icon" type="image/png" href="@routes.Assets.at("public/images/favicon.png")">
+        <link rel="shortcut icon" type="image/png" href="@routes.Assets.at("images/favicon.png")">
 
         <script src="@routes.Assets.at("javascripts/jquery-1.9.0.min.js")" type="text/javascript"></script>
         <script src="@routes.Assets.at("javascripts/angular.min.js")"></script>
@@ -23,30 +24,38 @@
     </head>
     <body>
 
-        <div id="menu" class="menu" ng-style="{width: mWidth}">
+        <div id="language">
+            <ul>
+                <li ng-repeat="item in languages">
+                    <a href="" ng-click="selectLanguage(item)" ng-class="{selected: item == language}">{{item}}</a>
+                </li>
+            </ul>
+        </div>
+
+        <div id="menu" ng-style="{width: mWidth}">
 
             @*<input id="search">*@
             <ul>
                 <li ng-repeat="item in selectedCategories">
 
-                    <a href="https://{{lang}}.wikipedia.org/wiki/Category:{{item.title}}" target="_blank">
+                    <a href="https://{{language}}.wikipedia.org/wiki/Category:{{item.title}}" target="_blank">
                         @*<i class="material-icons">chevron_right</i>*@
                     </a>
 
-                    <a href="" ng-click="deselect(item)" class="selected">{{item.title}}</a>
+                    <a href="" ng-click="deselectCategory(item)" class="selected">{{item.title}}</a>
 
                 </li>
                 <li ng-repeat="item in subCategories">
-                    <a href="https://{{lang}}.wikipedia.org/wiki/Category:{{item.title}}" target="_blank">
+                    <a href="https://{{language}}.wikipedia.org/wiki/Category:{{item.title}}" target="_blank">
                         @*<i class="material-icons">close</i>*@
                     </a>
-                    <a href="" ng-click="select(item)">{{item.title}}</a>
+                    <a href="" ng-click="selectCategory(item)">{{item.title}}</a>
                 </li>
             </ul>
 
         </div>
 
-        <div class="content" ng-style="{width: cWidth}">
+        <div id="content" ng-style="{width: cWidth}">
 
             <ul>
                 <li ng-repeat="item in pages">
@@ -58,7 +67,7 @@
                     <div class="text">
 
                         <div class="title">
-                            <a href="https://{{lang}}.wikipedia.org/wiki/{{item.title}}" target="_blank">{{item.title}}</a>
+                            <a href="https://{{language}}.wikipedia.org/wiki/{{item.title}}" target="_blank">{{item.title}}</a>
                         </div>
 
                         <div class="description">{{item.description}}</div>

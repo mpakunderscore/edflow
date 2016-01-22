@@ -2,8 +2,21 @@ edflow
 
     .controller("edflowController", function ($scope, $http) {
 
-        $scope.lang = "en";
-        //$scope.lang = "ru";
+        $scope.languages = ["EN", "RU"];
+
+        $scope.language = localStorage.getItem("language");
+
+        //console.log($scope.language);
+
+        if ($scope.language === null)
+            $scope.language = "EN";
+
+        $scope.selectLanguage = function(language) {
+            $scope.language = language;
+            localStorage.setItem("language", language);
+            $scope.selectedCategories = [];
+            $scope.selectCategory("");
+        }
 
         $("#search").keyup(function (e) {
             if (e.keyCode == 13) {
@@ -16,14 +29,14 @@ edflow
         $scope.selectedCategories = [];
         $scope.subCategories = [];
 
-        $scope.select = function(category) {
+        $scope.selectCategory = function(category) {
 
             if (category !== "")
                 $scope.selectedCategories.push(category);
 
             $scope.subCategories = [];
 
-            $http.get("api/category?category=" + category.title).success(function (data) {
+            $http.get("api/category?category=" + category.title + "&language=" + $scope.language).success(function (data) {
 
                     $scope.pages = data.pages;
                     $scope.subCategories = data.subCategories;
@@ -35,17 +48,17 @@ edflow
                 });
         }
 
-        $scope.select("");
+        $scope.selectCategory("");
 
-        $scope.deselect = function(category) {
+        $scope.deselectCategory = function(category) {
 
             while ($scope.selectedCategories.pop() !== category) {
             }
 
             if ($scope.selectedCategories.length == 0)
-                $scope.select("");
+                $scope.selectCategory("");
             else
-                $scope.select($scope.selectedCategories.pop());
+                $scope.selectCategory($scope.selectedCategories.pop());
 
         }
 
@@ -58,7 +71,7 @@ edflow
 
                 if (arr[i].title.length > length) {
 
-                    var length = arr[i].title.length;
+                    length = arr[i].title.length;
                     longest = arr[i];
                 }
             }
@@ -68,18 +81,24 @@ edflow
 
         $scope.moveMenu = function() {
 
-            //var biggest = $scope.subCategories.reduce(function (a, b) { return a.length < b.length ? a : b; });
-            //var longest = $scope.subCategories.sort(function (a, b) { return b.length - a.length; })[0];
+            var longest = getLongest($scope.selectedCategories.concat($scope.subCategories));
 
-            var longest = getLongest($scope.subCategories);
-            //console.log(longest.title.length);
+            var menu = (getTextWidth(longest.title, "16px Open Sans"));
+            console.log(longest.title + " " + menu);
 
-            var menu = longest.title.length * 8;
-            console.log(longest.title + " " + longest.title.length);
-
-            $scope.mWidth = (45 + menu) + "px";
+            $scope.mWidth = (44 + menu) + "px";
             $scope.cWidth = "calc(100% - " + $scope.mWidth + ")";
             //console.log(document.getElementById("menu").offsetWidth)
         }
+
+        function getTextWidth(text, font) {
+
+            // re-use canvas object for better performance
+            var canvas = getTextWidth.canvas || (getTextWidth.canvas = document.createElement("canvas"));
+            var context = canvas.getContext("2d");
+            context.font = font;
+            var metrics = context.measureText(text);
+            return metrics.width;
+        };
     })
 

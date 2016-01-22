@@ -24,18 +24,21 @@ public class Wiki extends Controller {
 
     private static final String PROTOCOL = "https://";
 
-    private static final String LANG = "en";
+//    private static final String LANGUAGE = "en";
 //    private static final String LANG = "ru";
 
-//    private static final String MAIN_CATEGORY = "Статьи";
-    private static final String MAIN_CATEGORY = "Main topic classifications";
+    private static final String EN_MAIN_CATEGORY = "Main topic classifications";
+    private static final String RU_MAIN_CATEGORY = "Статьи";
 
-    public static Result getCategoryTree(String categoryName) {
+    public static Result getCategoryTree(String categoryName, String language) {
 
-        if (Objects.equals(categoryName.toLowerCase(), "undefined"))
-            categoryName = MAIN_CATEGORY;
+        if (Objects.equals(categoryName.toLowerCase(), "undefined")) {
 
-        Document doc = getWikiDoc(categoryName);
+            if (language.equals("EN")) categoryName = EN_MAIN_CATEGORY;
+            if (language.equals("RU")) categoryName = RU_MAIN_CATEGORY;
+        }
+
+        Document doc = getWikiDoc(categoryName, language);
 
         //categoryPage
 
@@ -88,13 +91,13 @@ public class Wiki extends Controller {
     }
 
 
-    public static Document getWikiDoc(String categoryName) {
+    public static Document getWikiDoc(String categoryName, String language) {
 
         Document doc = null;
 
         try {
 
-            String connectUrl = PROTOCOL + LANG + CATEGORY_URL + categoryName;
+            String connectUrl = PROTOCOL + language + CATEGORY_URL + categoryName;
 
             Connection connection = Jsoup.connect(connectUrl);
 

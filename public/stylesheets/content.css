@@ -1,10 +1,10 @@
-.content ul {
+#content ul {
     list-style: none;
     margin: 0;
     padding: 0;
 }
 
-.content li {
+#content li {
     /*background-color: rgba(255, 0, 0, 0.32);*/
     /*width: 100%;*/
     height: 70px;
@@ -16,14 +16,14 @@
     box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.15);
 }
 
-.content li:hover {
+#content li:hover {
     background-color: rgba(56, 153, 255, 0.1);
 }
 
-.content ul li {
+#content ul li {
 }
 
-.content ul li div.image {
+#content ul li div.image {
 
     float: left;
 
@@ -36,12 +36,12 @@
     box-shadow: 4px 4px 10px 0px rgba(0, 0, 0, 0.4);
 }
 
-.content ul li div.image img {
+#content ul li div.image img {
     /*width: 70px;*/
     /*height: 70px;*/
 }
 
-.content ul li div.text {
+#content ul li div.text {
 
     /*background-color: rgba(255, 98, 164, 0.6);*/
 
@@ -54,12 +54,12 @@
     /*background-color: rgba(255, 98, 164, 0.6);*/
 }
 
-.content ul li div.text a {
+#content ul li div.text a {
     color: #000;
     text-decoration: none;
 }
 
-.content ul li div.text a:hover {
+#content ul li div.text a:hover {
     color: #1989ff;
 }
 
@@ -67,7 +67,7 @@
     /*color: rgb(45, 112, 174);*/
 /*}*/
 
-.content ul li div.text div.description {
+#content ul li div.text div.description {
     font-size: 12px;
     color: gray;
 }
