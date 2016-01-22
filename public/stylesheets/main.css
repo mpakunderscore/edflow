@@ -26,7 +26,7 @@ html {
     overflow-y: scroll;
     overflow-x: hidden;
 
-    /*z-index: 3;*/
+    z-index: 3;
 
     background-color: white;
     -webkit-transition: width 1s; /* Safari */
@@ -41,6 +41,8 @@ html {
     /*width: 100%;*/
     width: 80%;
     right: 0;
+
+    z-index: 1;
 
     margin-bottom: 200px;
 
