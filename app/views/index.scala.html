@@ -3,13 +3,13 @@
 <html data-ng-app="edflow" data-ng-controller="edflowController as edflow">
     <head>
 
-        <title> </title>
+        <title>edflow.in</title>
 
         <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/main.css")">
         <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/menu.css")">
         <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/content.css")">
 
-        <link rel="shortcut icon" type="image/png" href="@routes.Assets.at("../../public/images/favicon.png")">
+        <link rel="shortcut icon" type="image/png" href="@routes.Assets.at("public/images/favicon.png")">
 
         <script src="@routes.Assets.at("javascripts/jquery-1.9.0.min.js")" type="text/javascript"></script>
         <script src="@routes.Assets.at("javascripts/angular.min.js")"></script>
@@ -23,14 +23,14 @@
     </head>
     <body>
 
-        <div class="menu">
+        <div id="menu" class="menu" ng-style="{width: mWidth}">
 
             @*<input id="search">*@
             <ul>
                 <li ng-repeat="item in selectedCategories">
 
                     <a href="https://{{lang}}.wikipedia.org/wiki/Category:{{item.title}}" target="_blank">
-                        <i class="material-icons">chevron_right</i>
+                        @*<i class="material-icons">chevron_right</i>*@
                     </a>
 
                     <a href="" ng-click="deselect(item)" class="selected">{{item.title}}</a>
@@ -38,7 +38,7 @@
                 </li>
                 <li ng-repeat="item in subCategories">
                     <a href="https://{{lang}}.wikipedia.org/wiki/Category:{{item.title}}" target="_blank">
-                        <i class="material-icons">close</i>
+                        @*<i class="material-icons">close</i>*@
                     </a>
                     <a href="" ng-click="select(item)">{{item.title}}</a>
                 </li>
@@ -46,7 +46,7 @@
 
         </div>
 
-        <div class="content">
+        <div class="content" ng-style="{width: cWidth}">
 
             <ul>
                 <li ng-repeat="item in pages">

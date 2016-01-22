@@ -5,8 +5,9 @@
 .menu ul {
     list-style: none;
     margin: 0;
-    padding: 0;
+    /*padding: 0;*/
     line-height: 200%;
+    padding: 10px 20px 10px 20px;
 }
 
 .menu ul a {
