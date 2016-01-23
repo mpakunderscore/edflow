@@ -2,7 +2,7 @@ edflow
 
     .controller("edflowController", function ($scope, $http) {
 
-        $scope.languages = ["EN", "RU"];
+        $scope.languages = ["EN", "RU", "ZH"];
 
         $scope.language = localStorage.getItem("language");
 

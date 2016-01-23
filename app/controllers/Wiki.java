@@ -28,14 +28,23 @@ public class Wiki extends Controller {
 //    private static final String LANG = "ru";
 
     private static final String EN_MAIN_CATEGORY = "Main topic classifications";
-    private static final String RU_MAIN_CATEGORY = "Статьи";
+    private static final String RU_MAIN_CATEGORY = "";
+
 
     public static Result getCategoryTree(String categoryName, String language) {
 
+        Map<String, String> mainCategories = new HashMap<>();
+        mainCategories.put("EN", "Main topic classifications");
+        mainCategories.put("RU", "Статьи");
+        mainCategories.put("ZH", "頁面分類");
+
         if (Objects.equals(categoryName.toLowerCase(), "undefined")) {
 
-            if (language.equals("EN")) categoryName = EN_MAIN_CATEGORY;
-            if (language.equals("RU")) categoryName = RU_MAIN_CATEGORY;
+            if (mainCategories.containsKey(language))
+                categoryName = mainCategories.get(language);
+
+            else
+                categoryName = EN_MAIN_CATEGORY;
         }
 
         Document doc = getWikiDoc(categoryName, language);
