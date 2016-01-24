@@ -19,6 +19,8 @@ edflow
 
             $http.get("api/category?category=" + category.title + "&language=" + $rootScope.language).success(function (data) {
 
+                    if (data.mainPage.length > 0)
+                        console.log(data.mainPage[0].title)
                     $rootScope.pages = data.pages;
                     $scope.subCategories = data.subCategories;
 
@@ -49,12 +51,12 @@ edflow
             var menuWidth = $rootScope.getTextWidth(longest.title, "16px Open Sans") + 50;
             var percent = menuWidth / document.body.clientWidth * 100;
 
-            console.log(longest.title + " " + menuWidth + " " + percent);
+            //console.log(longest.title + " " + menuWidth + " " + percent);
 
             if (percent < 20)
                 menuWidth *= 20/percent;
 
-            console.log(longest.title + " " + menuWidth + " " + percent);
+            //console.log(longest.title + " " + menuWidth + " " + percent);
 
             $rootScope.mWidth = menuWidth + "px";
             $rootScope.cWidth = "calc(100% - " + $rootScope.mWidth + ")";

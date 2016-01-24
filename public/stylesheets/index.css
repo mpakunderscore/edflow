@@ -8,8 +8,14 @@ html {
     position: fixed;
     bottom: 0;
     left: 0;
+
+    width: 50%;
+
     z-index: 4;
-    background-color: rgba(255, 255, 255, 0.7);
+
+    background-color: rgba(255, 255, 255, 0.9);
+    -webkit-transition: width 1s; /* Safari */
+    transition: width 1s;
 }
 
 #categories {
@@ -17,6 +23,9 @@ html {
     top: 0;
     left: 0;
     bottom: 0;
+
+    padding-bottom: 52px;
+    /*16*2 + 20*/
 
     width: 50%;
 

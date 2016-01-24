@@ -19,7 +19,7 @@ public class Wiki extends Controller {
 
     public static final String USER_AGENT = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/31.0.1650.63 Safari/537.36";
 
-    private static final String CATEGORY_URL = ".wikipedia.org/wiki/";
+    private static final String WIKI_URL = ".wikipedia.org/wiki/";
 
     private static final String PROTOCOL = "https://";
 
@@ -52,12 +52,29 @@ public class Wiki extends Controller {
 
         Document doc = getWikiDoc(language, categoryPrefix, categoryName);
 
-        //categoryPage
+        //mainPage
 
-//        Elements categoryPageLinks = doc.body().select("#catmore a");
-//        String categoryPage = categoryPageLinks.get(0).text();
-//        Map<String, String> categoryPageMap = new HashMap<>();
-//        categoryPageMap.put("title", categoryPage);
+        List<Map<String, String>> mainPage = new ArrayList<>();
+
+        String mainPageTitle = "";
+        String mainPageDescription = "";
+
+        Elements categoryPageLinks = doc.body().select(".mainarticle b a");
+        if (categoryPageLinks.size() > 0) {
+
+            mainPageTitle = categoryPageLinks.get(0).text();
+
+            Document mainPageDoc = getWikiDoc(language, "", mainPageTitle);
+
+            Elements pBlocks = mainPageDoc.body().select("#mw-content-text p");
+            if (pBlocks.size() > 1) {
+                mainPageDescription = pBlocks.get(0).text() + pBlocks.get(1).text();;
+            }
+
+            Map<String, String> categoryPageMap = new HashMap<>();
+            categoryPageMap.put("title", mainPageTitle);
+            mainPage.add(categoryPageMap);
+        }
 
         //subCategories
 
@@ -81,10 +98,13 @@ public class Wiki extends Controller {
         List<Map<String, String>> pages = new ArrayList<>();
 
         for (Element link : pagesLinks) {
+
             String title = link.text();
 //            String img = getPageImg(title);
             String img = "";
             String description = "Description";
+            if (title.equals(mainPageTitle))
+                description = mainPageDescription;
 
             Map<String, String> pageMap = new HashMap<>();
             pageMap.put("title", title);
@@ -95,6 +115,7 @@ public class Wiki extends Controller {
         }
 
         Map<String, List<Map<String, String>>> out = new HashMap<>();
+        out.put("mainPage", mainPage);
 //        out.put("selectedCategories", selectedCategories);
         out.put("subCategories", subCategories);
         out.put("pages", pages);
@@ -103,13 +124,13 @@ public class Wiki extends Controller {
     }
 
 
-    public static Document getWikiDoc(String language, String categoryPrefix, String categoryName) {
+    public static Document getWikiDoc(String language, String categoryPrefix, String name) {
 
         Document doc = null;
 
         try {
 
-            String connectUrl = PROTOCOL + language.toLowerCase() + CATEGORY_URL + categoryPrefix + categoryName;
+            String connectUrl = PROTOCOL + language.toLowerCase() + WIKI_URL + categoryPrefix + name;
 
             Connection connection = Jsoup.connect(connectUrl);
 

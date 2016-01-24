@@ -31,7 +31,7 @@
     </head>
     <body>
 
-        <div id="menu" ng-controller="menuController">
+        <div id="menu" ng-style="{width: mWidth}" ng-controller="menuController">
             <ul>
                 <li ng-repeat="item in menuItems">
                     <a href="" ng-click="menu(item)" class="{{item.class}}" ng-class="item.code === language ? 'chosen' : ''">
