@@ -5,34 +5,43 @@
 
         <title>edflow.in</title>
 
-        <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/main.css")">
-        <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/language.css")">
+        <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/index.css")">
         <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/menu.css")">
+        <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/categories.css")">
         <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/content.css")">
 
         <link rel="shortcut icon" type="image/png" href="@routes.Assets.at("images/favicon.png")">
 
         <script src="@routes.Assets.at("javascripts/jquery-1.9.0.min.js")" type="text/javascript"></script>
-        <script src="@routes.Assets.at("javascripts/angular.min.js")"></script>
+        @*<script src="@routes.Assets.at("javascripts/angular.min.js")"></script>*@
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script>
+
+
         <script src="@routes.Assets.at("javascripts/app.js")" type="text/javascript"></script>
         <script src="@routes.Assets.at("javascripts/edflowController.js")" type="text/javascript"></script>
+        <script src="@routes.Assets.at("javascripts/controllers/categoriesController.js")" type="text/javascript"></script>
+        <script src="@routes.Assets.at("javascripts/controllers/menuController.js")" type="text/javascript"></script>
+        <script src="@routes.Assets.at("javascripts/controllers/contentController.js")" type="text/javascript"></script>
 
-        <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel='stylesheet' type='text/css'>
 
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
     </head>
     <body>
 
-        <div id="language">
+        <div id="menu" ng-controller="menuController">
             <ul>
-                <li ng-repeat="item in languages">
-                    <a href="" ng-click="selectLanguage(item)" ng-class="{selected: item == language}">{{item}}</a>
+                <li ng-repeat="item in menuItems">
+                    <a href="" ng-click="menu(item)" class="{{item.class}}" ng-class="item.code === language ? 'chosen' : ''">
+                        {{item.title}}
+                    </a>
                 </li>
             </ul>
         </div>
 
-        <div id="menu" ng-style="{width: mWidth}">
+        <div id="categories" ng-style="{width: mWidth}" ng-controller="categoriesController">
 
             @*<input id="search">*@
             <ul>
@@ -55,7 +64,7 @@
 
         </div>
 
-        <div id="content" ng-style="{width: cWidth}">
+        <div id="content" ng-style="{width: cWidth}" ng-controller="contentController">
 
             <ul>
                 <li ng-repeat="item in pages">

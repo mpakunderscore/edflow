@@ -1,4 +1,8 @@
-#language ul {
+#categories::-webkit-scrollbar {
+    display: none;
+}
+
+#categories ul {
     list-style: none;
     margin: 0;
     /*padding: 0;*/
@@ -6,19 +10,19 @@
     padding: 10px 20px 10px 20px;
 }
 
-#language ul a {
+#categories ul a {
     color: #000;
     text-decoration: none;
 }
 
-#language ul a:hover {
+#categories ul a:hover {
     color: red;
 }
 
-#language ul a.selected {
+#categories ul a.selected {
     color: red;
 }
 
-#language ul a.selected:hover {
+#categories ul a.selected:hover {
     color: #000;
 }
