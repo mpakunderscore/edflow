@@ -23,12 +23,11 @@ edflow
 
                     $scope.menuItems = [];
                     $scope.menuItems.unshift({title: "MENU", class: "selected"});
-                    $scope.menuItems.unshift({title: "HELP", class: ""});
+                    $scope.menuItems.unshift({title: "INBOX", class: ""});
                     $scope.menuItems.unshift({title: "SETTINGS", class: ""});
                     $scope.menuItems.unshift({title: "LANGUAGE", class: ""});
 
                 } else {
-
                     $scope.menuItems = [];
                     $scope.menuItems.push({title: "MENU", class: ""});
                 }
@@ -41,24 +40,23 @@ edflow
                     $scope.menuItems = [];
                     $scope.menuItems.unshift({title: "MENU", class: "selected"});
                     $scope.menuItems.unshift({title: "LANGUAGE", class: "selected"});
-
                     $scope.menuItems.unshift({title: "ENGLISH", class: "choice", code: "EN"});
+                    $scope.menuItems.unshift({title: "GERMAN",  class: "choice", code: "DE"});
+                    $scope.menuItems.unshift({title: "SPANISH", class: "choice", code: "ES"});
                     $scope.menuItems.unshift({title: "RUSSIAN", class: "choice", code: "RU"});
                     $scope.menuItems.unshift({title: "CHINESE", class: "choice", code: "ZH"});
 
                 } else {
-
                     $scope.menuItems = [];
                     $scope.menuItems.unshift({title: "MENU", class: "selected"});
-                    $scope.menuItems.unshift({title: "HELP", class: ""});
+                    $scope.menuItems.unshift({title: "INBOX", class: ""});
                     $scope.menuItems.unshift({title: "SETTINGS", class: ""});
                     $scope.menuItems.unshift({title: "LANGUAGE", class: ""});
                 }
             }
 
-            if (item.title === "ENGLISH" ||
-                item.title === "RUSSIAN" ||
-                item.title === "CHINESE") {
+            //LANGUAGE TODO
+            if (item.class === "choice") {
 
                 $scope.selectLanguage(item);
             }

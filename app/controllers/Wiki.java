@@ -19,17 +19,9 @@ public class Wiki extends Controller {
 
     public static final String USER_AGENT = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/31.0.1650.63 Safari/537.36";
 
-    private static final String CATEGORY_URL = ".wikipedia.org/wiki/Category:";
-    private static final String PAGE_URL = ".wikipedia.org/wiki/";
+    private static final String CATEGORY_URL = ".wikipedia.org/wiki/";
 
     private static final String PROTOCOL = "https://";
-
-//    private static final String LANGUAGE = "en";
-//    private static final String LANG = "ru";
-
-    private static final String EN_MAIN_CATEGORY = "Main topic classifications";
-    private static final String RU_MAIN_CATEGORY = "";
-
 
     public static Result getCategoryTree(String categoryName, String language) {
 
@@ -37,6 +29,17 @@ public class Wiki extends Controller {
         mainCategories.put("EN", "Main topic classifications");
         mainCategories.put("RU", "Статьи");
         mainCategories.put("ZH", "頁面分類");
+        mainCategories.put("ES", "Artículos");
+        mainCategories.put("DE", "Sachsystematik");
+
+        Map<String, String> categoriesPrefix = new HashMap<>();
+        categoriesPrefix.put("EN", "Category:");
+        categoriesPrefix.put("RU", "Category:");
+        categoriesPrefix.put("ZH", "Category:");
+        categoriesPrefix.put("ES", "Categoría:");
+        categoriesPrefix.put("DE", "Kategorie:");
+
+        String categoryPrefix = categoriesPrefix.get(language);
 
         if (Objects.equals(categoryName.toLowerCase(), "undefined")) {
 
@@ -44,10 +47,10 @@ public class Wiki extends Controller {
                 categoryName = mainCategories.get(language);
 
             else
-                categoryName = EN_MAIN_CATEGORY;
+                categoryName = mainCategories.get("EN");
         }
 
-        Document doc = getWikiDoc(categoryName, language);
+        Document doc = getWikiDoc(language, categoryPrefix, categoryName);
 
         //categoryPage
 
@@ -100,13 +103,13 @@ public class Wiki extends Controller {
     }
 
 
-    public static Document getWikiDoc(String categoryName, String language) {
+    public static Document getWikiDoc(String language, String categoryPrefix, String categoryName) {
 
         Document doc = null;
 
         try {
 
-            String connectUrl = PROTOCOL + language + CATEGORY_URL + categoryName;
+            String connectUrl = PROTOCOL + language.toLowerCase() + CATEGORY_URL + categoryPrefix + categoryName;
 
             Connection connection = Jsoup.connect(connectUrl);
 
