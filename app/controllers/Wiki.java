@@ -56,37 +56,25 @@ public class Wiki extends Controller {
 
         Document doc = getWikiDoc(language, categoryPrefix, categoryName);
 
-        //mainPage
 
-        List<Map<String, String>> mainPage = new ArrayList<>();
+        //MAIN PAGE
+
+
+//        List<Map<String, String>> mainPage = new ArrayList<>();
 
         String mainPageTitle = "";
-        String mainPageImage = "";
-        String mainPageDescription = "";
-
         Elements categoryPageLinks = doc.body().select(".mainarticle b a");
         if (categoryPageLinks.size() > 0) {
 
             mainPageTitle = categoryPageLinks.get(0).text();
 
-            Document mainPageDoc = getWikiDoc(language, "", mainPageTitle);
-
-            Elements images = mainPageDoc.body().select("#mw-content-text img");
-            if (images.size() > 1) {
-                mainPageImage = images.get(0).attr("src");
-            }
-
-            Elements pBlocks = mainPageDoc.body().select("#mw-content-text p");
-            if (pBlocks.size() > 1) {
-                mainPageDescription = pBlocks.get(0).text() + pBlocks.get(1).text();
-            }
-
-            Map<String, String> categoryPageMap = new HashMap<>();
-            categoryPageMap.put("title", mainPageTitle);
-            mainPage.add(categoryPageMap);
+//            Map<String, String> categoryPageMap = getPageMap(language, mainPageTitle);
+//            mainPage.add(categoryPageMap);
         }
 
-        //subCategories
+
+        //SUB CATEGORIES
+
 
         Elements subCategoriesLinks = doc.body().select("#mw-subcategories ul a");
 
@@ -101,7 +89,9 @@ public class Wiki extends Controller {
             subCategories.add(subCategoryMap);
         }
 
-        //pages
+
+        //PAGES
+
 
         Elements pagesLinks = doc.body().select("#mw-pages ul a");
 
@@ -110,24 +100,20 @@ public class Wiki extends Controller {
         for (Element link : pagesLinks) {
 
             String title = link.text();
-//            String image = getPageImg(title);
-            String image = "";
-            String description = "Description";
-            if (title.equals(mainPageTitle)) {
-                description = mainPageDescription;
-                image = mainPageImage;
-            }
 
             Map<String, String> pageMap = new HashMap<>();
             pageMap.put("title", title);
-            pageMap.put("image", image);
-            pageMap.put("description", description);
+            pageMap.put("image", "");
+            pageMap.put("description", "Culture (/ˈkʌltʃər/) is, in the words of E.B. Tylor, \"that complex whole which includes knowledge, belief, art, morals, law, custom and any other capabilities and habits acquired by man as a member of society.\"[1]Cambridge English Dictionary states that culture is, \"the way of life, especially the general customs and beliefs, of a particular group of people at a particular time.\"[2] Terror Management Theory posits that culture is a series of activities and worldviews that provide humans with the illusion of being individuals of value in a world meaning—raising themselves above the merely physical aspects of existence, in order to deny the animal insignificance and death that Homo Sapiens became aware of when they acquired a larger brain.[3]Culture");
+//            Map<String, String> pageMap = getPageMap(language, title);
+
+            if (title.equals(mainPageTitle))
+                pageMap.put("main", "true");
 
             pages.add(pageMap);
         }
 
         Map<String, List<Map<String, String>>> out = new HashMap<>();
-        out.put("mainPage", mainPage);
 //        out.put("selectedCategories", selectedCategories);
         out.put("subCategories", subCategories);
         out.put("pages", pages);
@@ -135,8 +121,35 @@ public class Wiki extends Controller {
         return ok(toJson(out));
     }
 
+    private static Map<String, String> getPageMap(String language, String title) {
+
+        String image = "";
+        String description = "";
+
+        Document mainPageDoc = getWikiDoc(language, "", title);
+
+        Elements images = mainPageDoc.body().select("#mw-content-text img");
+        if (images.size() > 1) {
+            image = images.get(0).attr("src");
+        }
+
+        Elements pBlocks = mainPageDoc.body().select("#mw-content-text p");
+        if (pBlocks.size() > 1) {
+            description = pBlocks.get(0).text() + pBlocks.get(1).text();
+        }
+
+        Map<String, String> pageMap = new HashMap<>();
+        pageMap.put("title", title);
+        pageMap.put("image", image);
+        pageMap.put("description", description);
+
+        return pageMap;
+    }
+
 
     public static Document getWikiDoc(String language, String categoryPrefix, String name) {
+
+        System.out.println(name);
 
         Document doc = null;
 

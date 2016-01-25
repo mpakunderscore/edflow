@@ -23,8 +23,8 @@ edflow
 
                     $scope.menuItems = [];
                     $scope.menuItems.unshift({title: "MENU", class: "selected"});
-                    $scope.menuItems.unshift({title: "INBOX", class: ""});
-                    $scope.menuItems.unshift({title: "SETTINGS", class: ""});
+                    $scope.menuItems.unshift({title: "ABOUT", class: ""});
+                    //$scope.menuItems.unshift({title: "SETTINGS", class: ""});
                     $scope.menuItems.unshift({title: "LANGUAGE", class: ""});
 
                 } else {
@@ -49,8 +49,8 @@ edflow
                 } else {
                     $scope.menuItems = [];
                     $scope.menuItems.unshift({title: "MENU", class: "selected"});
-                    $scope.menuItems.unshift({title: "INBOX", class: ""});
-                    $scope.menuItems.unshift({title: "SETTINGS", class: ""});
+                    $scope.menuItems.unshift({title: "ABOUT", class: ""});
+                    //$scope.menuItems.unshift({title: "SETTINGS", class: ""});
                     $scope.menuItems.unshift({title: "LANGUAGE", class: ""});
                 }
             }

@@ -7,19 +7,24 @@
 #content ul li {
     display: table;
     width: 100%;
-    min-height: 70px;
+    height: 100px;
+    overflow: hidden;
 
     box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.15);
+
+    /*background: linear-gradient(transparent 10px, white);*/
 }
 
 #content ul li:hover {
+    height: auto;
+
     background-color: rgba(56, 153, 255, 0.1);
 }
 
 #content ul li div.image {
     display: table-cell;
     width: 70px;
-    height: 100%;
+    height: inherit;
 
     background-position: center center;
     background-repeat: no-repeat;
@@ -29,14 +34,14 @@
     background-size: cover;
 
     background-color: rgba(56, 153, 255, 0.6);
-    box-shadow: 4px 4px 10px 0px rgba(0, 0, 0, 0.4);
+    /*box-shadow: 4px 4px 10px 0px rgba(0, 0, 0, 0.4);*/
 }
 
 #content ul li div.image img {
 }
 
 #content ul li div.text {
-    padding: 10px 10px 10px 20px;
+    padding: 10px 20px 20px 20px;
 }
 
 #content ul li div.text a {
@@ -54,7 +59,6 @@
 /*}*/
 #content ul li div.text div.title {
     line-height: 200%;
-    /*padding-bottom: 5px;*/
 }
 
 #content ul li div.text div.description {

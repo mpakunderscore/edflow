@@ -20,8 +20,8 @@ edflow
 
             $http.get("api/category?category=" + category.title + "&language=" + $rootScope.language).success(function (data) {
 
-                    if (data.mainPage.length > 0)
-                        console.log(data.mainPage[0].title)
+                    //if (data.mainPage.length > 0)
+                    //    console.log(data.mainPage[0].title)
                     $rootScope.pages = data.pages;
                     $scope.subCategories = data.subCategories;
 
