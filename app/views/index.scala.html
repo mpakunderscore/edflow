@@ -3,7 +3,7 @@
 <html data-ng-app="edflow" data-ng-controller="edflowController as edflow">
     <head>
 
-        <title>edflow.in</title>
+        <title>edflow</title>
 
         <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/index.css")">
         <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/menu.css")">
@@ -71,9 +71,7 @@
             <ul>
                 <li ng-repeat="item in pages">
 
-                    <div class="image" style="background-image: url('{{item.image}}');">
-                        @*<img src="https://{{item.image}}">*@
-                    </div>
+                    <div class="image" style="background-image: url('{{item.image}}');"></div>
 
                     <div class="text">
 

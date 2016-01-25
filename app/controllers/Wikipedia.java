@@ -15,7 +15,7 @@ import play.mvc.Result;
 
 import static play.libs.Json.toJson;
 
-public class Wiki extends Controller {
+public class Wikipedia extends Controller {
 
     public static final String USER_AGENT = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/31.0.1650.63 Safari/537.36";
 
