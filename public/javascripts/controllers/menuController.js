@@ -10,8 +10,8 @@ edflow
 
         $rootScope.language = localStorage.getItem("language");
 
-        if ($scope.language === null)
-            $scope.language = "EN";
+        if ($rootScope.language === null)
+            $rootScope.language = "EN";
 
         $scope.menu = function (item) {
 

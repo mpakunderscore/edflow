@@ -4,72 +4,62 @@
     padding: 0;
 }
 
-#content li {
-    /*background-color: rgba(255, 0, 0, 0.32);*/
-    /*width: 100%;*/
+#content ul li {
+    display: table;
+    width: 100%;
     min-height: 70px;
-
-    /*border-bottom: dashed 1px lightgray;*/
-
-    /*box-shadow: 4px 0px 10px 0px rgba(0, 0, 0, 0.2);*/
 
     box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.15);
 }
 
-#content li:hover {
+#content ul li:hover {
     background-color: rgba(56, 153, 255, 0.1);
 }
 
-#content ul li {
-}
-
 #content ul li div.image {
-
-    float: left;
-
+    display: table-cell;
     width: 70px;
-    height: 70px;
-    /*height: 100%;*/
+    height: 100%;
+
+    background-position: center center;
+    background-repeat: no-repeat;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
 
     background-color: rgba(56, 153, 255, 0.6);
-
     box-shadow: 4px 4px 10px 0px rgba(0, 0, 0, 0.4);
 }
 
 #content ul li div.image img {
-    /*width: 70px;*/
-    /*height: 70px;*/
 }
 
 #content ul li div.text {
-
-    /*background-color: rgba(255, 98, 164, 0.6);*/
-
-
-    /*width: auto;*/
-    /*float: right;*/
-    margin-left: 70px;
-
-    padding: 10px 10px 10px 15px;
-    /*background-color: rgba(255, 98, 164, 0.6);*/
+    padding: 10px 10px 10px 20px;
 }
 
 #content ul li div.text a {
-    color: #000;
+    color: #0758df;
     text-decoration: none;
 }
 
 #content ul li div.text a:hover {
-    color: #1989ff;
+    /*color: #1989ff;*/
+    text-decoration: underline;
 }
 
 /*.content ul li div.text a:visited {*/
     /*color: rgb(45, 112, 174);*/
 /*}*/
+#content ul li div.text div.title {
+    line-height: 200%;
+    /*padding-bottom: 5px;*/
+}
 
 #content ul li div.text div.description {
-    font-size: 12px;
-    color: gray;
+    font-size: 14px;
+    /*color: gray;*/
 }
 
 /*https://stackoverflow.com/questions/21143702/angularjs-animate-a-div-height-change*/

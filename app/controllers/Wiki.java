@@ -39,6 +39,10 @@ public class Wiki extends Controller {
         categoriesPrefix.put("ES", "Categoría:");
         categoriesPrefix.put("DE", "Kategorie:");
 
+        //TODO
+        if (!mainCategories.containsKey(language))
+            language = "EN";
+
         String categoryPrefix = categoriesPrefix.get(language);
 
         if (Objects.equals(categoryName.toLowerCase(), "undefined")) {
@@ -57,6 +61,7 @@ public class Wiki extends Controller {
         List<Map<String, String>> mainPage = new ArrayList<>();
 
         String mainPageTitle = "";
+        String mainPageImage = "";
         String mainPageDescription = "";
 
         Elements categoryPageLinks = doc.body().select(".mainarticle b a");
@@ -66,9 +71,14 @@ public class Wiki extends Controller {
 
             Document mainPageDoc = getWikiDoc(language, "", mainPageTitle);
 
+            Elements images = mainPageDoc.body().select("#mw-content-text img");
+            if (images.size() > 1) {
+                mainPageImage = images.get(0).attr("src");
+            }
+
             Elements pBlocks = mainPageDoc.body().select("#mw-content-text p");
             if (pBlocks.size() > 1) {
-                mainPageDescription = pBlocks.get(0).text() + pBlocks.get(1).text();;
+                mainPageDescription = pBlocks.get(0).text() + pBlocks.get(1).text();
             }
 
             Map<String, String> categoryPageMap = new HashMap<>();
@@ -100,15 +110,17 @@ public class Wiki extends Controller {
         for (Element link : pagesLinks) {
 
             String title = link.text();
-//            String img = getPageImg(title);
-            String img = "";
+//            String image = getPageImg(title);
+            String image = "";
             String description = "Description";
-            if (title.equals(mainPageTitle))
+            if (title.equals(mainPageTitle)) {
                 description = mainPageDescription;
+                image = mainPageImage;
+            }
 
             Map<String, String> pageMap = new HashMap<>();
             pageMap.put("title", title);
-            pageMap.put("img", img);
+            pageMap.put("image", image);
             pageMap.put("description", description);
 
             pages.add(pageMap);

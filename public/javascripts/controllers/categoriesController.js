@@ -4,6 +4,7 @@ edflow
 
         console.log("categoriesController")
 
+        $scope.mainPage = [];
         $scope.selectedCategories = [];
         $scope.subCategories = [];
 
