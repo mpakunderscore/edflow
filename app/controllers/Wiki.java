@@ -135,7 +135,9 @@ public class Wiki extends Controller {
 
         Elements pBlocks = mainPageDoc.body().select("#mw-content-text p");
         if (pBlocks.size() > 1) {
-            description = pBlocks.get(0).text() + pBlocks.get(1).text();
+
+            //TODO
+            description = "<p>" + pBlocks.get(0).html() + "</p><p>" + pBlocks.get(1).html() + "</p>";
         }
 
         Map<String, String> pageMap = new HashMap<>();
@@ -149,7 +151,7 @@ public class Wiki extends Controller {
 
     public static Document getWikiDoc(String language, String categoryPrefix, String name) {
 
-        System.out.println(name);
+//        System.out.println(name);
 
         Document doc = null;
 

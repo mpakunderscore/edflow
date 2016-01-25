@@ -16,7 +16,7 @@
 }
 
 #content ul li:hover {
-    height: auto;
+    /*height: auto;*/
 
     background-color: rgba(56, 153, 255, 0.1);
 }
