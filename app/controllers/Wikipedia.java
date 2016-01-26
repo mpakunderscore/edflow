@@ -1,5 +1,7 @@
 package controllers;
 
+import com.avaje.ebean.Ebean;
+import models.Page;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -12,6 +14,7 @@ import java.util.concurrent.ThreadLocalRandom;
 
 import play.mvc.Controller;
 import play.mvc.Result;
+import utils.Response;
 
 import static play.libs.Json.toJson;
 
@@ -60,17 +63,10 @@ public class Wikipedia extends Controller {
         //MAIN PAGE
 
 
-//        List<Map<String, String>> mainPage = new ArrayList<>();
-
         String mainPageTitle = "";
         Elements categoryPageLinks = doc.body().select(".mainarticle b a");
-        if (categoryPageLinks.size() > 0) {
-
+        if (categoryPageLinks.size() > 0)
             mainPageTitle = categoryPageLinks.get(0).text();
-
-//            Map<String, String> categoryPageMap = getPageMap(language, mainPageTitle);
-//            mainPage.add(categoryPageMap);
-        }
 
 
         //SUB CATEGORIES
@@ -95,33 +91,41 @@ public class Wikipedia extends Controller {
 
         Elements pagesLinks = doc.body().select("#mw-pages ul a");
 
-        List<Map<String, String>> pages = new ArrayList<>();
+        List<Page> pages = new ArrayList<>();
 
         for (Element link : pagesLinks) {
 
             String title = link.text();
 
-            Map<String, String> pageMap = new HashMap<>();
-            pageMap.put("title", title);
-            pageMap.put("image", "");
-            pageMap.put("description", "Culture (/ˈkʌltʃər/) is, in the words of E.B. Tylor, \"that complex whole which includes knowledge, belief, art, morals, law, custom and any other capabilities and habits acquired by man as a member of society.\"[1]Cambridge English Dictionary states that culture is, \"the way of life, especially the general customs and beliefs, of a particular group of people at a particular time.\"[2] Terror Management Theory posits that culture is a series of activities and worldviews that provide humans with the illusion of being individuals of value in a world meaning—raising themselves above the merely physical aspects of existence, in order to deny the animal insignificance and death that Homo Sapiens became aware of when they acquired a larger brain.[3]Culture");
-//            Map<String, String> pageMap = getPageMap(language, title);
+//            Map<String, String> pageMap = new HashMap<>();
+//            pageMap.put("title", title);
+//            pageMap.put("image", "");
+//            pageMap.put("description", "Culture (/ˈkʌltʃər/) is, in the words of E.B. Tylor, \"that complex whole which includes knowledge, belief, art, morals, law, custom and any other capabilities and habits acquired by man as a member of society.\"[1]Cambridge English Dictionary states that culture is, \"the way of life, especially the general customs and beliefs, of a particular group of people at a particular time.\"[2] Terror Management Theory posits that culture is a series of activities and worldviews that provide humans with the illusion of being individuals of value in a world meaning—raising themselves above the merely physical aspects of existence, in order to deny the animal insignificance and death that Homo Sapiens became aware of when they acquired a larger brain.[3]Culture");
+            Page page = getPageMap(language, title);
 
             if (title.equals(mainPageTitle))
-                pageMap.put("main", "true");
+                page.setMain();
 
-            pages.add(pageMap);
+            pages.add(page);
         }
 
-        Map<String, List<Map<String, String>>> out = new HashMap<>();
-//        out.put("selectedCategories", selectedCategories);
-        out.put("subCategories", subCategories);
-        out.put("pages", pages);
+//        Map<String, List<Page>> out = new HashMap<>();
+//        out.put("subCategories", subCategories);
+//        out.put("pages", pages);
 
-        return ok(toJson(out));
+        Response response = new Response(subCategories, pages);
+
+        return ok(toJson(response));
     }
 
-    private static Map<String, String> getPageMap(String language, String title) {
+    private static Page getPageMap(String language, String title) {
+
+        System.out.println(title);
+
+        Page page = Ebean.find(Page.class).where().where().eq("title", title).findUnique();
+
+        if (page != null)
+            return page;
 
         String image = "";
         String description = "";
@@ -140,18 +144,14 @@ public class Wikipedia extends Controller {
             description = "<p>" + pBlocks.get(0).html() + "</p><p>" + pBlocks.get(1).html() + "</p>";
         }
 
-        Map<String, String> pageMap = new HashMap<>();
-        pageMap.put("title", title);
-        pageMap.put("image", image);
-        pageMap.put("description", description);
+        page = new Page(title, description, image);
+        Ebean.save(page);
 
-        return pageMap;
+        return page;
     }
 
 
     public static Document getWikiDoc(String language, String categoryPrefix, String name) {
-
-//        System.out.println(name);
 
         Document doc = null;
 

@@ -14,13 +14,28 @@ public class Page extends Model {
     public Long id;
 
     @Constraints.Required
+    @Column(unique=true)
     public String title;
 
+    @Column(length=10000)
     public String description;
 
+    @Column(length=1000)
     public String image;
 
     public String url;
 
     public Date date = new Date();
+
+    transient boolean main;
+
+    public Page(String title, String description, String image) {
+        this.title = title;
+        this.description = description;
+        this.image = image;
+    }
+
+    public void setMain() {
+        main = true;
+    }
 }
