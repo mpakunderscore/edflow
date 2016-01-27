@@ -1,6 +1,8 @@
 edflow
 
-    .controller("contentController", function ($scope, $http) {
+    .controller("contentController", function ($scope, $rootScope, $http) {
 
         console.log("contentController")
+
+
     })

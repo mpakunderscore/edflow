@@ -2,6 +2,7 @@ package controllers;
 
 import com.avaje.ebean.Ebean;
 import models.Page;
+import org.json.JSONException;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -14,6 +15,7 @@ import java.util.concurrent.ThreadLocalRandom;
 
 import play.mvc.Controller;
 import play.mvc.Result;
+import utils.ImageSearch;
 import utils.Response;
 
 import static play.libs.Json.toJson;
@@ -26,7 +28,7 @@ public class Wikipedia extends Controller {
 
     private static final String PROTOCOL = "https://";
 
-    public static Result getCategoryTree(String categoryName, String language) {
+    public static Result getCategoryTree(String categoryName, String language) throws IOException, JSONException {
 
         Map<String, String> mainCategories = new HashMap<>();
         mainCategories.put("EN", "Main topic classifications");
@@ -118,7 +120,7 @@ public class Wikipedia extends Controller {
         return ok(toJson(response));
     }
 
-    private static Page getPageMap(String language, String title) {
+    private static Page getPageMap(String language, String title) throws IOException, JSONException {
 
         System.out.println(title);
 
@@ -134,6 +136,7 @@ public class Wikipedia extends Controller {
 
         Document mainPageDoc = getWikiDoc(language, "", title);
 
+//        image = ImageSearch.getImage(title);
         Elements images = mainPageDoc.body().select("#mw-content-text img");
         if (images.size() > 1) {
             image = images.get(0).attr("src");
