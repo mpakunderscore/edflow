@@ -23,6 +23,9 @@ public class Page extends Model {
     @Column(length=1000)
     public String image;
 
+    @Column(length=1000)
+    public String categories;
+
     public String url;
 
     public Date date = new Date();

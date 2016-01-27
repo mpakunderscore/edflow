@@ -1,0 +1,12 @@
+<div id="menu" ng-style="{width: mWidth}" ng-mouseenter="menuEnter()" ng-mouseleave="menuLeave()" ng-controller="menuController">
+    <ul>
+        <li ng-repeat="item in menuItems">
+            <a href=""
+               ng-click="menu(item)"
+               class="{{item.class}}"
+               ng-class="item.code === language ? 'chosen' : ''">
+                {{item.title}}
+            </a>
+        </li>
+    </ul>
+</div>

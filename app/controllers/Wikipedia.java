@@ -120,14 +120,14 @@ public class Wikipedia extends Controller {
 
     private static Page getPageMap(String language, String title) {
 
-//        System.out.println(title);
+        System.out.println(title);
 
         Page page;
 
-//        page = Ebean.find(Page.class).where().where().eq("title", title).findUnique();
-//
-//        if (page != null)
-//            return page;
+        page = Ebean.find(Page.class).where().where().eq("title", title).findUnique();
+
+        if (page != null)
+            return page;
 
         String image = "";
         String description = "";
@@ -147,7 +147,7 @@ public class Wikipedia extends Controller {
         }
 
         page = new Page(title, description, image);
-//        Ebean.save(page);
+        Ebean.save(page);
 
         return page;
     }

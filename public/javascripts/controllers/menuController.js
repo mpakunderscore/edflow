@@ -4,63 +4,26 @@ edflow
 
         console.log("menuController")
 
-        $scope.menuItems = [];
-        var menu = {title: "MENU", class: ""};
-        $scope.menuItems.push(menu);
-
         $rootScope.language = localStorage.getItem("language");
 
         if ($rootScope.language === null)
             $rootScope.language = "EN";
 
-        $scope.menu = function (item) {
+        $scope.menuItems = [];
 
-            console.log("menu")
+        var menuItem  = {title: "MENU"};
+        var aboutItem = {title: "ABOUT", class: "ng-hide"};
+        var settingsItem = {title: "SETTINGS", class: "ng-hide"};
+        var languageItem = {title: "LANGUAGE", class: "ng-hide"};
 
-            if (item.title === "MENU") {
+        var EN = {title: "ENGLISH", class: "choice ng-hide", code: "EN"};
+        //var DE = {title: "GERMAN",  class: "choice ng-hide", code: "DE"};
+        //var ES = {title: "SPANISH", class: "choice ng-hide", code: "ES"};
+        var RU = {title: "RUSSIAN", class: "choice ng-hide", code: "RU"};
+        //var ZH = {title: "CHINESE", class: "choice ng-hide", code: "ZH"};
 
-                if (item.class === "") {
+        $scope.menuItems = [RU, EN, languageItem, settingsItem, aboutItem, menuItem];
 
-                    $scope.menuItems = [];
-                    $scope.menuItems.unshift({title: "MENU", class: "selected"});
-                    $scope.menuItems.unshift({title: "ABOUT", class: ""});
-                    //$scope.menuItems.unshift({title: "SETTINGS", class: ""});
-                    $scope.menuItems.unshift({title: "LANGUAGE", class: ""});
-
-                } else {
-                    $scope.menuItems = [];
-                    $scope.menuItems.push({title: "MENU", class: ""});
-                }
-            }
-
-            if (item.title === "LANGUAGE") {
-
-                if (item.class === "") {
-
-                    $scope.menuItems = [];
-                    $scope.menuItems.unshift({title: "MENU", class: "selected"});
-                    $scope.menuItems.unshift({title: "LANGUAGE", class: "selected"});
-                    $scope.menuItems.unshift({title: "ENGLISH", class: "choice", code: "EN"});
-                    $scope.menuItems.unshift({title: "GERMAN",  class: "choice", code: "DE"});
-                    $scope.menuItems.unshift({title: "SPANISH", class: "choice", code: "ES"});
-                    $scope.menuItems.unshift({title: "RUSSIAN", class: "choice", code: "RU"});
-                    $scope.menuItems.unshift({title: "CHINESE", class: "choice", code: "ZH"});
-
-                } else {
-                    $scope.menuItems = [];
-                    $scope.menuItems.unshift({title: "MENU", class: "selected"});
-                    $scope.menuItems.unshift({title: "ABOUT", class: ""});
-                    //$scope.menuItems.unshift({title: "SETTINGS", class: ""});
-                    $scope.menuItems.unshift({title: "LANGUAGE", class: ""});
-                }
-            }
-
-            //LANGUAGE TODO
-            if (item.class === "choice") {
-
-                $scope.selectLanguage(item);
-            }
-        }
 
         $scope.selectLanguage = function (item) {
 
@@ -70,6 +33,54 @@ edflow
             $rootScope.selectCategory("");
         }
 
+        $scope.menuEnter = function () {
+
+            menuItem.class = "selected";
+            aboutItem.class = "";
+            settingsItem.class = "";
+            languageItem.class = "";
+        }
+
+        $scope.menuLeave = function () {
+
+            menuItem.class = "";
+            aboutItem.class = "ng-hide";
+            settingsItem.class = "ng-hide";
+            languageItem.class = "ng-hide";
+            hideLanguages();
+        }
+
+        function showLanguages() {
+            EN.class = "choice"
+            RU.class = "choice";
+        }
+
+        function hideLanguages() {
+            EN.class = "choice ng-hide"
+            RU.class = "choice ng-hide";
+        }
+
+        $scope.menu = function (item) {
+
+            if (item.title === "LANGUAGE") {
+
+                if (item.class === "") {
+                    aboutItem.class = "ng-hide";
+                    settingsItem.class = "ng-hide";
+                    languageItem.class = "selected";
+                    showLanguages();
+                } else {
+                    aboutItem.class = "";
+                    settingsItem.class = "";
+                    languageItem.class = "";
+                    hideLanguages();
+                }
+            }
+
+            if (item.class === "choice") {
+                $scope.selectLanguage(item);
+            }
+        }
     })
 
 
