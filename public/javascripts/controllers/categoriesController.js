@@ -1,8 +1,11 @@
 edflow
 
-    .controller("categoriesController", function ($scope, $rootScope, $http) {
+    .controller("categoriesController", function ($scope, $rootScope, $http, ngProgressFactory) {
 
         console.log("categoriesController")
+
+        $rootScope.progressbar = ngProgressFactory.createInstance();
+        $rootScope.progressbar.setColor('#619AF9');
 
         $scope.mainPage = [];
         $scope.selectedCategories = [];
@@ -18,6 +21,8 @@ edflow
 
             $scope.subCategories = [];
 
+            $rootScope.progressbar.start();
+
             $http.get("api/category?category=" + category.title + "&language=" + $rootScope.language).success(function (data) {
 
                     //if (data.mainPage.length > 0)
@@ -26,6 +31,8 @@ edflow
                     $scope.subCategories = data.subCategories;
 
                     $scope.moveCategoriesWidth();
+
+                    $rootScope.progressbar.complete();
                 })
                 .error(function () {
                     //console.log(e);
