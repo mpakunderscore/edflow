@@ -10,5 +10,5 @@ edflow
 
             $rootScope.selectedCategories = [];
             $rootScope.selectCategory(category);
-        }First
+        }
     })
