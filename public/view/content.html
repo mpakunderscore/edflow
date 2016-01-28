@@ -5,7 +5,7 @@
     <ul>
         <li ng-repeat="item in pages">
 
-            <!--<div class="image" style="background-image: url('{{item.image}}');"></div>-->
+            <div class="image" style="background-image: url('{{item.image}}');"></div>
 
             <div class="text">
 
@@ -14,6 +14,10 @@
                 </div>
 
                 <div class="description" ng-bind-html="item.description"></div>
+
+                <div class="categories">
+                    <a href="" ng-click="selectOneCategory(category)" ng-repeat="category in item.categories.split(',')">{{category}} </a>
+                </div>
 
             </div>
 

@@ -132,6 +132,8 @@ public class Wikipedia extends Controller {
         String image = "";
         String description = "";
 
+        List<String> categories = new ArrayList<>();
+
         Document mainPageDoc = getWikiDoc(language, "", title);
 
         Elements images = mainPageDoc.body().select("#mw-content-text img");
@@ -146,7 +148,12 @@ public class Wikipedia extends Controller {
             description = "<p>" + pBlocks.get(0).html() + "</p><p>" + pBlocks.get(1).html() + "</p>";
         }
 
-        page = new Page(title, description, image);
+        Elements catLinks = mainPageDoc.body().select("#mw-normal-catlinks ul a");
+        for (int i = 0; i < catLinks.size(); i++) {
+            categories.add(catLinks.get(i).text());
+        }
+
+        page = new Page(title, description, image, String.join(",", categories));
 //        Ebean.save(page);
 
         return page;

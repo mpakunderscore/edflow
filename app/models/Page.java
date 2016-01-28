@@ -32,10 +32,11 @@ public class Page extends Model {
 
     transient boolean main;
 
-    public Page(String title, String description, String image) {
+    public Page(String title, String description, String image, String categories) {
         this.title = title;
         this.description = description;
         this.image = image;
+        this.categories = categories;
     }
 
     public void setMain() {

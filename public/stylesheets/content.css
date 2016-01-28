@@ -70,4 +70,12 @@
     /*color: gray;*/
 }
 
-/*https://stackoverflow.com/questions/21143702/angularjs-animate-a-div-height-change*/
+#content ul li div.text div.categories a {
+    color: gray;
+    font-size: 14px;
+    text-decoration: none;
+}
+
+#content ul li div.text div.categories a:hover {
+    color: red;
+}

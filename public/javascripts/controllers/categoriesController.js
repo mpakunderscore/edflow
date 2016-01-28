@@ -8,16 +8,16 @@ edflow
         $rootScope.progressbar.setColor('#619AF9');
 
         $scope.mainPage = [];
-        $scope.selectedCategories = [];
+        $rootScope.selectedCategories = [];
         $scope.subCategories = [];
 
         $rootScope.selectCategory = function (category) {
 
             if (category !== "")
-                $scope.selectedCategories.push(category);
+                $rootScope.selectedCategories.push(category);
 
             else
-                $scope.selectedCategories = [];
+                $rootScope.selectedCategories = [];
 
             $scope.subCategories = [];
 
@@ -25,8 +25,6 @@ edflow
 
             $http.get("api/category?category=" + category.title + "&language=" + $rootScope.language).success(function (data) {
 
-                    //if (data.mainPage.length > 0)
-                    //    console.log(data.mainPage[0].title)
                     $rootScope.pages = data.pages;
                     $scope.subCategories = data.subCategories;
 
@@ -35,7 +33,6 @@ edflow
                     $rootScope.progressbar.complete();
                 })
                 .error(function () {
-                    //console.log(e);
                 });
         }
 
@@ -43,19 +40,19 @@ edflow
 
         $scope.deselectCategory = function (category) {
 
-            while ($scope.selectedCategories.pop() !== category) {
+            while ($rootScope.selectedCategories.pop() !== category) {
             }
 
-            if ($scope.selectedCategories.length == 0)
+            if ($rootScope.selectedCategories.length == 0)
                 $scope.selectCategory("");
             else
-                $scope.selectCategory($scope.selectedCategories.pop());
+                $scope.selectCategory($rootScope.selectedCategories.pop());
 
         }
 
         $scope.moveCategoriesWidth = function () {
 
-            var longest = $rootScope.getLongest($scope.selectedCategories.concat($scope.subCategories));
+            var longest = $rootScope.getLongest($rootScope.selectedCategories.concat($scope.subCategories));
             var menuWidth = $rootScope.getTextWidth(longest.title, "16px Open Sans") + 50;
             var percent = menuWidth / document.body.clientWidth * 100;
 
