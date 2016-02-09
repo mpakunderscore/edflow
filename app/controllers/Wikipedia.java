@@ -124,7 +124,7 @@ public class Wikipedia extends Controller {
 
         Page page = null;
 
-//        page = Ebean.find(Page.class).where().where().eq("title", title).findUnique();
+        page = Ebean.find(Page.class).where().where().eq("title", title).findUnique();
 
         if (page != null)
             return page;
@@ -154,7 +154,7 @@ public class Wikipedia extends Controller {
         }
 
         page = new Page(title, description, image, String.join(",", categories));
-//        Ebean.save(page);
+        Ebean.save(page);
 
         return page;
     }

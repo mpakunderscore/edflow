@@ -2,7 +2,7 @@ edflow
 
     .controller("edflowController", function ($scope, $rootScope, $http) {
 
-        console.log("edflowController")
+        $rootScope.menuWidth = "50%";
 
         $("#search").keyup(function (e) {
             if (e.keyCode == 13) {

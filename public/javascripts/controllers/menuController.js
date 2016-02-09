@@ -2,8 +2,6 @@ edflow
 
     .controller("menuController", function ($scope, $rootScope, $http) {
 
-        console.log("menuController")
-
         $rootScope.language = localStorage.getItem("language");
 
         if ($rootScope.language === null)
@@ -12,7 +10,6 @@ edflow
         $scope.menuItems = [];
 
         var menuItem  = {title: "MENU"};
-        var aboutItem = {title: "ABOUT", class: "ng-hide"};
         var settingsItem = {title: "SETTINGS", class: "ng-hide"};
         var languageItem = {title: "LANGUAGE", class: "ng-hide"};
 
@@ -22,7 +19,7 @@ edflow
         var RU = {title: "RUSSIAN", class: "choice ng-hide", code: "RU"};
         //var ZH = {title: "CHINESE", class: "choice ng-hide", code: "ZH"};
 
-        $scope.menuItems = [RU, EN, languageItem, settingsItem, aboutItem, menuItem];
+        $scope.menuItems = [RU, EN, languageItem, settingsItem, menuItem];
 
 
         $scope.selectLanguage = function (item) {
@@ -36,7 +33,6 @@ edflow
         $scope.menuEnter = function () {
 
             menuItem.class = "selected";
-            aboutItem.class = "";
             settingsItem.class = "";
             languageItem.class = "";
         }
@@ -44,7 +40,6 @@ edflow
         $scope.menuLeave = function () {
 
             menuItem.class = "";
-            aboutItem.class = "ng-hide";
             settingsItem.class = "ng-hide";
             languageItem.class = "ng-hide";
             hideLanguages();
@@ -65,12 +60,10 @@ edflow
             if (item.title === "LANGUAGE") {
 
                 if (item.class === "") {
-                    aboutItem.class = "ng-hide";
                     settingsItem.class = "ng-hide";
                     languageItem.class = "selected";
                     showLanguages();
                 } else {
-                    aboutItem.class = "";
                     settingsItem.class = "";
                     languageItem.class = "";
                     hideLanguages();

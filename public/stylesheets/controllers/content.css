@@ -62,7 +62,7 @@
     /*color: rgb(45, 112, 174);*/
 /*}*/
 #content ul li div.text div.title {
-    line-height: 200%;
+    line-height: 250%;
 }
 
 #content ul li div.text div.description {
@@ -70,10 +70,16 @@
     /*color: gray;*/
 }
 
+#content ul li div.text div.categories {
+    color: gray;
+    line-height: 150%;
+}
+
 #content ul li div.text div.categories a {
     color: gray;
     font-size: 14px;
     text-decoration: none;
+    cursor: pointer;
 }
 
 #content ul li div.text div.categories a:hover {

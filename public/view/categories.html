@@ -1,24 +1,17 @@
 <div id="categories"
-     ng-style="{width: mWidth}"
+     ng-style="{width: menuWidth}"
      ng-controller="categoriesController">
 
-    <!--<input id="search">-->
     <ul>
+
         <li ng-repeat="item in selectedCategories">
-
-            <a href="https://{{language}}.wikipedia.org/wiki/Category:{{item.title}}" target="_blank">
-                <!--<i class="material-icons">chevron_right</i>-->
-            </a>
-
-            <a href="" ng-click="deselectCategory(item)" class="selected">{{item.title}}</a>
-
+            <a ng-click="deselectCategory(item)" class="selected">{{item.title}}</a>
         </li>
+
         <li ng-repeat="item in subCategories">
-            <a href="https://{{language}}.wikipedia.org/wiki/Category:{{item.title}}" target="_blank">
-                <!--<i class="material-icons">close</i>-->
-            </a>
-            <a href="" ng-click="selectCategory(item)">{{item.title}}</a>
+            <a ng-click="selectCategory(item)">{{item.title}}</a>
         </li>
+
     </ul>
 
 </div>

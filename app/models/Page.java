@@ -28,7 +28,7 @@ public class Page extends Model {
 
     public String url;
 
-    public Date date = new Date();
+    public Date time = new Date();
 
     transient boolean main;
 
