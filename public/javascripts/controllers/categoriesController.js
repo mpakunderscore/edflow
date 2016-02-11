@@ -38,7 +38,7 @@ edflow
             var categoryTitle = category.title;
 
             if (categoryTitle === "Wikipedia")
-                categoryTitle = "Main topic classifications";
+                categoryTitle = "undefined";
 
 
             $http.get("api/category?category=" + categoryTitle + "&language=" + $rootScope.language).success(function (data) {
