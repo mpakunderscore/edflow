@@ -13,3 +13,5 @@ unmanagedResourceDirectories in Test <+=  baseDirectory ( _ /"target/web/public/
 resolvers += "scalaz-bintray" at "https://dl.bintray.com/scalaz/releases"
 
 libraryDependencies += "org.jsoup" % "jsoup" % "1.8.3"
+
+libraryDependencies += "org.postgresql" % "postgresql" % "9.4-1200-jdbc41"

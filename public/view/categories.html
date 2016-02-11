@@ -2,7 +2,7 @@
      ng-style="{width: menuWidth}"
      ng-controller="categoriesController">
 
-    <ul>
+    <ul ng-style="{top: categoriesTop}">
 
         <li ng-repeat="item in selectedCategories">
             <a ng-click="deselectCategory(item)" class="selected">{{item.title}}</a>

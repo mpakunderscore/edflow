@@ -5,7 +5,7 @@ html {
 }
 
 #circle {
-    /*position: absolute;*/
+    position: fixed;
     background: #37b9ff;
     width: 270px;
     height: 270px;
@@ -14,14 +14,18 @@ html {
     /*box-shadow: 10px -10px rgba(0, 0, 0, 0.6);*/
 
     /*width: 50%;*/
-    margin-top: 200px;
-    /*margin-bottom: auto;*/
+    /*margin: 200px auto 0 auto;*/
+    left: calc(50% - 135px);
+    top: calc(50% - 135px);
 
-    margin-left: auto;
-    margin-right: auto;
+    transition: all 5s ease, left 1s;
+    -webkit-transition: all 5s ease, left 1s;
 
-    transition: all 5s ease;
+    /*transition: height 5s ease;*/
     /*box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.3);*/
+
+    /*-webkit-transition: left 1s; !* Safari *!*/
+    /*transition: left 1s;*/
 }
 
 #circle:hover {

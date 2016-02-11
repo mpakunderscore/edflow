@@ -1,36 +1,39 @@
 edflow
 
-    .controller("categoriesController", function ($scope, $rootScope, $http, ngProgressFactory) {
+    .controller("categoriesController", function ($scope, $rootScope, $http) {
 
         var menuItems = [
             {title: "News"},
             {title: "Words"},
-            {title: "Translate"}, //частичный перевод текста
-            {title: "Wikipedia"}, //навигация по вики
+            {title: "Translate"},
+            {title: "Wikipedia"},
             {title: "Book"},
-            {title: "Flow"} //поток новых ссылок из разных источников
+            {title: "Flow"}
         ];
 
-        //console.log("categoriesController")
-
-        //$rootScope.progressbar = ngProgressFactory.createInstance();
-        //$rootScope.progressbar.setColor('#619AF9');
-
-        //$scope.mainPage = [];
         $rootScope.selectedCategories = [];
         $scope.subCategories = menuItems;
+        $rootScope.pages = [];
 
         $rootScope.selectCategory = function (category) {
 
-            if (category !== "")
+            if (category !== "") {
+
                 $rootScope.selectedCategories.push(category);
 
-            else
+            } else {
+
                 $rootScope.selectedCategories = [];
+                $scope.subCategories = menuItems;
+                $rootScope.pages = [];
+
+                $scope.moveCategoriesWidth();
+
+                return;
+            }
 
             $scope.subCategories = [];
-
-            //$rootScope.progressbar.start();
+            $scope.moveCategoriesWidth();
 
             var categoryTitle = category.title;
 
@@ -44,16 +47,10 @@ edflow
                     $scope.subCategories = data.subCategories;
 
                     $scope.moveCategoriesWidth();
-
-                    //$rootScope.progressbar.complete();
                 })
                 .error(function () {
                 });
         }
-
-
-
-        //$rootScope.selectCategory("");
 
         $scope.deselectCategory = function (category) {
 
@@ -62,12 +59,21 @@ edflow
 
             if ($rootScope.selectedCategories.length == 0)
                 $scope.selectCategory("");
+
             else
                 $scope.selectCategory($rootScope.selectedCategories.pop());
-
         }
 
         $scope.moveCategoriesWidth = function () {
+
+            if ($rootScope.selectedCategories.length === 0) {
+                $rootScope.menuWidth = "50%";
+                $rootScope.contentWidth = "50%";
+                $rootScope.circleLeft = "50% - 135px";
+
+                $scope.moveCategoriesMargin();
+                return;
+            }
 
             var longest = $rootScope.getLongest($rootScope.selectedCategories.concat($scope.subCategories));
             var menuWidth = $rootScope.getTextWidth(longest.title, "16px Open Sans") + 50;
@@ -82,6 +88,21 @@ edflow
 
             $rootScope.menuWidth = menuWidth + "px";
             $rootScope.contentWidth = "calc(100% - " + $rootScope.menuWidth + ")";
-            //console.log(document.getElementById("menu").offsetWidth)
+            $rootScope.circleLeft = (menuWidth - 135) + "px";
+
+            $scope.moveCategoriesMargin();
+        }
+
+        $scope.moveCategoriesMargin = function () {
+
+            var count = $rootScope.selectedCategories.length + $scope.subCategories.length;
+
+            var px = 32 * count + 20;
+            if ($(window).height() <= px)
+                $rootScope.categoriesTop = "0";
+
+            else
+                $rootScope.categoriesTop = "calc(50% - " + px/2 + "px)";
+
         }
     })

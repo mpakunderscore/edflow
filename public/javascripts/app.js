@@ -1,1 +1,1 @@
-var edflow = angular.module('edflow', ['ngSanitize', 'ngProgress']);
+var edflow = angular.module('edflow', ['ngSanitize']);
