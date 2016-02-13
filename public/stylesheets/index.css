@@ -26,10 +26,32 @@ html {
 
     /*-webkit-transition: left 1s; !* Safari *!*/
     /*transition: left 1s;*/
+
 }
 
-#circle:hover {
-    transform: scale(10);
+
+
+#circle.animation {
+    background-color: #07e86f;
+    /*opacity: 0.5;*/
+    -webkit-animation: pulsate 2s ease-out;
+    -webkit-animation-iteration-count: infinite;
+
+    /*transform: scale(10);*/
+    /*-webkit-transform: scale(1.2, 1.2)*/
+}
+
+#circle.error {
+    background-color: #f40b05;
+    opacity: 1.0;
+    -webkit-animation: pulsate 1s ease-out;
+    -webkit-animation-iteration-count: infinite;
+}
+
+@-webkit-keyframes pulsate {
+    0% {-webkit-transform: scale(1.0, 1.0)}
+    50% {-webkit-transform: scale(1.1, 1.1)}
+    100% {-webkit-transform: scale(1.0, 1.0)}
 }
 
 #menu {
@@ -52,7 +74,7 @@ html {
     left: 0;
     bottom: 0;
 
-    padding-bottom: 52px;
+    /*padding-bottom: 52px;*/
     /*16*2 + 20*/
 
     width: 50%;

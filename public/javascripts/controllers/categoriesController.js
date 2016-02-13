@@ -15,6 +15,8 @@ edflow
         $scope.subCategories = menuItems;
         $rootScope.pages = [];
 
+        $rootScope.circleAnimation = "";
+
         $rootScope.selectCategory = function (category) {
 
             if (category !== "") {
@@ -28,9 +30,12 @@ edflow
                 $rootScope.pages = [];
 
                 $scope.moveCategoriesWidth();
+                $rootScope.circleAnimation = "";
 
                 return;
             }
+
+            $rootScope.circleAnimation = "animation";
 
             $scope.subCategories = [];
             $scope.moveCategoriesWidth();
@@ -40,15 +45,17 @@ edflow
             if (categoryTitle === "Wikipedia")
                 categoryTitle = "undefined";
 
-
             $http.get("api/category?category=" + categoryTitle + "&language=" + $rootScope.language).success(function (data) {
 
                     $rootScope.pages = data.pages;
                     $scope.subCategories = data.subCategories;
 
                     $scope.moveCategoriesWidth();
+
+                    $rootScope.circleAnimation = "";
                 })
                 .error(function () {
+                    $rootScope.circleAnimation = "error";
                 });
         }
 
@@ -105,4 +112,10 @@ edflow
                 $rootScope.categoriesTop = "calc(50% - " + px/2 + "px)";
 
         }
+
+        $scope.moveContentMargin = function () {
+
+        }
+
+        $scope.moveCategoriesMargin();
     })
