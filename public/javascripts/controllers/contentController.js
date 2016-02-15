@@ -4,7 +4,7 @@ edflow
 
         $scope.selectOneCategory = function (title) {
 
-            var category = {title: title}
+            var category = {title: title};
 
             $rootScope.selectedCategories = [];
             $rootScope.selectCategory(category);

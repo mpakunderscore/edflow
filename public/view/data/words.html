@@ -1,0 +1,18 @@
+<div id="words"
+     ng-style="{width: contentWidth}"
+     ng-controller="contentController">
+
+    <ul>
+        <li ng-repeat="item in pages">
+
+            <div id="word">
+
+                <div class="title">{{item.title}}</div>
+                <div class="translate">{{item.translate}}</div>
+
+            </div>
+
+        </li>
+    </ul>
+
+</div>

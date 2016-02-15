@@ -1,6 +1,6 @@
 edflow
 
-    .controller("categoriesController", function ($scope, $rootScope, $http) {
+    .controller("categoriesController", function ($scope, $rootScope, $http, $state) {
 
         var menuItems = [
             {title: "News"},
@@ -13,11 +13,14 @@ edflow
 
         $rootScope.selectedCategories = [];
         $scope.subCategories = menuItems;
+        //$scope.pagesCategories = [];
         $rootScope.pages = [];
 
         $rootScope.circleAnimation = "";
 
         $rootScope.selectCategory = function (category) {
+
+            //console.log($state)
 
             if (category !== "") {
 
@@ -45,9 +48,11 @@ edflow
             if (categoryTitle === "Wikipedia")
                 categoryTitle = "undefined";
 
-            $http.get("api/category?category=" + categoryTitle + "&language=" + $rootScope.language).success(function (data) {
+            var path = category.title.toLowerCase();
 
-                    $rootScope.pages = data.pages;
+            $http.get("api/" + path + "?category=" + categoryTitle + "&language=" + $rootScope.language).success(function (data) {
+
+                    $rootScope.pages = data.items;
                     $scope.subCategories = data.subCategories;
 
                     $scope.moveCategoriesWidth();
@@ -118,4 +123,10 @@ edflow
         }
 
         $scope.moveCategoriesMargin();
+
+        console.log($state.get())
+
+        if ($state.current.name !== undefined) {
+            //$rootScope.selectCategory({title: $state.current.name});
+        }
     })

@@ -1,0 +1,27 @@
+#words ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+#word {
+    width: 300px;
+    height: 400px;
+    background-color: lightcyan;
+
+    margin: 100px auto;
+}
+
+#word .title {
+    font-size: 34px;
+    padding: 10px;
+    padding-left: 20px;
+    background-color: lightcoral;
+}
+
+#word .translate {
+    font-size: 24px;
+    color: gray;
+    padding-left: 20px;
+    background-color: lightgoldenrodyellow;
+}

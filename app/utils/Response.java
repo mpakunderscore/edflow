@@ -1,6 +1,7 @@
 package utils;
 
 import models.Page;
+import models.Word;
 
 import java.util.List;
 import java.util.Map;
@@ -8,18 +9,22 @@ import java.util.Map;
 public class Response {
 
     List<Map<String, String>> subCategories;
-    List<Page> pages;
+    List<? extends Object> items;
 
-    public Response(List<Map<String, String>> subCategories, List<Page> pages) {
+    public Response(List<Map<String, String>> subCategories, List<?> items) {
         this.subCategories = subCategories;
-        this.pages = pages;
+        this.items = items;
+    }
+
+    public Response(List<Word> words) {
+        this.items = words;
     }
 
     public List<Map<String, String>> getSubCategories() {
         return subCategories;
     }
 
-    public List<Page> getPages() {
-        return pages;
+    public List<Object> getItems() {
+        return (List<Object>) items;
     }
 }

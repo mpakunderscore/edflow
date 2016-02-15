@@ -101,7 +101,14 @@ public class Wikipedia extends Controller {
 //            pageMap.put("title", title);
 //            pageMap.put("image", "");
 //            pageMap.put("description", "Culture (/ˈkʌltʃər/) is, in the words of E.B. Tylor, \"that complex whole which includes knowledge, belief, art, morals, law, custom and any other capabilities and habits acquired by man as a member of society.\"[1]Cambridge English Dictionary states that culture is, \"the way of life, especially the general customs and beliefs, of a particular group of people at a particular time.\"[2] Terror Management Theory posits that culture is a series of activities and worldviews that provide humans with the illusion of being individuals of value in a world meaning—raising themselves above the merely physical aspects of existence, in order to deny the animal insignificance and death that Homo Sapiens became aware of when they acquired a larger brain.[3]Culture");
-            Page page = getPageMap(language, title);
+
+            Page page;
+
+            try {
+                page = getPageMap(language, title);
+            } catch (Exception e) {
+                continue;
+            }
 
             if (title.equals(mainPageTitle))
                 page.setMain();
