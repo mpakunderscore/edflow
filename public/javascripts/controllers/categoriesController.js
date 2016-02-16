@@ -14,13 +14,14 @@ edflow
         $rootScope.selectedCategories = [];
         $scope.subCategories = menuItems;
         //$scope.pagesCategories = [];
-        $rootScope.pages = [];
+        $rootScope.items = [];
 
         $rootScope.circleAnimation = "";
 
         $rootScope.selectCategory = function (category) {
 
-            //console.log($state)
+            console.log(category)
+            console.log($state)
 
             if (category !== "") {
 
@@ -30,7 +31,7 @@ edflow
 
                 $rootScope.selectedCategories = [];
                 $scope.subCategories = menuItems;
-                $rootScope.pages = [];
+                $rootScope.items = [];
 
                 $scope.moveCategoriesWidth();
                 $rootScope.circleAnimation = "";
@@ -52,7 +53,7 @@ edflow
 
             $http.get("api/" + path + "?category=" + categoryTitle + "&language=" + $rootScope.language).success(function (data) {
 
-                    $rootScope.pages = data.items;
+                    $rootScope.items = data.items;
                     $scope.subCategories = data.subCategories;
 
                     $scope.moveCategoriesWidth();

@@ -2,9 +2,15 @@ edflow
 
     .config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
 
-        $urlRouterProvider.otherwise("/");
+        $urlRouterProvider.otherwise("");
 
         $stateProvider
+
+            .state("app", {
+                url: "",
+                //templateUrl: "assets/view/data/content.html",
+                //controller: "edflowController as edflow"
+            })
 
             .state("news", {
                 url: "/news",
@@ -15,12 +21,12 @@ edflow
             .state("words", {
                 url: "/words",
                 templateUrl: "assets/view/data/words.html",
-                controller: "contentController as content"
+                controller: "wordsController as words"
             })
 
             .state("translate", {
                 url: "/translate",
-                templateUrl: "assets/view/data/words.html",
+                templateUrl: "assets/view/data/content.html",
                 controller: "contentController as content"
             })
 

@@ -27,7 +27,7 @@ edflow
         //
         //    $http.get("api/category?category=" + category.title + "&language=" + $scope.language).success(function (data) {
         //
-        //            $scope.pages = data.pages;
+        //            $scope.items = data.items;
         //            $scope.subCategories = data.subCategories;
         //
         //            $scope.moveMenu();

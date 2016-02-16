@@ -5,7 +5,7 @@
     <ul ng-style="{top: categoriesTop}">
 
         <li ng-repeat="item in selectedCategories">
-            <a ng-click="deselectCategory(item)" class="selected">{{item.title}}</a>
+            <a ng-click="deselectCategory(item)" data-ui-sref="app" class="selected">{{item.title}}</a>
         </li>
 
         <li ng-repeat="item in subCategories">

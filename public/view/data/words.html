@@ -2,17 +2,13 @@
      ng-style="{width: contentWidth}"
      ng-controller="contentController">
 
-    <ul>
-        <li ng-repeat="item in pages">
+    <div id="word">
 
-            <div id="word">
+        <div id="title">{{items[i].title}}</div>
+        <div id="translate">{{items[i].translate}}</div>
 
-                <div class="title">{{item.title}}</div>
-                <div class="translate">{{item.translate}}</div>
-
-            </div>
-
-        </li>
-    </ul>
+        <div class="select" id="left" ng-click="next()"></div>
+        <div class="select" id="right" ng-click="next()"></div>
+    </div>
 
 </div>

@@ -24,7 +24,29 @@ public class Words {
 
         List<Word> words = new ArrayList<>();
         words.add(new Word("Word", "Слово"));
+        words.add(new Word("One", "Раз"));
+        words.add(new Word("Two", "Два"));
+        words.add(new Word("Three", "Три"));
+        words.add(new Word("Four", "Четыре"));
+        words.add(new Word("Five", "Пять"));
+        words.add(new Word("Six", "Шесть"));
 
-        return ok(toJson(new Response(null, words)));
+        List<Map<String, String>> subCategories = new ArrayList<>();
+
+        Map<String, String> subCategoryMap = new HashMap<>();
+        subCategoryMap.put("title", "Thousand");
+        subCategories.add(subCategoryMap);
+
+        subCategoryMap = new HashMap<>();
+        subCategoryMap.put("title", "Known");
+        subCategories.add(subCategoryMap);
+
+
+        subCategoryMap = new HashMap<>();
+        subCategoryMap.put("title", "Learn");
+        subCategories.add(subCategoryMap);
+
+
+        return ok(toJson(new Response(subCategories, words)));
     }
 }
