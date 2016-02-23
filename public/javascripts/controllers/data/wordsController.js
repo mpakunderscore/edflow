@@ -2,6 +2,8 @@ edflow
 
     .controller("wordsController", function ($scope, $rootScope, $http) {
 
+        $rootScope.selectCategory({title: "Words"});
+
         $scope.i = 0;
 
         //$rootScope.selectCategory({title: "Words"});

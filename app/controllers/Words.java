@@ -27,7 +27,7 @@ public class Words {
         words.add(new Word("One", "Раз"));
         words.add(new Word("Two", "Два"));
         words.add(new Word("Three", "Три"));
-        words.add(new Word("Four", "Четыре"));
+        words.add(new Word("Newspaper", "Четыре"));
         words.add(new Word("Five", "Пять"));
         words.add(new Word("Six", "Шесть"));
 

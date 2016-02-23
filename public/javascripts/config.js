@@ -33,7 +33,7 @@ edflow
             .state("wikipedia", {
                 url: "/wikipedia",
                 templateUrl: "assets/view/data/content.html",
-                controller: "contentController as content"
+                controller: "wikipediaController as wikipedia"
             })
 
             .state("book", {

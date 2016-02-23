@@ -1,26 +1,29 @@
 #word {
-    /*position: absolute;*/
-    margin-top: 200px;
+    position: fixed;
+    /*margin-top: 200px;*/
+    top: calc(50% - 150px);
+    left: calc(50% - 150px);
 
     width: 300px;
     height: 300px;
-    background-color: white;
+    /*background-color: white;*/
 
     margin-left: auto;
     margin-right: auto;
 
-    box-shadow: 0 0 10px 2px rgba(0, 0, 0, 0.15);
+    /*box-shadow: 0 0 10px 2px rgba(0, 0, 0, 0.15);*/
     /*border-radius: 5px;*/
 
-    position: relative;
+    /*position: relative;*/
 
     text-align: center;
 }
 
 #word #title {
     position: relative;
-    font-size: 42px;
+    font-size: 48px;
     top: 100px;
+    color: white;
 }
 
 #word #translate {
@@ -33,23 +36,36 @@
 #words .select {
     position: absolute;
     bottom: 0;
-    width: 150px;
+    width: 300px;
     height: 300px;
     opacity: 0.0;
     /*border-radius: 300px;*/
+    line-height: 336px;
+    /*background-color: rgba(255, 0, 0, 0.07);*/
 }
 
 #words .select:hover {
-    opacity: 0.1;
+    opacity: 0.9;
+    -webkit-animation: squeeze 2s ease-out;
+    /*-webkit-animation-iteration-count: 1;*/
+    /*width: 300px;*/
+    /*height: 300px;*/
+    /*background-color: aqua;*/
+
+}
+
+@-webkit-keyframes squeeze {
+    /*0% {-webkit-transform: scale(1.0, 1.0)}*/
+    /*100% {-webkit-transform: scale(0.3, 0.3)}*/
 }
 
 #word #left {
     /*font-size: 24px;*/
     /*color: gray;*/
     /*padding-left: 20px;*/
-    background-color: #ff2326;
+    /*background-color: #ff2326;*/
     /*background: linear-gradient(to right, #ff2326, white);*/
-    /*left: -150px;*/
+    left: -150px;
 
     /*background-color: lightgoldenrodyellow;*/
 }
@@ -58,8 +74,13 @@
     /*font-size: 24px;*/
     /*color: gray;*/
     /*padding-left: 20px;*/
-    background-color: #29e63f;
+    /*background-color: #29e63f;*/
     /*background: linear-gradient(to right, white, #29e63f);*/
-    right: 0;
+    right: -150px;
     /*background-color: lightgoldenrodyellow;*/
+}
+
+.material-icons.md-48 {
+    font-size: 48px;
+    /*color: black;*/
 }

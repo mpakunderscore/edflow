@@ -39,24 +39,24 @@ edflow
                 return;
             }
 
+            var path = category.title.toLowerCase();
+
             $rootScope.circleAnimation = "animation";
 
             $scope.subCategories = [];
-            $scope.moveCategoriesWidth();
+            $scope.moveCategoriesWidth(path);
 
             var categoryTitle = category.title;
 
             if (categoryTitle === "Wikipedia")
                 categoryTitle = "undefined";
 
-            var path = category.title.toLowerCase();
-
             $http.get("api/" + path + "?category=" + categoryTitle + "&language=" + $rootScope.language).success(function (data) {
 
                     $rootScope.items = data.items;
                     $scope.subCategories = data.subCategories;
 
-                    $scope.moveCategoriesWidth();
+                    $scope.moveCategoriesWidth(path);
 
                     $rootScope.circleAnimation = "";
                 })
@@ -77,7 +77,7 @@ edflow
                 $scope.selectCategory($rootScope.selectedCategories.pop());
         }
 
-        $scope.moveCategoriesWidth = function () {
+        $scope.moveCategoriesWidth = function (path) {
 
             if ($rootScope.selectedCategories.length === 0) {
                 $rootScope.menuWidth = "50%";
@@ -94,14 +94,18 @@ edflow
 
             //console.log(longest.title + " " + menuWidth + " " + percent);
 
-            if (percent < 20)
+            if (percent < 20) {
                 menuWidth *= 20/percent;
+            }
 
             //console.log(longest.title + " " + menuWidth + " " + percent);
 
             $rootScope.menuWidth = menuWidth + "px";
             $rootScope.contentWidth = "calc(100% - " + $rootScope.menuWidth + ")";
-            $rootScope.circleLeft = (menuWidth - 135) + "px";
+
+            if (path !== "words") {
+                $rootScope.circleLeft = (menuWidth - 135) + "px";
+            }
 
             $scope.moveCategoriesMargin();
         }
