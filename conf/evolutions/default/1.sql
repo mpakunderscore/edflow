@@ -4,7 +4,7 @@
 # --- !Ups
 
 create table page (
-  id                        bigint not null,
+  id                        bigserial not null,
   title                     varchar(255),
   description               varchar(10000),
   text                      varchar(100000),
@@ -16,18 +16,10 @@ create table page (
   constraint pk_page primary key (id))
 ;
 
-create sequence page_seq;
-
 
 
 
 # --- !Downs
 
-SET REFERENTIAL_INTEGRITY FALSE;
-
-drop table if exists page;
-
-SET REFERENTIAL_INTEGRITY TRUE;
-
-drop sequence if exists page_seq;
+drop table if exists page cascade;
 
