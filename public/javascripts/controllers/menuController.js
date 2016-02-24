@@ -1,6 +1,6 @@
 edflow
 
-    .controller("menuController", function ($scope, $rootScope, $http) {
+    .controller("menuController", function ($scope, $rootScope, $state) {
 
         $rootScope.language = localStorage.getItem("language");
 
@@ -27,7 +27,7 @@ edflow
             $rootScope.language = item.code;
             localStorage.setItem("language", item.code);
 
-            $rootScope.selectCategory("");
+            //$state.transitionTo("app");
         }
 
         $scope.menuEnter = function () {

@@ -40,48 +40,49 @@
 #content ul li div.image img {
 }
 
-#content ul li div.text {
-    padding: 10px 20px 10px 20px;
+#content ul li div.page {
+    padding: 20px;
 }
 
-#content ul li div.text p {
-    margin: 0 0 5px;
+#content ul li div.page p {
+    /*margin: 0 0 5px;*/
 }
 
-#content ul li div.text a {
+#content ul li div.page a {
     color: #0758df;
     text-decoration: none;
 }
 
-#content ul li div.text a:hover {
+#content ul li div.page a:hover {
     /*color: #1989ff;*/
     text-decoration: underline;
 }
 
-/*.content ul li div.text a:visited {*/
+/*.content ul li div.page a:visited {*/
     /*color: rgb(45, 112, 174);*/
 /*}*/
-#content ul li div.text div.title {
-    line-height: 250%;
+#content ul li div.page div.title {
+    font-size: 18px;
+    /*padding-bottom: 20px;*/
 }
 
-#content ul li div.text div.description {
-    font-size: 14px;
+#content ul li div.page div.description {
+    /*font-size: 14px;*/
     /*color: gray;*/
 }
 
-#content ul li div.text div.categories {
+#content ul li div.page div.categories {
     color: gray;
-    line-height: 150%;
+    /*line-height: 150%;*/
 }
 
-#content ul li div.text div.categories a {
+#content ul li div.page div.categories a {
     color: gray;
     font-size: 14px;
     text-decoration: none;
     cursor: pointer;
 }
 
-#content ul li div.text div.categories a:hover {
+#content ul li div.page div.categories a:hover {
     color: red;
 }

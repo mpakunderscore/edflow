@@ -160,7 +160,7 @@ public class Wikipedia extends Controller {
         for (int i = 0; i < htmlText.size(); i++) {
 
             //TODO
-            text += "<p>" + htmlText.get(i).text() + "</p>";
+            text += htmlText.get(i).text();
         }
 
         Elements catLinks = mainPageDoc.body().select("#mw-normal-catlinks ul a");

@@ -1,29 +1,20 @@
-<div id="content"
+<div id="translate"
      ng-style="{width: contentWidth}"
      ng-controller="contentController">
 
-    <ul>
-        <li ng-repeat="item in items">
+    <div id="page">
 
-            <!--<div class="image" ng-style="{'background-image': 'url(' + item.image + ')'}"></div>-->
+        <div class="title">
+            {{items[i].title}}
+        </div>
 
-            <div class="text">
+        <div class="description" ng-bind-html="items[i].text"></div>
 
-                <div class="title">
-                    {{item.title}}
-                </div>
+        <div class="categories">
+            <span ng-repeat="category in items.categories.split(',')">
+                <a ng-click="selectOneCategory(category)" >{{category}}</a>{{$last ? '' : ', '}}
+            </span>
+        </div>
 
-                <div class="description" ng-bind-html="item.text"></div>
-
-                <div class="categories">
-                    <span ng-repeat="category in item.categories.split(',')">
-                        <a ng-click="selectOneCategory(category)" >{{category}}</a>{{$last ? '' : ', '}}
-                    </span>
-                </div>
-
-            </div>
-
-        </li>
-    </ul>
-
+    </div>
 </div>
