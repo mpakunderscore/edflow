@@ -26,8 +26,8 @@ edflow
 
             .state("translate", {
                 url: "/translate",
-                templateUrl: "assets/view/data/content.html",
-                controller: "contentController as content"
+                templateUrl: "assets/view/data/translate.html",
+                controller: "translateController as content"
             })
 
             .state("wikipedia", {

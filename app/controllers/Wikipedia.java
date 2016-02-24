@@ -1,6 +1,5 @@
 package controllers;
 
-import com.avaje.ebean.Ebean;
 import models.Page;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
@@ -10,7 +9,6 @@ import org.jsoup.select.Elements;
 
 import java.io.IOException;
 import java.util.*;
-import java.util.concurrent.ThreadLocalRandom;
 
 import play.mvc.Controller;
 import play.mvc.Result;
@@ -105,7 +103,7 @@ public class Wikipedia extends Controller {
             Page page;
 
             try {
-                page = getPageMap(language, title);
+                page = getPage(language, title);
             } catch (Exception e) {
                 continue;
             }
@@ -125,19 +123,20 @@ public class Wikipedia extends Controller {
         return ok(toJson(response));
     }
 
-    private static Page getPageMap(String language, String title) {
+    public static Page getPage(String language, String title) {
 
         System.out.println(title);
 
         Page page = null;
 
-        page = Ebean.find(Page.class).where().where().eq("title", title).findUnique();
+//        page = Ebean.find(Page.class).where().where().eq("title", title).findUnique();
 
         if (page != null)
             return page;
 
         String image = "";
         String description = "";
+        String text = "";
 
         List<String> categories = new ArrayList<>();
 
@@ -155,13 +154,20 @@ public class Wikipedia extends Controller {
             description = "<p>" + pBlocks.get(0).html() + "</p><p>" + pBlocks.get(1).html() + "</p>";
         }
 
+        Elements htmlText = mainPageDoc.body().select("#mw-content-text");
+        for (int i = 0; i < htmlText.size(); i++) {
+
+            //TODO
+            text += "<p>" + htmlText.get(i).text() + "</p>";
+        }
+
         Elements catLinks = mainPageDoc.body().select("#mw-normal-catlinks ul a");
         for (int i = 0; i < catLinks.size(); i++) {
             categories.add(catLinks.get(i).text());
         }
 
-        page = new Page(title, description, image, String.join(",", categories));
-        Ebean.save(page);
+        page = new Page(title, description, text, image, String.join(",", categories));
+//        Ebean.save(page);
 
         return page;
     }

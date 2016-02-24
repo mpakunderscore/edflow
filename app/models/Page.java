@@ -20,6 +20,9 @@ public class Page extends Model {
     @Column(length=10000)
     public String description;
 
+    @Column(length=100000)
+    public String text;
+
     @Column(length=1000)
     public String image;
 
@@ -32,9 +35,10 @@ public class Page extends Model {
 
     transient boolean main;
 
-    public Page(String title, String description, String image, String categories) {
+    public Page(String title, String description, String text, String image, String categories) {
         this.title = title;
         this.description = description;
+        this.text = text;
         this.image = image;
         this.categories = categories;
     }

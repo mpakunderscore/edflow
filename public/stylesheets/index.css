@@ -34,7 +34,7 @@ html {
 
 
 #circle.animation {
-    background-color: rgba(7, 232, 111, 0.52);
+    /*background-color: #32C132;*/
     /*opacity: 0.5;*/
     -webkit-animation: pulsate 2s ease-out;
     -webkit-animation-iteration-count: infinite;
@@ -44,7 +44,7 @@ html {
 }
 
 #circle.error {
-    background-color: rgba(253, 8, 11, 0.67);
+    background-color: red;
     opacity: 1.0;
     -webkit-animation: pulsate 1s ease-out;
     -webkit-animation-iteration-count: infinite;
@@ -127,7 +127,7 @@ html {
 
     /*background-color: rgba(255, 255, 255, 0.5);*/
     /*background-color: rgba(136, 212, 255, 0.3);*/
-    background-color: rgba(56, 153, 255, 0.1);
+    /*background-color: rgba(56, 153, 255, 0.1);*/
     -webkit-transition: width 1s; /* Safari */
     transition: width 1s;
 }

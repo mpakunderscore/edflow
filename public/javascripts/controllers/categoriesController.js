@@ -20,8 +20,8 @@ edflow
 
         $rootScope.selectCategory = function (category) {
 
-            console.log(category)
-            console.log($state)
+            //console.log(category)
+            //console.log($state)
 
             if (category !== "") {
 
@@ -123,15 +123,9 @@ edflow
 
         }
 
-        $scope.moveContentMargin = function () {
-
-        }
-
         $scope.moveCategoriesMargin();
 
-        console.log($state.get())
+        $scope.moveContentMargin = function () {
 
-        if ($state.current.name !== undefined) {
-            //$rootScope.selectCategory({title: $state.current.name});
         }
     })
