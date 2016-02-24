@@ -15,7 +15,7 @@ edflow
             .state("news", {
                 url: "/news",
                 templateUrl: "assets/view/data/content.html",
-                controller: "contentController as content"
+                controller: "newsController as news"
             })
 
             .state("words", {
@@ -39,13 +39,13 @@ edflow
             .state("book", {
                 url: "/book",
                 templateUrl: "assets/view/data/content.html",
-                controller: "contentController as content"
+                controller: "bookController as book"
             })
 
             .state("flow", {
                 url: "/flow",
                 templateUrl: "assets/view/data/content.html",
-                controller: "contentController as content"
+                controller: "flowController as flow"
             })
 
         //$locationProvider.html5Mode(true);

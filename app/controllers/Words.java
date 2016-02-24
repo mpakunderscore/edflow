@@ -6,6 +6,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import play.mvc.Result;
+import utils.Category;
 import utils.Response;
 import play.mvc.Controller;
 import play.mvc.Result;
@@ -31,22 +32,11 @@ public class Words {
         words.add(new Word("Five", "Пять"));
         words.add(new Word("Six", "Шесть"));
 
-        List<Map<String, String>> subCategories = new ArrayList<>();
+        List<Category> categories = new ArrayList<>();
+        categories.add(new Category("Thousand"));
+        categories.add(new Category("Known"));
+        categories.add(new Category("Learn"));
 
-        Map<String, String> subCategoryMap = new HashMap<>();
-        subCategoryMap.put("title", "Thousand");
-        subCategories.add(subCategoryMap);
-
-        subCategoryMap = new HashMap<>();
-        subCategoryMap.put("title", "Known");
-        subCategories.add(subCategoryMap);
-
-
-        subCategoryMap = new HashMap<>();
-        subCategoryMap.put("title", "Learn");
-        subCategories.add(subCategoryMap);
-
-
-        return ok(toJson(new Response(subCategories, words)));
+        return ok(toJson(new Response(categories, words)));
     }
 }

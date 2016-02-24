@@ -12,6 +12,7 @@ import java.util.*;
 
 import play.mvc.Controller;
 import play.mvc.Result;
+import utils.Category;
 import utils.Response;
 
 import static play.libs.Json.toJson;
@@ -72,15 +73,15 @@ public class Wikipedia extends Controller {
 
         Elements subCategoriesLinks = doc.body().select("#mw-subcategories ul a");
 
-        List<Map<String, String>> subCategories = new ArrayList<>();
+        List<Category> subCategories = new ArrayList<>();
 
         for (Element link : subCategoriesLinks) {
             String subCategory = link.text();
 
-            Map<String, String> subCategoryMap = new HashMap<>();
-            subCategoryMap.put("title", subCategory);
+//            Map<String, String> subCategoryMap = new HashMap<>();
+//            subCategoryMap.put("title", );
 
-            subCategories.add(subCategoryMap);
+            subCategories.add(new Category(subCategory));
         }
 
 

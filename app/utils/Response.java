@@ -8,10 +8,10 @@ import java.util.Map;
 
 public class Response {
 
-    List<Map<String, String>> subCategories;
+    List<Category> subCategories;
     List<? extends Object> items;
 
-    public Response(List<Map<String, String>> subCategories, List<?> items) {
+    public Response(List<Category> subCategories, List<?> items) {
         this.subCategories = subCategories;
         this.items = items;
     }
@@ -20,7 +20,7 @@ public class Response {
         this.items = words;
     }
 
-    public List<Map<String, String>> getSubCategories() {
+    public List<Category> getSubCategories() {
         return subCategories;
     }
 
