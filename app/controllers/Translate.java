@@ -35,8 +35,9 @@ public class Translate {
 //        subCategories.add(subCategoryMap);
 
         List<Category> categories = new ArrayList<>();
-        categories.add(new Category("Text"));
+        categories.add(new Category("Example"));
         categories.add(new Category("Video"));
+        categories.add(new Category("Text"));
 
         return ok(toJson(new Response(categories, texts)));
     }
