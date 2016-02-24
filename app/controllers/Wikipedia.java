@@ -1,5 +1,6 @@
 package controllers;
 
+import com.avaje.ebean.Ebean;
 import models.Page;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
@@ -130,7 +131,7 @@ public class Wikipedia extends Controller {
 
         Page page = null;
 
-//        page = Ebean.find(Page.class).where().where().eq("title", title).findUnique();
+        page = Ebean.find(Page.class).where().where().eq("title", title).findUnique();
 
         if (page != null)
             return page;
@@ -168,7 +169,7 @@ public class Wikipedia extends Controller {
         }
 
         page = new Page(title, description, text, image, String.join(",", categories));
-//        Ebean.save(page);
+        Ebean.save(page);
 
         return page;
     }
