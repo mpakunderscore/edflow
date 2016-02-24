@@ -38,7 +38,7 @@ public class Page extends Model {
     public Page(String title, String description, String text, String image, String categories) {
         this.title = title;
         this.description = description;
-        this.text = text;
+        this.text = text.substring(0, Math.min(text.length(), 100000));;
         this.image = image;
         this.categories = categories;
     }
