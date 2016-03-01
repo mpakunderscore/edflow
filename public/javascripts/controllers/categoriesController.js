@@ -11,9 +11,10 @@ edflow
             {title: "Flow"}
         ];
 
+        //TODO
         $rootScope.selectedCategories = [];
         $scope.subCategories = menuItems;
-        //$scope.pagesCategories = [];
+        $scope.categories = [];
         $rootScope.items = [];
 
         $rootScope.circleAnimation = "";
@@ -21,7 +22,7 @@ edflow
         $rootScope.selectCategory = function (category) {
 
             //console.log(category)
-            //console.log($state)
+
 
             if (category !== "") {
 
@@ -31,19 +32,23 @@ edflow
 
                 $rootScope.selectedCategories = [];
                 $scope.subCategories = menuItems;
+                $scope.categories = [];
                 $rootScope.items = [];
 
                 $scope.moveCategoriesWidth();
                 $rootScope.circleAnimation = "";
 
+                console.log($state.current.name);
+
                 return;
             }
 
-            var path = category.title.toLowerCase();
+            var path = $state.current.name;
 
             $rootScope.circleAnimation = "animation";
 
             $scope.subCategories = [];
+            $scope.categories = [];
             $scope.moveCategoriesWidth(path);
 
             var categoryTitle = category.title;
@@ -54,7 +59,7 @@ edflow
             $http.get("api/" + path + "?category=" + categoryTitle + "&language=" + $rootScope.language).success(function (data) {
 
                     $rootScope.items = data.items;
-                    $scope.subCategories = data.subCategories;
+                    $scope.categories = data.subCategories;
 
                     $scope.moveCategoriesWidth(path);
 
@@ -88,7 +93,8 @@ edflow
                 return;
             }
 
-            var longest = $rootScope.getLongest($rootScope.selectedCategories.concat($scope.subCategories));
+            //TODO
+            var longest = $rootScope.getLongest($rootScope.selectedCategories.concat($scope.subCategories.concat($scope.categories)));
             var menuWidth = $rootScope.getTextWidth(longest.title, "16px Open Sans") + 50;
             var percent = menuWidth / document.body.clientWidth * 100;
 
@@ -112,7 +118,7 @@ edflow
 
         $scope.moveCategoriesMargin = function () {
 
-            var count = $rootScope.selectedCategories.length + $scope.subCategories.length;
+            var count = $rootScope.selectedCategories.length + $scope.subCategories.length + $scope.categories.length;;
 
             var px = 32 * count + 20;
             if ($(window).height() <= px)
