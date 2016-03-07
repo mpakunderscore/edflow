@@ -21,7 +21,7 @@ public class Flow extends Controller {
 
     public static Result getFlow(String categoryName, String language) {
 
-        List<Page> pages = Ebean.find(Page.class).findList();
+        List<Page> pages = Ebean.find(Page.class).orderBy("time desc").findList();
 
         processPages(pages);
 
@@ -35,18 +35,28 @@ public class Flow extends Controller {
 
     private static void processPages(List<Page> pages) {
 
+        List<Map<String, Integer>> words = new ArrayList<>();
+
         for (Page page : pages) {
 
-            String text = page.text;
-
-            int textLength = text.length();
-            String[] textArray = text.split("\\s+");
-            int wordsCount = textArray.length;
-            Map<String, Integer> words = Crawler.getWords(textArray);
-
-            Logs.out(page.title);
-            Logs.out(textLength + " " + wordsCount + " " + words.size());
+            Map<String, Integer> pageWords = Crawler.getSortedWords(page);
+            words.add(pageWords);
         }
 
+        Map<String, Integer> wordsIDF = Crawler.getWordsIDF(words);
+
+        for (Page page : pages) {
+
+            Map<String, Integer> pageWords = Crawler.getSortedWords(page);
+            Map<String, Integer> processedPageWords = new HashMap<>();
+
+            for (Map.Entry<String, Integer> word : pageWords.entrySet()) {
+
+                processedPageWords.put(word.getKey(), word.getValue() * wordsIDF.get(word.getKey()));
+            }
+
+            Logs.out(page.title);
+            Logs.first(Crawler.sortWords(processedPageWords), 10);
+        }
     }
 }

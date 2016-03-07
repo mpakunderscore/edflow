@@ -9,10 +9,8 @@ import play.mvc.Controller;
 import utils.Logs;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class Crawler extends Controller {
 
@@ -48,6 +46,8 @@ public class Crawler extends Controller {
 
         for (String word : textArray) {
 
+            word = word.toLowerCase();
+
             if (words.containsKey(word))
                 words.put(word, (words.get(word) + 1));
 
@@ -73,5 +73,68 @@ public class Crawler extends Controller {
         }
 
         return doc;
+    }
+
+    public static Map<String, Integer> sortWords(Map<String, Integer> words) {
+
+        LinkedHashMap<String, Integer> sortedWords = words
+                .entrySet()
+                .stream()
+                .sorted(Map.Entry.<String, Integer>comparingByValue().reversed())
+                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e1, LinkedHashMap::new));
+
+        return sortedWords;
+    }
+
+    public static Map<String, Integer> getSortedWords(Page page) {
+
+        String text = page.text;
+
+        int textLength = text.length();
+        String[] textArray = text.split("\\s+|,\\s+|/.\\s+");
+        int wordsCount = textArray.length;
+        Map<String, Integer> words = Crawler.getWords(textArray);
+
+        LinkedHashMap<String, Integer> sortedWords = (LinkedHashMap<String, Integer>) sortWords(words);
+
+//        Logs.out(page.title);
+//        Logs.first(sortedWords, 10);
+
+        return sortedWords;
+    }
+
+    public static Map<String, Integer> getWordsIDF(List<Map<String, Integer>> pagesWords) {
+
+        int pagesCount = pagesWords.size();
+
+        Map<String, Integer> wordsFrequency = new HashMap<>();
+        Map<String, Integer> wordsIDF = new HashMap<>();
+
+//        Map<String, Integer> count = processTokens(pagesList, true);
+
+        for (Map<String, Integer> pageWords : pagesWords) {
+
+            for (Map.Entry<String, Integer> word : pageWords.entrySet()) {
+
+                String name = word.getKey();
+
+                if (wordsFrequency.containsKey(name))
+                    wordsFrequency.put(name, (wordsFrequency.get(name) + 1));
+
+                else
+                    wordsFrequency.put(name, 1);
+            }
+        }
+
+        for (Map.Entry<String, Integer> word : wordsFrequency.entrySet()) {
+
+            String name = word.getKey();
+
+            wordsIDF.put(name, (int) Math.log((double) pagesCount / (double) wordsFrequency.get(name)));
+        }
+
+        wordsIDF = Crawler.sortWords(wordsIDF);
+
+        return wordsIDF;
     }
 }

@@ -1,12 +1,17 @@
 package engine;
 
+import models.Page;
 import play.mvc.Controller;
 import play.mvc.Result;
 import utils.Category;
+import utils.Logs;
 import utils.Response;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
+import java.util.stream.Collectors;
 
 import static play.libs.Json.toJson;
 
@@ -17,7 +22,11 @@ public class API extends Controller {
 
     public static Result getPage(String url) {
 
-        return ok(toJson(Crawler.getPage(url)));
+        Page page = Crawler.getPage(url);
+
+        Crawler.getSortedWords(page);
+
+        return ok(toJson(page));
     }
 
     public static Result getSettings() {
