@@ -6,6 +6,7 @@ import models.Page;
 import play.mvc.Controller;
 import play.mvc.Result;
 import utils.Category;
+import utils.Logs;
 import utils.Response;
 
 import java.util.*;
@@ -22,18 +23,7 @@ public class Flow extends Controller {
 
         List<Page> pages = Ebean.find(Page.class).findList();
 
-        for (Page page : pages) {
-
-            String text = page.text;
-
-            int textLength = text.length();
-            String[] textArray = text.split("\\s+");
-            int wordsCount = textArray.length;
-            Map<String, Integer> words = Crawler.getWords(textArray);
-
-            System.out.println(page.title);
-            System.out.println(textLength + " " + wordsCount + " " + words.size());
-        }
+        processPages(pages);
 
         List<Category> categories = new ArrayList<>();
         categories.add(new Category("Recommend"));
@@ -43,5 +33,20 @@ public class Flow extends Controller {
         return ok(toJson(new Response(categories, pages)));
     }
 
+    private static void processPages(List<Page> pages) {
 
+        for (Page page : pages) {
+
+            String text = page.text;
+
+            int textLength = text.length();
+            String[] textArray = text.split("\\s+");
+            int wordsCount = textArray.length;
+            Map<String, Integer> words = Crawler.getWords(textArray);
+
+            Logs.out(page.title);
+            Logs.out(textLength + " " + wordsCount + " " + words.size());
+        }
+
+    }
 }

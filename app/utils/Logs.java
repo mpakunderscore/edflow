@@ -7,8 +7,8 @@ public class Logs {
 
     public static void out(String text) {
 
-        System.out.println(new Exception().getStackTrace()[1].getClassName());
+        String caller = new Exception().getStackTrace()[1].getClassName();
 
-        System.out.println(text);
+        System.out.println(caller + ": " + text);
     }
 }
