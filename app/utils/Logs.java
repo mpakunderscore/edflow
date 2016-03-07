@@ -1,5 +1,6 @@
 package utils;
 
+import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -15,20 +16,29 @@ public class Logs {
         System.out.println(caller + ": " + text);
     }
 
-    public static void first(Map<String, Integer> map, int count) {
+    public static void first(Map<String, ? extends Number> map, int count) {
+
+        String caller = new Exception().getStackTrace()[1].getClassName();
 
         int i = 0;
-        for (Map.Entry<String, Integer> entry : map.entrySet()) {
+        for (Map.Entry<String, ? extends Number> entry : map.entrySet()) {
 
             String key = entry.getKey();
-            int value = entry.getValue();
+            Number value = entry.getValue();
 
-            System.out.println(key + ": " + value);
+            System.out.println(caller + ": " + key + " -> " + value);
 
             i++;
             if (i == count)
                 break;
         }
 
+    }
+
+    public static void time(long time) {
+
+        String caller = new Exception().getStackTrace()[1].getClassName();
+
+        System.err.println(caller + ": TIME " + (System.currentTimeMillis() - time)/1000 + " sec.");
     }
 }

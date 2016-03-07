@@ -35,6 +35,8 @@ public class Flow extends Controller {
 
     private static void processPages(List<Page> pages) {
 
+        long time = System.currentTimeMillis();
+
         List<Map<String, Integer>> words = new ArrayList<>();
 
         for (Page page : pages) {
@@ -43,20 +45,28 @@ public class Flow extends Controller {
             words.add(pageWords);
         }
 
-        Map<String, Integer> wordsIDF = Crawler.getWordsIDF(words);
+        Map<String, Double> wordsIDF = Crawler.getWordsIDF(words);
 
         for (Page page : pages) {
 
             Map<String, Integer> pageWords = Crawler.getSortedWords(page);
-            Map<String, Integer> processedPageWords = new HashMap<>();
+            Map<String, Double> processedPageWords = new HashMap<>();
 
             for (Map.Entry<String, Integer> word : pageWords.entrySet()) {
 
                 processedPageWords.put(word.getKey(), word.getValue() * wordsIDF.get(word.getKey()));
             }
 
-            Logs.out(page.title);
-            Logs.first(Crawler.sortWords(processedPageWords), 10);
+            Map<String, Double> sortedProcessedPageWords = Crawler.sortWordsDouble(processedPageWords);
+
+//            sortedProcessedPageWords.keySet().forEach();
+
+//            page.categories =
+
+            Logs.out(page.title + " " + page.url);
+            Logs.first(sortedProcessedPageWords, 10);
         }
+
+        Logs.time(time);
     }
 }

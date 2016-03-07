@@ -10,9 +10,15 @@ import utils.Logs;
 
 import java.io.IOException;
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 public class Crawler extends Controller {
+
+    private final static Pattern wordPattern = Pattern.compile("[^\\s+\"\\d+(){}, –'\\-=_@:$;#%!<>&\\|\\*\\?\\[\\]\\.\\/\\+\\\\]{2,}");
+
+    private final static boolean bigrams = true;
 
     public static final String USER_AGENT = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/31.0.1650.63 Safari/537.36";
 
@@ -40,23 +46,60 @@ public class Crawler extends Controller {
         return page;
     }
 
-    public static Map<String, Integer> getWords(String[] textArray) {
+    public static Map<String, Integer> getWordsMap(String text) {
 
         Map<String, Integer> words = new HashMap<>();
+        List<String> wordsList = new ArrayList<>();
 
-        for (String word : textArray) {
+        Matcher matcher = wordPattern.matcher(text);
+        while (matcher.find()) {
 
-            word = word.toLowerCase();
+            String word = matcher.group().toLowerCase();
 
-            if (words.containsKey(word))
-                words.put(word, (words.get(word) + 1));
+            if (words.containsKey(word)) words.put(word, words.get(word) + 1);
+            else words.put(word, 1);
 
-            else
-                words.put(word, 1);
+            wordsList.add(word);
         }
+
+        if (bigrams)
+            setBigrams(wordsList, words);
 
         return words;
     }
+
+    private static void setBigrams(List<String> wordsList, Map<String, Integer> words) {
+
+        Map<String, Integer> bigrams = new HashMap<>();
+
+        for (int i = 0; i < wordsList.size() - 1; i++) {
+
+            String bigram = wordsList.get(i) + " " + wordsList.get(i + 1);
+
+            if (bigrams.containsKey(bigram)) bigrams.put(bigram, bigrams.get(bigram) + 1);
+            else bigrams.put(bigram, 1);
+        }
+
+        words.putAll(bigrams);
+    }
+
+//    public static Map<String, Integer> getWords(String[] textArray) {
+//
+//        Map<String, Integer> words = new HashMap<>();
+//
+//        for (String word : textArray) {
+//
+//            word = word.toLowerCase();
+//
+//            if (words.containsKey(word))
+//                words.put(word, (words.get(word) + 1));
+//
+//            else
+//                words.put(word, 1);
+//        }
+//
+//        return words;
+//    }
 
     public static Document getPageDocument(String url) {
 
@@ -86,14 +129,26 @@ public class Crawler extends Controller {
         return sortedWords;
     }
 
+    public static Map<String, Double> sortWordsDouble(Map<String, Double> words) {
+
+        LinkedHashMap<String, Double> sortedWords = words
+                .entrySet()
+                .stream()
+                .sorted(Map.Entry.<String, Double>comparingByValue().reversed())
+                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e1, LinkedHashMap::new));
+
+        return sortedWords;
+    }
+
     public static Map<String, Integer> getSortedWords(Page page) {
 
         String text = page.text;
 
-        int textLength = text.length();
-        String[] textArray = text.split("\\s+|,\\s+|/.\\s+");
-        int wordsCount = textArray.length;
-        Map<String, Integer> words = Crawler.getWords(textArray);
+//        int textLength = text.length();
+//        String[] textArray = text.split("\\s+|,\\s+|/.\\s+");
+//        int wordsCount = textArray.length;
+
+        Map<String, Integer> words = Crawler.getWordsMap(text);
 
         LinkedHashMap<String, Integer> sortedWords = (LinkedHashMap<String, Integer>) sortWords(words);
 
@@ -103,12 +158,12 @@ public class Crawler extends Controller {
         return sortedWords;
     }
 
-    public static Map<String, Integer> getWordsIDF(List<Map<String, Integer>> pagesWords) {
+    public static Map<String, Double> getWordsIDF(List<Map<String, Integer>> pagesWords) {
 
         int pagesCount = pagesWords.size();
 
         Map<String, Integer> wordsFrequency = new HashMap<>();
-        Map<String, Integer> wordsIDF = new HashMap<>();
+        Map<String, Double> wordsIDF = new HashMap<>();
 
 //        Map<String, Integer> count = processTokens(pagesList, true);
 
@@ -130,10 +185,10 @@ public class Crawler extends Controller {
 
             String name = word.getKey();
 
-            wordsIDF.put(name, (int) Math.log((double) pagesCount / (double) wordsFrequency.get(name)));
+            wordsIDF.put(name, Math.log((double) pagesCount / (double) wordsFrequency.get(name)));
         }
 
-        wordsIDF = Crawler.sortWords(wordsIDF);
+        wordsIDF = Crawler.sortWordsDouble(wordsIDF);
 
         return wordsIDF;
     }
