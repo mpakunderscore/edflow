@@ -1,0 +1,28 @@
+<div id="content"
+     ng-style="{width: contentWidth}"
+     ng-controller="contentController">
+
+    <ul>
+        <li ng-repeat="item in items">
+
+            <!--<div class="image" ng-style="{'background-image': 'url(' + item.image + ')'}"></div>-->
+
+            <div class="page">
+
+                <div class="title">
+                    <a href="{{item.url}}" target="_blank">{{item.title}}</a>
+                    <a href="/api/page?url={{item.url}}" target="_blank">+</a>
+                </div>
+
+                <div class="categories">
+                    <span ng-repeat="category in item.categories.split(',')">
+                        <a ng-click="selectOneCategory(category)" >{{category}}</a>{{$last ? '' : ', '}}
+                    </span>
+                </div>
+
+            </div>
+
+        </li>
+    </ul>
+
+</div>

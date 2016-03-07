@@ -13,12 +13,8 @@ public class Page extends Model {
     @Id
     public Long id;
 
-    @Constraints.Required
-    @Column(unique=true)
+    @Column(length=100)
     public String title;
-
-    @Column(length=10000)
-    public String description;
 
     @Column(length=100000)
     public String text;
@@ -29,21 +25,24 @@ public class Page extends Model {
     @Column(length=1000)
     public String categories;
 
+    @Constraints.Required
+    @Column(unique=true)
     public String url;
+
+    //words count
+    //unique words count
+    //average word complexity
 
     public Date time = new Date();
 
-    transient boolean main;
+    public Page(String url, String title, String text, String image, String categories) {
 
-    public Page(String title, String description, String text, String image, String categories) {
-        this.title = title;
-        this.description = description;
-        this.text = text.substring(0, Math.min(text.length(), 100000));;
+        this.url = url;
+
+        this.title = title.substring(0, Math.min(title.length(), 100));
+        this.text = text.substring(0, Math.min(text.length(), 100000));
         this.image = image;
         this.categories = categories;
-    }
-
-    public void setMain() {
-        main = true;
+        this.time = new Date();
     }
 }

@@ -10,7 +10,8 @@
             <a
                ng-click="menu(item)"
                class="{{item.class}}"
-               ng-class="item.code === language ? 'chosen' : ''">
+               ng-class="item.code === language ? 'chosen' : ''"
+               data-ui-sref="{{item.url}}">
                 {{item.title}}
             </a>
 

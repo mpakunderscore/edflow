@@ -5,14 +5,13 @@
 
 create table page (
   id                        bigserial not null,
-  title                     varchar(255),
-  description               varchar(10000),
+  title                     varchar(100),
   text                      varchar(100000),
   image                     varchar(1000),
   categories                varchar(1000),
   url                       varchar(255),
   time                      timestamp,
-  constraint uq_page_title unique (title),
+  constraint uq_page_url unique (url),
   constraint pk_page primary key (id))
 ;
 

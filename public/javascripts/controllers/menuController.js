@@ -2,7 +2,7 @@ edflow
 
     .controller("menuController", function ($scope, $rootScope, $state) {
 
-        $scope.version = "0.3.2";
+        $scope.version = "0.3.3";
 
         $rootScope.language = localStorage.getItem("language");
 
@@ -12,7 +12,7 @@ edflow
         $scope.menuItems = [];
 
         var menuItem  = {title: "MENU"};
-        var settingsItem = {title: "SETTINGS", class: "ng-hide"};
+        var settingsItem = {title: "SETTINGS", class: "ng-hide", url: "settings"};
         var languageItem = {title: "LANGUAGE", class: "ng-hide"};
 
         var EN = {title: "ENGLISH", class: "choice ng-hide", code: "EN"};

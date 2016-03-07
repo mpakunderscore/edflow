@@ -11,7 +11,10 @@ GET     /api/words                  controllers.Words.getWords(category: String,
 GET     /api/translate              controllers.Translate.getText(category: String, language: String)
 GET     /api/wikipedia              controllers.Wikipedia.getCategoryTree(category: String, language: String)
 GET     /api/book                   controllers.Book.getPages(category: String, language: String)
-GET     /api/flow                   controllers.Flow.getPages(category: String, language: String)
+GET     /api/flow                   controllers.Flow.getFlow(category: String, language: String)
+
+GET     /api/page                   engine.API.getPage(url: String)
+GET     /api/settings               engine.API.getSettings
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)

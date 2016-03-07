@@ -12,6 +12,12 @@ edflow
                 //controller: "edflowController as edflow"
             })
 
+            .state("settings", {
+                url: "/settings",
+                templateUrl: "assets/view/data/content.html",
+                controller: "settingsController as settings"
+            })
+
             .state("news", {
                 url: "/news",
                 templateUrl: "assets/view/data/content.html",
@@ -44,7 +50,7 @@ edflow
 
             .state("flow", {
                 url: "/flow",
-                templateUrl: "assets/view/data/content.html",
+                templateUrl: "assets/view/data/flow.html",
                 controller: "flowController as flow"
             })
 

@@ -1,9 +1,11 @@
 package models;
 
+import com.avaje.ebean.Model;
+
 /**
  * Created by pavelkuzmin on 08/02/16.
  */
-public class Word {
+public class Word extends Model {
 
     String title;
     String translate;

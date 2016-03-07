@@ -1,14 +1,12 @@
 package controllers;
 
 import com.avaje.ebean.Ebean;
+import engine.Crawler;
 import models.Page;
-import org.jsoup.Connection;
-import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-import java.io.IOException;
 import java.util.*;
 
 import play.mvc.Controller;
@@ -19,8 +17,6 @@ import utils.Response;
 import static play.libs.Json.toJson;
 
 public class Wikipedia extends Controller {
-
-    public static final String USER_AGENT = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/31.0.1650.63 Safari/537.36";
 
     private static final String WIKI_URL = ".wikipedia.org/wiki/";
 
@@ -57,14 +53,16 @@ public class Wikipedia extends Controller {
                 categoryName = mainCategories.get("EN");
         }
 
-        Document doc = getWikiDoc(language, categoryPrefix, categoryName);
+        String url = getWikiUrl(language, categoryPrefix, categoryName);
+
+        Document pageDocument = Crawler.getPageDocument(url);
 
 
         //MAIN PAGE
 
 
         String mainPageTitle = "";
-        Elements categoryPageLinks = doc.body().select(".mainarticle b a");
+        Elements categoryPageLinks = pageDocument.body().select(".mainarticle b a");
         if (categoryPageLinks.size() > 0)
             mainPageTitle = categoryPageLinks.get(0).text();
 
@@ -72,7 +70,7 @@ public class Wikipedia extends Controller {
         //SUB CATEGORIES
 
 
-        Elements subCategoriesLinks = doc.body().select("#mw-subcategories ul a");
+        Elements subCategoriesLinks = pageDocument.body().select("#mw-subcategories ul a");
 
         List<Category> subCategories = new ArrayList<>();
 
@@ -89,7 +87,7 @@ public class Wikipedia extends Controller {
         //PAGES
 
 
-        Elements pagesLinks = doc.body().select("#mw-pages ul a");
+        Elements pagesLinks = pageDocument.body().select("#mw-pages ul a");
 
         List<Page> pages = new ArrayList<>();
 
@@ -110,9 +108,6 @@ public class Wikipedia extends Controller {
                 continue;
             }
 
-            if (title.equals(mainPageTitle))
-                page.setMain();
-
             pages.add(page);
         }
 
@@ -127,11 +122,13 @@ public class Wikipedia extends Controller {
 
     public static Page getPage(String language, String title) {
 
-        System.out.println(title);
+        String url = getWikiUrl(language, "", title);
+
+//        System.out.println(url);
 
         Page page = null;
 
-        page = Ebean.find(Page.class).where().where().eq("title", title).findUnique();
+        page = Ebean.find(Page.class).where().where().eq("url", url).findUnique();
 
         if (page != null)
             return page;
@@ -142,55 +139,42 @@ public class Wikipedia extends Controller {
 
         List<String> categories = new ArrayList<>();
 
-        Document mainPageDoc = getWikiDoc(language, "", title);
+        Document pageDocument = Crawler.getPageDocument(url);
 
-        Elements images = mainPageDoc.body().select("#mw-content-text img");
+        Elements images = pageDocument.body().select("#mw-content-text img");
         if (images.size() > 1) {
             image = images.get(0).attr("src");
         }
 
-        Elements pBlocks = mainPageDoc.body().select("#mw-content-text p");
+        Elements pBlocks = pageDocument.body().select("#mw-content-text p");
         if (pBlocks.size() > 1) {
 
             //TODO
             description = "<p>" + pBlocks.get(0).html() + "</p><p>" + pBlocks.get(1).html() + "</p>";
         }
 
-        Elements htmlText = mainPageDoc.body().select("#mw-content-text");
+        Elements htmlText = pageDocument.body().select("#mw-content-text");
         for (int i = 0; i < htmlText.size(); i++) {
 
             //TODO
             text += htmlText.get(i).text();
         }
 
-        Elements catLinks = mainPageDoc.body().select("#mw-normal-catlinks ul a");
+        Elements catLinks = pageDocument.body().select("#mw-normal-catlinks ul a");
         for (int i = 0; i < catLinks.size(); i++) {
             categories.add(catLinks.get(i).text());
         }
 
-        page = new Page(title, description, text, image, String.join(",", categories));
+        page = new Page(url, title, text, image, String.join(",", categories));
+
         Ebean.save(page);
 
         return page;
     }
 
 
-    public static Document getWikiDoc(String language, String categoryPrefix, String name) {
+    public static String getWikiUrl(String language, String categoryPrefix, String name) {
 
-        Document doc = null;
-
-        try {
-
-            String connectUrl = PROTOCOL + language.toLowerCase() + WIKI_URL + categoryPrefix + name;
-
-            Connection connection = Jsoup.connect(connectUrl);
-
-            doc = connection.userAgent(USER_AGENT).followRedirects(true).get();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return doc;
+        return PROTOCOL + language.toLowerCase() + WIKI_URL + categoryPrefix + name;
     }
 }
