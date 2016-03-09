@@ -24,7 +24,7 @@ public class API extends Controller {
 
         Page page = Crawler.getPage(url);
 
-        Crawler.getSortedWords(page);
+        Parser.getSortedWords(page);
 
         return ok(toJson(page));
     }
