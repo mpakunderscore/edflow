@@ -75,6 +75,17 @@ public class Parser {
         return sortedWords;
     }
 
+    public static Map<String, Double> sortWordsDoubleBack(Map<String, Double> words) {
+
+        LinkedHashMap<String, Double> sortedWords = words
+                .entrySet()
+                .stream()
+                .sorted(Map.Entry.<String, Double>comparingByValue())
+                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e1, LinkedHashMap::new));
+
+        return sortedWords;
+    }
+
     public static Map<String, Integer> getSortedWords(Page page) {
 
         String text = page.text;
