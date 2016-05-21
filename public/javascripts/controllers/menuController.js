@@ -2,7 +2,7 @@ edflow
 
     .controller("menuController", function ($scope, $rootScope, $state) {
 
-        $scope.version = "0.3.3";
+        $scope.version = "0.4";
 
         $rootScope.language = localStorage.getItem("language");
 

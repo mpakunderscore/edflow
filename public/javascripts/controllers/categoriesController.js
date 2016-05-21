@@ -3,12 +3,13 @@ edflow
     .controller("categoriesController", function ($scope, $rootScope, $http, $state) {
 
         var menuItems = [
-            {title: "News"},
+            // {title: "News"},
             {title: "Words"},
             {title: "Translate"},
             {title: "Wikipedia"},
-            {title: "Book"},
-            {title: "Flow"}
+            // {title: "Book"},
+            // {title: "Flow"}
+            {title: "arXiv"}
         ];
 
         //TODO

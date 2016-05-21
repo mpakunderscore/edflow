@@ -1,0 +1,12 @@
+<div id="chat"
+     ng-style="{width: contentWidth}"
+     ng-controller="chatController">
+
+    <ul>
+        <li ng-repeat="item in chatItems">
+            <p>{{item.title}}</p>
+        </li>
+    </ul>
+
+    <input type="text" placeholder="Write a message...">
+</div>

@@ -54,5 +54,11 @@ edflow
                 controller: "flowController as flow"
             })
 
+            .state("arxiv", {
+                url: "/arxiv",
+                templateUrl: "assets/view/data/flow.html",
+                controller: "arxivController as arxiv"
+            })
+
         //$locationProvider.html5Mode(true);
     });

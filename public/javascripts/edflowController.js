@@ -15,47 +15,10 @@ edflow
             }
         });
 
-        //$scope.selectedCategories = [];
-        //$scope.subCategories = [];
-        //
-        //$scope.selectCategory = function(category) {
-        //
-        //    if (category !== "")
-        //        $scope.selectedCategories.push(category);
-        //
-        //    $scope.subCategories = [];
-        //
-        //    $http.get("api/category?category=" + category.title + "&language=" + $scope.language).success(function (data) {
-        //
-        //            $scope.items = data.items;
-        //            $scope.subCategories = data.subCategories;
-        //
-        //            $scope.moveMenu();
-        //        })
-        //        .error(function (e) {
-        //            console.log(e);
-        //        });
-        //}
-        //
-        //$scope.selectCategory("");
-        //
-        //$scope.deselectCategory = function(category) {
-        //
-        //    while ($scope.selectedCategories.pop() !== category) {
-        //    }
-        //
-        //    if ($scope.selectedCategories.length == 0)
-        //        $scope.selectCategory("");
-        //    else
-        //        $scope.selectCategory($scope.selectedCategories.pop());
-        //
-        //}
-
         $rootScope.getLongest = function (arr) {
 
             var length = 0;
             var longest;
-
             for (var i = 0; i < arr.length; i++){
 
                 if (arr[i].title.length > length) {
@@ -66,7 +29,7 @@ edflow
             }
 
             return longest;
-        }
+        };
 
         $rootScope.getTextWidth = function (text, font) {
 
@@ -77,5 +40,5 @@ edflow
             var metrics = context.measureText(text);
             return metrics.width;
         };
-    })
+    });
 
