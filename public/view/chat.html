@@ -1,12 +1,20 @@
 <div id="chat"
      ng-style="{width: contentWidth}"
-     ng-controller="chatController">
+     ng-controller="chatController"
+     ng-mouseleave="hideChat()">
 
     <ul>
-        <li ng-repeat="item in chatItems">
-            <p>{{item.title}}</p>
+        <li ng-repeat="item in chatItems" ng-class="item.self ? 'self' : '' ">
+            <span class="name" ng-if="!item.self">{{item.name}}:</span> <span class="message">{{item.message}}</span>
         </li>
     </ul>
 
-    <input type="text" placeholder="Write a message...">
+    <input ng-style="{left: menuWidth}"
+           type="text"
+           placeholder="{{placeholder}}"
+           ng-mouseover="showChat()"
+           ng-enter="send()">
+
+    <i class="material-icons icon">chat</i>
+
 </div>

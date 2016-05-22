@@ -2,11 +2,6 @@ edflow
 
     .controller("edflowController", function ($scope, $rootScope, $http) {
 
-        $rootScope.menuWidth = "50%";
-        $rootScope.contentWidth = "50%";
-        $rootScope.circleLeft = "calc(50% - 135px)";
-        $rootScope.categoriesTop = "calc(50% - 26px)";
-
         $("#search").keyup(function (e) {
             if (e.keyCode == 13) {
                 var category = {};

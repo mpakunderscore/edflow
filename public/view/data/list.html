@@ -1,0 +1,30 @@
+<div id="content"
+     ng-style="{width: contentWidth}"
+     ng-controller="contentController">
+
+    <ul>
+        <li ng-repeat="item in items">
+
+            <!--<div class="image" ng-style="{'background-image': 'url(' + item.image + ')'}"></div>-->
+
+            <div class="page">
+
+                <div class="title">
+                    <a href="https://{{language}}.wikipedia.org/wiki/{{item.title}}" target="_blank">{{item.title + "  "  + item.main}}</a>
+                    <!--{{item.title + "  "  + item.main}}-->
+                </div>
+
+                <div class="description" ng-bind-html="item.description"></div>
+
+                <div class="categories">
+                    <span ng-repeat="category in item.categories.split(',')">
+                        <a ng-click="selectOneCategory(category)" >{{category}}</a>{{$last ? '' : ', '}}
+                    </span>
+                </div>
+
+            </div>
+
+        </li>
+    </ul>
+
+</div>

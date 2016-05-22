@@ -2,14 +2,18 @@ edflow
 
     .controller("categoriesController", function ($scope, $rootScope, $http, $state) {
 
+        var center = "30%";
+
+        $rootScope.menuWidth = center;
+        $rootScope.contentWidth = "calc(100% - " + center + ")";;
+        $rootScope.circleLeft = "calc(" + center + " - 135px)";
+        $rootScope.categoriesTop = "calc(50% - 26px)";
+
         var menuItems = [
-            // {title: "News"},
-            {title: "Words"},
-            {title: "Translate"},
+            {title: "Reddit"},
             {title: "Wikipedia"},
-            // {title: "Book"},
-            // {title: "Flow"}
-            {title: "arXiv"}
+            {title: "Lurkmore"},
+            {title: "Arxiv"}
         ];
 
         //TODO
@@ -86,9 +90,9 @@ edflow
         $scope.moveCategoriesWidth = function (path) {
 
             if ($rootScope.selectedCategories.length === 0) {
-                $rootScope.menuWidth = "50%";
-                $rootScope.contentWidth = "50%";
-                $rootScope.circleLeft = "50% - 135px";
+                $rootScope.menuWidth = center;
+                $rootScope.contentWidth = "calc(100% - " + center + ")";
+                $rootScope.circleLeft = "calc(" + center + " - 135px)";
 
                 $scope.moveCategoriesMargin();
                 return;
