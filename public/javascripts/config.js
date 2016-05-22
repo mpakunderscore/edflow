@@ -26,7 +26,7 @@ edflow
 
             .state("reddit", {
                 url: "/reddit",
-                templateUrl: "assets/view/data/list.html",
+                templateUrl: "assets/view/data/content.html",
                 controller: "wikipediaController as wikipedia"
             })
 
@@ -38,7 +38,7 @@ edflow
 
             .state("arxiv", {
                 url: "/arxiv",
-                templateUrl: "assets/view/data/flow.html",
+                templateUrl: "assets/view/data/content.html",
                 controller: "wikipediaController as wikipedia"
             })
 
