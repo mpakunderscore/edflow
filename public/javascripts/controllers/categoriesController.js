@@ -28,6 +28,9 @@ edflow
 
             //console.log(category)
 
+            var path = $state.current.name;
+
+            console.log(path);
 
             if (category !== "") {
 
@@ -43,12 +46,10 @@ edflow
                 $scope.moveCategoriesWidth();
                 $rootScope.circleAnimation = "";
 
-                console.log($state.current.name);
-
                 return;
             }
 
-            var path = $state.current.name;
+
 
             $rootScope.circleAnimation = "animation";
 
@@ -69,8 +70,8 @@ edflow
                     $scope.moveCategoriesWidth(path);
 
                     $rootScope.circleAnimation = "";
-                })
-                .error(function () {
+
+                }).error(function () {
                     $rootScope.circleAnimation = "error";
                 });
         }
@@ -119,7 +120,7 @@ edflow
             }
 
             $scope.moveCategoriesMargin();
-        }
+        };
 
         $scope.moveCategoriesMargin = function () {
 
@@ -132,11 +133,10 @@ edflow
             else
                 $rootScope.categoriesTop = "calc(50% - " + px/2 + "px)";
 
-        }
+        };
 
         $scope.moveCategoriesMargin();
 
         $scope.moveContentMargin = function () {
-
         }
-    })
+    });

@@ -104,55 +104,10 @@ html {
 
     z-index: 1;
 
-    margin-bottom: 55px;
+    margin-bottom: 60px;
 
     background-color: white;
     /*background-color: rgba(19, 229, 224, 0.13);*/
     -webkit-transition: width 1s; /* Safari */
     transition: width 1s;
-}
-
-#words {
-    position: absolute;
-    top: 0;
-    /*float: left;*/
-    /*width: 100%;*/
-    /*width: 50%;*/
-    right: 0;
-    bottom: 0;
-
-    z-index: 1;
-
-    /*padding: 100px;*/
-
-    /*background-color: rgba(255, 255, 255, 0.5);*/
-    /*background-color: rgba(136, 212, 255, 0.3);*/
-    /*background-color: rgba(56, 153, 255, 0.1);*/
-    -webkit-transition: width 1s; /* Safari */
-    transition: width 1s;
-}
-
-#translate {
-    position: absolute;
-    top: 0;
-    /*width: 50%;*/
-    right: 0;
-
-    z-index: 1;
-
-    /*background-color: rgba(19, 229, 224, 0.13);*/
-    -webkit-transition: width 1s; /* Safari */
-    transition: width 1s;
-}
-
-#translate #page {
-    background-color: white;
-    padding: 20px;
-    margin: 100px;
-
-    box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.15);
-}
-
-#translate .title{
-    font-size: 22px;
 }

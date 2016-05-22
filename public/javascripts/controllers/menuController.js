@@ -12,7 +12,10 @@ edflow
         $scope.menuItems = [];
 
         var menuItem  = {title: "MENU"};
-        var settingsItem = {title: "SETTINGS", class: "ng-hide", url: "settings"};
+
+        // data-ui-sref="{{item.url}}"
+
+        var settingsItem = {title: "SETTINGS", class: "ng-hide"};
         var languageItem = {title: "LANGUAGE", class: "ng-hide"};
 
         var EN = {title: "ENGLISH", class: "choice ng-hide", code: "EN"};
@@ -21,7 +24,7 @@ edflow
         var RU = {title: "RUSSIAN", class: "choice ng-hide", code: "RU"};
         //var ZH = {title: "CHINESE", class: "choice ng-hide", code: "ZH"};
 
-        $scope.menuItems = [RU, EN, languageItem, settingsItem, menuItem];
+        $scope.menuItems = [RU, EN, languageItem, settingsItem, menuItem]; //
 
 
         $scope.selectLanguage = function (item) {

@@ -18,46 +18,28 @@ edflow
                 controller: "settingsController as settings"
             })
 
-            .state("news", {
-                url: "/news",
-                templateUrl: "assets/view/data/content.html",
-                controller: "newsController as news"
-            })
-
-            .state("words", {
-                url: "/words",
-                templateUrl: "assets/view/data/words.html",
-                controller: "wordsController as words"
-            })
-
-            .state("translate", {
-                url: "/translate",
-                templateUrl: "assets/view/data/translate.html",
-                controller: "translateController as content"
-            })
-
             .state("wikipedia", {
                 url: "/wikipedia",
                 templateUrl: "assets/view/data/content.html",
                 controller: "wikipediaController as wikipedia"
             })
 
-            .state("book", {
-                url: "/book",
-                templateUrl: "assets/view/data/content.html",
-                controller: "bookController as book"
+            .state("reddit", {
+                url: "/reddit",
+                templateUrl: "assets/view/data/list.html",
+                controller: "wikipediaController as wikipedia"
             })
 
-            .state("flow", {
-                url: "/flow",
-                templateUrl: "assets/view/data/flow.html",
-                controller: "flowController as flow"
+            .state("lurkmore", {
+                url: "/lurkmore",
+                templateUrl: "assets/view/data/content.html",
+                controller: "wikipediaController as wikipedia"
             })
 
             .state("arxiv", {
                 url: "/arxiv",
                 templateUrl: "assets/view/data/flow.html",
-                controller: "arxivController as arxiv"
+                controller: "wikipediaController as wikipedia"
             })
 
         //$locationProvider.html5Mode(true);
