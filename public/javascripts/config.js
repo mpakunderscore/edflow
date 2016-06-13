@@ -12,35 +12,31 @@ edflow
                 //controller: "edflowController as edflow"
             })
 
-            .state("settings", {
-                url: "/settings",
+            // .state("settings", {
+            //     url: "/settings",
+            //     templateUrl: "assets/view/data/content.html",
+            //     controller: "settingsController as settings"
+            // })
+
+            .state("Main", {
+                url: "/main",
                 templateUrl: "assets/view/data/content.html",
-                controller: "settingsController as settings"
+                controller: "contentController as content"
             })
 
-            .state("wikipedia", {
-                url: "/wikipedia",
+            .state("Recommend", {
+                url: "/recommend",
                 templateUrl: "assets/view/data/content.html",
-                controller: "wikipediaController as wikipedia"
+                controller: "contentController as content"
             })
 
-            .state("reddit", {
-                url: "/reddit",
+            .state("Mine", {
+                url: "/mine",
                 templateUrl: "assets/view/data/content.html",
-                controller: "wikipediaController as wikipedia"
+                controller: "contentController as content"
             })
 
-            .state("lurkmore", {
-                url: "/lurkmore",
-                templateUrl: "assets/view/data/content.html",
-                controller: "wikipediaController as wikipedia"
-            })
 
-            .state("arxiv", {
-                url: "/arxiv",
-                templateUrl: "assets/view/data/content.html",
-                controller: "wikipediaController as wikipedia"
-            })
 
         //$locationProvider.html5Mode(true);
     });

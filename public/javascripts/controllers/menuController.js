@@ -24,7 +24,7 @@ edflow
         var RU = {title: "RUSSIAN", class: "choice ng-hide", code: "RU"};
         //var ZH = {title: "CHINESE", class: "choice ng-hide", code: "ZH"};
 
-        $scope.menuItems = [RU, EN, languageItem, settingsItem, menuItem]; //
+        $scope.menuItems = [RU, EN, languageItem, menuItem]; //settingsItem
 
 
         $scope.selectLanguage = function (item) {

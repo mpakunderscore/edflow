@@ -2,18 +2,17 @@ edflow
 
     .controller("categoriesController", function ($scope, $rootScope, $http, $state) {
 
-        var center = "30%";
+        var center = "50%";
 
         $rootScope.menuWidth = center;
-        $rootScope.contentWidth = "calc(100% - " + center + ")";;
+        $rootScope.contentWidth = "calc(100% - " + center + ")";
         $rootScope.circleLeft = "calc(" + center + " - 135px)";
         $rootScope.categoriesTop = "calc(50% - 26px)";
 
         var menuItems = [
-            {title: "Reddit"},
-            {title: "Wikipedia"},
-            {title: "Lurkmore"},
-            {title: "Arxiv"}
+            {title: "Main"},
+            {title: "Recommend"},
+            {title: "Mine"}
         ];
 
         //TODO
@@ -26,11 +25,13 @@ edflow
 
         $rootScope.selectCategory = function (category) {
 
-            //console.log(category)
+            // var path = $state.current.name;
 
-            var path = $state.current.name;
+            // console.log("selectCategory: " + path)
 
-            console.log(path);
+            // var category = {title: path};
+
+            // console.log(path);
 
             if (category !== "") {
 
@@ -40,7 +41,9 @@ edflow
 
                 $rootScope.selectedCategories = [];
                 $scope.subCategories = menuItems;
-                $scope.categories = [];
+
+                //?
+                // $scope.categories = [];
                 $rootScope.items = [];
 
                 $scope.moveCategoriesWidth();
@@ -48,26 +51,24 @@ edflow
 
                 return;
             }
-
-
-
+            
             $rootScope.circleAnimation = "animation";
 
             $scope.subCategories = [];
-            $scope.categories = [];
-            $scope.moveCategoriesWidth(path);
+            // $scope.categories = [];
+            $scope.moveCategoriesWidth(category.title);
 
             var categoryTitle = category.title;
 
             if (categoryTitle === "Wikipedia")
                 categoryTitle = "undefined";
 
-            $http.get("api/" + path + "?category=" + categoryTitle + "&language=" + $rootScope.language).success(function (data) {
+            $http.get("api/" + category.title.toLowerCase() + "?category=" + categoryTitle + "&language=" + $rootScope.language).success(function (data) {
 
                     $rootScope.items = data.items;
-                    $scope.categories = data.subCategories;
+                    // $scope.categories = data.subCategories;
 
-                    $scope.moveCategoriesWidth(path);
+                    $scope.moveCategoriesWidth(category.title);
 
                     $rootScope.circleAnimation = "";
 

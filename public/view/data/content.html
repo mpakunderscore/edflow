@@ -2,22 +2,21 @@
      ng-style="{width: contentWidth}">
 
     <ul>
-        <li ng-repeat="item in items">
+        <li ng-repeat="item in items" ng-click="showText = ! showText">
 
-            <!--<div class="image" ng-style="{'background-image': 'url(' + item.image + ')'}"></div>-->
+            <div class="image" ng-style="{'background-image': 'url(' + item.image + ')'}"></div>
 
             <div class="page">
 
                 <div class="title">
-                    <a href="https://{{language}}.wikipedia.org/wiki/{{item.title}}" target="_blank">{{item.title + "  "  + item.main}}</a>
-                    <!--{{item.title + "  "  + item.main}}-->
+                    <a href="{{item.url}}" target="_blank">{{item.title + "  "  + item.main}}</a>
                 </div>
 
-                <div class="description" ng-bind-html="item.description"></div>
+                <div class="text" ng-show="showText">{{item.text}}</div>
 
                 <div class="categories">
                     <span ng-repeat="category in item.categories.split(',')">
-                        <a ng-click="selectOneCategory(category)" >{{category}}</a>{{$last ? '' : ', '}}
+                        <a ng-click="selectOneCategory(category)">{{category}}</a>{{$last ? '' : ', '}}
                     </span>
                 </div>
 

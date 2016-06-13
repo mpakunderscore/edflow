@@ -1,6 +1,5 @@
 package controllers;
 
-import models.Word;
 import play.mvc.Result;
 import utils.Category;
 import utils.Logs;

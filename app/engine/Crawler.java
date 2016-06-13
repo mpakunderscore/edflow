@@ -5,6 +5,7 @@ import models.Page;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 import play.mvc.Controller;
 import utils.Logs;
 
@@ -33,13 +34,25 @@ public class Crawler {
 
         String title = pageDocument.title();
         String text = pageDocument.body().text();
-        String image = pageDocument.body().select("img").first().attr("src");
+        String image = findImage(pageDocument);
         List<String> categories = new ArrayList<>();
 
         page = new Page(url, title, text, image, String.join(",", categories));
         Ebean.save(page);
 
         return page;
+    }
+
+    private static String findImage(Document pageDocument) {
+
+        String image = "";
+
+        Element img = pageDocument.body().select("img").first();
+
+        if (img != null)
+            return img.attr("src");
+
+        return image;
     }
 
     public static Document getPageDocument(String url) {
