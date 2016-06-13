@@ -5,13 +5,16 @@
     <ul ng-style="{top: categoriesTop}">
 
         <li ng-repeat="item in selectedCategories">
-            <a ng-click="deselectCategory(item)" data-ui-sref="app" class="selected">{{item.title}}</a>
+            <a ng-click="deselectCategory(item)" class="selected">{{item.title}}</a>
         </li>
 
         <li ng-repeat="item in subCategories">
-            <a data-ui-sref="{{item.title}}">{{item.title}}</a>
+            <a ng-click="selectCategory(item)">{{item.title}}</a>
         </li>
 
+        <!--data-ui-sref="app"-->
+
+        <!--data-ui-sref="{{item.title}}"-->
 
 
         <!--<li ng-repeat="item in selectedCategories">-->

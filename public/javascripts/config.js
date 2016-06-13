@@ -7,9 +7,9 @@ edflow
         $stateProvider
 
             .state("app", {
-                url: "",
-                //templateUrl: "assets/view/data/content.html",
-                //controller: "edflowController as edflow"
+                url: "/",
+                templateUrl: "assets/view/data/content.html",
+                controller: "contentController as content"
             })
 
             // .state("settings", {

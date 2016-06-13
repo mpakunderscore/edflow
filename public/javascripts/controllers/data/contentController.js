@@ -4,7 +4,7 @@ edflow
 
         var path = $state.current.name;
 
-        $rootScope.selectCategory({title: path});
+        // $rootScope.selectCategory({title: path});
 
         console.log("selectCategory: " + path)
     })

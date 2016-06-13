@@ -67,14 +67,18 @@
     /*padding-bottom: 20px;*/
 }
 
-#content ul li div.page div.description {
+#content ul li div.page div.text {
     /*font-size: 14px;*/
     /*color: gray;*/
+    padding-top: 10px;
 }
 
 #content ul li div.page div.categories {
     color: gray;
     /*line-height: 150%;*/
+    padding-top: 10px;
+    /*vertical-align: middle;*/
+    /*background-color: red;*/
 }
 
 #content ul li div.page div.categories a {

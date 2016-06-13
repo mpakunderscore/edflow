@@ -11,7 +11,8 @@ edflow
 
         var menuItems = [
             {title: "Main"},
-            {title: "Recommend"},
+            {title: "Flows"},
+            {title: "Robot"},
             {title: "Mine"}
         ];
 
@@ -36,6 +37,7 @@ edflow
             if (category !== "") {
 
                 $rootScope.selectedCategories.push(category);
+                $rootScope.hideChat();
 
             } else {
 
@@ -49,19 +51,21 @@ edflow
                 $scope.moveCategoriesWidth();
                 $rootScope.circleAnimation = "";
 
+                $rootScope.showChat();
+
                 return;
             }
             
             $rootScope.circleAnimation = "animation";
 
             $scope.subCategories = [];
-            // $scope.categories = [];
+
             $scope.moveCategoriesWidth(category.title);
 
             var categoryTitle = category.title;
 
-            if (categoryTitle === "Wikipedia")
-                categoryTitle = "undefined";
+            // if (categoryTitle === "Wikipedia")
+            //     categoryTitle = "undefined";
 
             $http.get("api/" + category.title.toLowerCase() + "?category=" + categoryTitle + "&language=" + $rootScope.language).success(function (data) {
 

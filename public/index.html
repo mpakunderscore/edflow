@@ -67,7 +67,9 @@
         <div ng-include="'assets/view/categories.html'"></div>
         <div ng-include="'assets/view/chat.html'"></div>
 
-        <data ui-view></data>
+        <!--<data ui-view></data>-->
+
+        <data><div ng-include="'assets/view/data/content.html'"></div></data>
 
         <div id="circle" ng-style="{'left': circleLeft}" ng-class="circleAnimation"></div>
     </body>

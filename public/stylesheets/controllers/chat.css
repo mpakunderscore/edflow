@@ -1,25 +1,9 @@
-#chat {
-    position: absolute;
-    /*top: 0;*/
-    bottom: 0;
-    right: 0;
-
-    z-index: 2;
-
-    margin-bottom: 50px;
-
-    -webkit-transition: width 1s; /* Safari */
-    transition: width 1s;
-
-    /*background-color: rgba(0, 128, 0, 0.39);*/
-
-}
-
 #chat ul {
     position: relative;
     margin: 0;
     padding: 0;
-    background-color: white;
+    /*background-color: white;*/
+    /*background-color: red;*/
 
     list-style: none;
     display: none;
@@ -69,8 +53,11 @@
     bottom: 0;
     right: 0;
     width: 100%;
+    left: 50%;
     line-height: 50px;
     font-weight: 300;
+
+    /*line-height: normal;*/
 
     z-index: 3;
 

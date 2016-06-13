@@ -3,17 +3,16 @@ edflow
     .controller("chatController", function ($scope, $rootScope, $http, $state) {
 
         $scope.chatItems = [
-            {name: "Reddit", message: "Elon Musk on Twitter: @SchaFFFFFF Flight 24 is def capable of flying again, but it makes sense to apply ground delta qual to rocket w toughest entry conditions."},
-            {name: "Wikipedia", message: "A shopping mall that stood abandoned for over twice as long as it was in business, until it was finally demolished in 2012. It was featured in the 1980 film The Blues Brothers and became a popular target for urban explorers."},
-            {name: "Arxiv", message: "New articles.."},
-            {name: "Bot", message: "hi :)"}
+            {name: "Robot", message: "Hello. This is a link recommendation system."},
+            {name: "Robot", message: "Main - list of newly added links. Flows is a sources for links. And not only domains, but all pages where i can find updatable list. Mine is a your links."},
+            {name: "Robot", message: "and this is me. I will recommend links for you and even can interact with you via this chat. You should feed me. The more i eat, the better recommendation will be. Throw links here or use chrome extension."}
         ];
 
         $scope.placeholder = "";
 
         console.log("chat");
 
-        $scope.showChat = function () {
+        $rootScope.showChat = function () {
             $scope.placeholder = "Write a message...";
             document.querySelector("#chat ul").style.display = "inline";
             document.querySelector("body data").style.display = "none";
@@ -24,7 +23,11 @@ edflow
             window.scrollTo(0, document.body.scrollHeight);
         }
 
-        $scope.hideChat = function () {
+        $rootScope.hideChat = function () {
+
+            if ($rootScope.selectedCategories.length === 0)
+                return;
+
             $scope.placeholder = "";
             document.querySelector("#chat ul").style.display = "none";
             document.querySelector("body data").style.display = "inline";
@@ -38,6 +41,9 @@ edflow
 
             var value = document.querySelector("#chat input").value;
 
+            if (value.length === 0)
+                return;
+
             console.log("send");
             $scope.chatItems.push({name: "You", message: value, self: true});
             document.querySelector("#chat input").value = "";
@@ -48,6 +54,8 @@ edflow
                     $rootScope.circleAnimation = "error";
                 });
         }
+
+        $rootScope.showChat();
     })
 
     .directive('ngEnter', function() {

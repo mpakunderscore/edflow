@@ -4,19 +4,23 @@
     <ul>
         <li ng-repeat="item in items" ng-click="showText = ! showText">
 
-            <div class="image" ng-style="{'background-image': 'url(' + item.image + ')'}"></div>
+            <!--<div class="image" ng-style="{'background-image': 'url(' + item.image + ')'}"></div>-->
 
             <div class="page">
 
                 <div class="title">
+                    <!--<img src="{{item.url}}">-->
                     <a href="{{item.url}}" target="_blank">{{item.title + "  "  + item.main}}</a>
                 </div>
 
-                <div class="text" ng-show="showText">{{item.text}}</div>
+                <div class="text" ng-show="showText">{{item.text.substring(0, 1000)}}</div>
 
-                <div class="categories">
+                <div class="categories" ng-show="showText">
                     <span ng-repeat="category in item.categories.split(',')">
                         <a ng-click="selectOneCategory(category)">{{category}}</a>{{$last ? '' : ', '}}
+                    </span>
+                    <span>
+                       <a ng-click="addCategory()">add category</a>
                     </span>
                 </div>
 
