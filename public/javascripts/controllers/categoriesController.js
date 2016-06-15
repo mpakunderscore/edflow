@@ -7,7 +7,7 @@ edflow
         $rootScope.menuWidth = center;
         $rootScope.contentWidth = "calc(100% - " + center + ")";
         $rootScope.circleLeft = "calc(" + center + " - 135px)";
-        $rootScope.categoriesTop = "calc(50% - 26px)";
+        // $rootScope.categoriesTop = "calc(50% - 26px)";
 
         var menuItems = [
             {title: "Main"},

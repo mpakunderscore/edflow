@@ -9,9 +9,9 @@ GET     /words                       controllers.Assets.at(path="/public", file=
 
 # API
 #GET     /api/wikipedia              controllers.Wikipedia.getCategoryTree(category: String, language: String)
-GET     /api/main                   controllers.Content.getMain(category: String, language: String)
-GET     /api/recommend              controllers.Content.getMain(category: String, language: String)
-GET     /api/mine                   controllers.Content.getMain(category: String, language: String)
+GET     /api/main                   controllers.Content.getMain(language: String)
+GET     /api/recommend              controllers.Content.getMain(language: String)
+GET     /api/mine                   controllers.Content.getMine(language: String)
 
 
 #GET     /api/arxiv                  controllers.Content.getPages(category: String, language: String)
