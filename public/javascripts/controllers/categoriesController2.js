@@ -42,15 +42,15 @@ edflow
                 $rootScope.categories[i].selected = false;
             }
 
-            category.selected = true;
 
-            $scope.$apply;
+
+            // $scope.$apply;
 
             // $scope.moveCategoriesWidth(category);
 
-
-
             $http.get("api/" + category.title.toLowerCase() + "?language=" + $rootScope.language).success(function (data) {
+
+                category.selected = true;
 
                 $rootScope.hideChat();
 
