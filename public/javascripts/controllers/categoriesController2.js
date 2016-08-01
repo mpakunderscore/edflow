@@ -48,9 +48,11 @@ edflow
 
             // $scope.moveCategoriesWidth(category);
 
+            category.selected = true;
+
             $http.get("api/" + category.title.toLowerCase() + "?language=" + $rootScope.language).success(function (data) {
 
-                category.selected = true;
+                // category.selected = true;
 
                 $rootScope.hideChat();
 

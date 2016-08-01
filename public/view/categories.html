@@ -13,7 +13,7 @@
         <!--</li>-->
 
         <li ng-repeat="item in categories">
-            <a ng-click="selectCategory(item)" ng-class="(item.selected === true) ? 'selected' : ''">{{item.title}}</a>
+            <a ng-click="selectCategory(item)" ng-style="item.selected && {'color':'red'} || {'color': 'black'}" >{{item.title}}</a>
         </li>
 
         <!--data-ui-sref="app"-->

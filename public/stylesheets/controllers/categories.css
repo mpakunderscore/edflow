@@ -24,13 +24,5 @@
 }
 
 #categories ul a:hover {
-    color: red;
-}
-
-#categories ul a.selected {
-    color: red;
-}
-
-#categories ul a.selected:hover {
-    color: rgba(255, 0, 0, 0.5);
+    color: rgba(255, 0, 0, 0.5) !important;
 }
