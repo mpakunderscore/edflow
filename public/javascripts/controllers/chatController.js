@@ -29,7 +29,7 @@ edflow
 
             for (var i = 0, len = $rootScope.categories.length; i < len; i++) {
 
-                if ($rootScope.categories[i].selected == true)
+                if ($rootScope.categories[i].selected === true)
                     selected = true;
             }
 
@@ -55,11 +55,14 @@ edflow
                 return;
 
             // console.log("send");
+
             $scope.chatItems.push({name: "", message: value, self: true});
-            $scope.chatItems.push({name: "Robot", message: "Wut..."});
-            document.querySelector("#chat input").value = "";
+            document.querySelector("#chat input").value = "Robot thinking...";
 
             $http.get("api/chat?message=" + value).success(function (data) {
+
+                $scope.chatItems.push({name: "Robot", message: data});
+                document.querySelector("#chat input").value = "";
 
             }).error(function () {
                     $rootScope.circleAnimation = "error";

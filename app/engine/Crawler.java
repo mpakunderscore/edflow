@@ -1,6 +1,7 @@
 package engine;
 
 import com.avaje.ebean.Ebean;
+import models.Flow;
 import models.Page;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
@@ -70,5 +71,29 @@ public class Crawler {
         }
 
         return doc;
+    }
+
+    public static Flow checkFlow(String url) {
+
+        Logs.out(url);
+
+        Flow flow = null;
+
+        flow = Ebean.find(Flow.class).where().where().eq("url", url).findUnique();
+
+        if (flow != null)
+            return flow;
+
+        Document pageDocument = getPageDocument(url);
+
+        String title = pageDocument.title();
+        String text = pageDocument.body().text();
+        String image = findImage(pageDocument);
+        List<String> categories = new ArrayList<>();
+
+        flow = new Flow(url, title, String.join(",", categories));
+        Ebean.save(flow);
+
+        return flow;
     }
 }

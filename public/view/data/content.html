@@ -1,5 +1,6 @@
 <div id="content"
-     ng-style="{width: contentWidth}">
+     ng-style="{width: contentWidth}"
+     ng-controller="contentController">
 
     <ul>
         <li ng-repeat="item in items" ng-click="showText = ! showText">
@@ -9,7 +10,7 @@
             <div class="page">
 
                 <div class="title">
-                    <!--<img src="{{item.url}}">-->
+                    <img ng-src="{{favicon(item.url)}}">
                     <a href="{{item.url}}" target="_blank">{{item.title + "  "  + item.main}}</a>
                 </div>
 

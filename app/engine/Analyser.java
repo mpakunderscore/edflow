@@ -90,7 +90,7 @@ public class Analyser {
         Logs.time(time);
     }
 
-    private static String getDomain(String url) {
+    public static String getDomain(String url) {
         return url.replace("http://", "").replace("https://", "").replace("www.", "").split("/")[0];
     }
 }

@@ -2,6 +2,7 @@ package controllers;
 
 import com.avaje.ebean.Ebean;
 import engine.Crawler;
+import models.Flow;
 import models.Page;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -31,6 +32,16 @@ public class Content extends Controller {
     public static Result getMain(String language) {
 
         List<Page> pages = Ebean.find(Page.class).orderBy("time desc").findList();
+
+        List<Category> subCategories = new ArrayList<>();
+
+        Response response = new Response(subCategories, pages);
+        return ok(toJson(response));
+    }
+
+    public static Result getFlows(String language) {
+
+        List<Flow> pages = Ebean.find(Flow.class).findList();
 
         List<Category> subCategories = new ArrayList<>();
 

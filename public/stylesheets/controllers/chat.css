@@ -3,7 +3,7 @@
     margin: 0;
     padding: 0;
     /*background-color: white;*/
-    /*background-color: red;*/
+    background-color: red;
 
     list-style: none;
     display: none;
@@ -25,6 +25,13 @@
     display: inline;
 
     font-size: 16px;
+
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+    transition: box-shadow 0.3s ease-in-out;
+}
+
+#chat ul li:hover {
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
 }
 
 #chat ul li span.name {

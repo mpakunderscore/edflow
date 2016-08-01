@@ -10,7 +10,8 @@ GET     /words                       controllers.Assets.at(path="/public", file=
 # API
 #GET     /api/wikipedia              controllers.Wikipedia.getCategoryTree(category: String, language: String)
 GET     /api/main                   controllers.Content.getMain(language: String)
-GET     /api/recommend              controllers.Content.getMain(language: String)
+GET     /api/flows                  controllers.Content.getFlows(language: String)
+GET     /api/robot                  controllers.Content.getMain(language: String)
 GET     /api/mine                   controllers.Content.getMine(language: String)
 
 

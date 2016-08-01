@@ -20,6 +20,6 @@ public class Chat {
 
         Logs.out(message);
 
-        return ok(toJson(new Response(null, null)));
+        return ok(toJson("Server response"));
     }
 }

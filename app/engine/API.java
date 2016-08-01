@@ -24,6 +24,8 @@ public class API extends Controller {
 
         Page page = Crawler.getPage(url);
 
+        Crawler.checkFlow("http://" + Analyser.getDomain(url));
+
         Parser.getSortedWords(page);
 
         return ok(toJson(page));
