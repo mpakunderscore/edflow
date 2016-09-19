@@ -36,12 +36,13 @@ public class Content extends Controller {
         List<Category> subCategories = new ArrayList<>();
 
         Response response = new Response(subCategories, pages);
+
         return ok(toJson(response));
     }
 
     public static Result getFlows(String language) {
 
-        List<Flow> pages = Ebean.find(Flow.class).findList();
+        List<Flow> pages = Ebean.find(Flow.class).orderBy("time desc").findList();
 
         List<Category> subCategories = new ArrayList<>();
 

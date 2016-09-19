@@ -31,15 +31,20 @@ public class Crawler {
         if (page != null)
             return page;
 
-        Document pageDocument = getPageDocument(url);
+        try {
 
-        String title = pageDocument.title();
-        String text = pageDocument.body().text();
-        String image = findImage(pageDocument);
-        List<String> categories = new ArrayList<>();
+            Document pageDocument = getPageDocument(url);
+            String title = pageDocument.title();
+            String text = pageDocument.body().text();
+            String image = findImage(pageDocument);
+            List<String> categories = new ArrayList<>();
 
-        page = new Page(url, title, text, image, String.join(",", categories));
-        Ebean.save(page);
+            page = new Page(url, title, text, image, String.join(",", categories));
+            Ebean.save(page);
+
+        } catch (Exception e) {
+            return null;
+        }
 
         return page;
     }
@@ -62,7 +67,7 @@ public class Crawler {
 
         try {
 
-            Connection connection = Jsoup.connect(url);
+            Connection connection = Jsoup.connect(url).timeout(60000);
 
             doc = connection.userAgent(Crawler.USER_AGENT).followRedirects(true).get();
 
@@ -84,15 +89,21 @@ public class Crawler {
         if (flow != null)
             return flow;
 
-        Document pageDocument = getPageDocument(url);
+        try {
 
-        String title = pageDocument.title();
-        String text = pageDocument.body().text();
-        String image = findImage(pageDocument);
-        List<String> categories = new ArrayList<>();
+            Document pageDocument = getPageDocument(url);
 
-        flow = new Flow(url, title, String.join(",", categories));
-        Ebean.save(flow);
+            String title = pageDocument.title();
+            String text = pageDocument.body().text();
+            String image = findImage(pageDocument);
+            List<String> categories = new ArrayList<>();
+
+            flow = new Flow(url, title, String.join(",", categories));
+            Ebean.save(flow);
+
+        } catch (Exception e) {
+            return null;
+        }
 
         return flow;
     }

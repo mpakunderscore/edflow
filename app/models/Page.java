@@ -39,7 +39,11 @@ public class Page extends Model {
 
         this.url = url;
 
-        this.title = title.substring(0, Math.min(title.length(), 100));
+        if (title.length() != 0)
+            this.title = title.substring(0, Math.min(title.length(), 100));
+        else
+            this.title = title.substring(0, Math.min(url.length(), 100));
+
         this.text = text.substring(0, Math.min(text.length(), 100000));
         this.image = image;
         this.categories = categories;

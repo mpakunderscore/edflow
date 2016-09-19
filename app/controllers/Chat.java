@@ -7,6 +7,7 @@ import utils.Response;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import static play.libs.Json.toJson;
 import static play.mvc.Results.ok;
@@ -16,9 +17,11 @@ import static play.mvc.Results.ok;
  */
 public class Chat {
 
-    public static Result message(String message) {
+    public static Result message(String message) throws InterruptedException {
 
         Logs.out(message);
+
+        TimeUnit.SECONDS.sleep(1);
 
         return ok(toJson("Server response"));
     }

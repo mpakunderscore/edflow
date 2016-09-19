@@ -21,6 +21,8 @@ GET     /api/mine                   controllers.Content.getMine(language: String
 GET     /api/page                   engine.API.getPage(url: String)
 GET     /api/settings               engine.API.getSettings
 
+GET     /api/randome                engine.API.randomData
+
 GET     /api/chat                   controllers.Chat.message(message: String)
 
 # Map static resources from the /public folder to the /assets URL path

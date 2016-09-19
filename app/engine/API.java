@@ -1,6 +1,9 @@
 package engine;
 
 import models.Page;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 import play.mvc.Controller;
 import play.mvc.Result;
 import utils.Category;
@@ -24,6 +27,9 @@ public class API extends Controller {
 
         Page page = Crawler.getPage(url);
 
+        if (page == null)
+            return ok();
+
         Crawler.checkFlow("http://" + Analyser.getDomain(url));
 
         Parser.getSortedWords(page);
@@ -41,4 +47,56 @@ public class API extends Controller {
 
         return ok(toJson(new Response(categories, new ArrayList<Object>())));
     }
+
+    public static Result randomData() {
+
+        //check sites
+
+//        String url = "https://www.reddit.com/r/MachineLearning/top/?sort=top&t=year";
+
+        String url = "https://www.reddit.com/r/CompressiveSensing/top/?sort=top&t=year";
+
+        Document document = Crawler.getPageDocument(url);
+
+        Elements elements = document.body().select(".title");
+
+        for (int i = 0; i < elements.size(); i++) {
+
+            String link = elements.get(i).attr("data-href-url");
+            if (link.length() != 0 && !link.endsWith(".jpg") && !link.endsWith(".png")) {
+//                Logs.out(link);
+
+                getPage(link);
+            }
+        }
+        //run get page
+
+        return ok();
+    }
+
+//    public static Result randomData() {
+//
+//        //check sites
+//
+////        String url = "https://www.reddit.com/r/MachineLearning/top/?sort=top&t=year";
+//
+//        String url = "https://www.reddit.com/r/CompressiveSensing/top/?sort=top&t=year";
+//
+//        Document document = Crawler.getPageDocument(url);
+//
+//        Elements elements = document.body().select(".title");
+//
+//        for (int i = 0; i < elements.size(); i++) {
+//
+//            String link = elements.get(i).attr("data-href-url");
+//            if (link.length() != 0 && !link.endsWith(".jpg") && !link.endsWith(".png")) {
+////                Logs.out(link);
+//
+//                getPage(link);
+//            }
+//        }
+//        //run get page
+//
+//        return ok();
+//    }
 }
