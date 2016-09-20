@@ -35,5 +35,9 @@ edflow
             var metrics = context.measureText(text);
             return metrics.width;
         };
+
+        $rootScope.circle = function () {
+            console.log("circle")
+        }
     });
 

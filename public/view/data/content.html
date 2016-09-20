@@ -10,7 +10,7 @@
             <div class="page">
 
                 <div class="title">
-                    <img ng-src="{{favicon(item.url)}}">
+                    <img ng-src="{{favicon(item.url)}}" onerror="imgError(this);">
                     <a href="{{item.url}}" target="_blank">{{item.title + "  "  + item.main}}</a>
                 </div>
 

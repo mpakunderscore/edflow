@@ -100,6 +100,7 @@
     z-index: 3;
 
     line-height: 50px;
-    color: rgba(169, 169, 169, 0.17);
+    /*color: rgba(169, 169, 169, 0.17);*/
+    color: #37b9ff;
     /*padding-left: 20px;*/
 }

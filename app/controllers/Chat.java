@@ -23,6 +23,6 @@ public class Chat {
 
         TimeUnit.SECONDS.sleep(1);
 
-        return ok(toJson("Server response"));
+        return ok(toJson("[server response]"));
     }
 }
