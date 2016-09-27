@@ -5,6 +5,8 @@ edflow
         var center = "50%";
         var circle = "135px";
 
+        var minLeft = "15"; //percent
+
         $rootScope.menuWidth = center;
         $rootScope.contentWidth = "calc(100% - " + center + ")";
         $rootScope.circleLeft = "calc(" + center + " - " + circle + ")";
@@ -88,8 +90,8 @@ edflow
 
             //console.log(longest.title + " " + menuWidth + " " + percent);
 
-            if (percent < 20) {
-                menuWidth *= 20/percent;
+            if (percent < minLeft) {
+                menuWidth *= minLeft/percent;
             }
 
             //console.log(longest.title + " " + menuWidth + " " + percent);

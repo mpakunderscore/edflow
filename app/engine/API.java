@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 import static play.libs.Json.toJson;
@@ -25,16 +26,34 @@ public class API extends Controller {
 
     public static Result getPage(String url) {
 
-        Page page = Crawler.getPage(url);
+        Logs.out(url);
 
-        if (page == null)
-            return ok();
+        Long time = System.currentTimeMillis();
 
-        Crawler.checkFlow("http://" + Analyser.getDomain(url));
+        Runnable task = () -> {
 
-        Parser.getSortedWords(page);
+            Page page = Crawler.getPage(url);
 
-        return ok(toJson(page));
+            if (page != null)
+                Logs.debug("Page ok");
+
+//            try {
+//                TimeUnit.SECONDS.sleep(5);
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            }
+
+//            Logs.out("3: " + (System.currentTimeMillis() - time));
+        };
+
+//        Logs.out("1: " + (System.currentTimeMillis() - time));
+
+        Thread thread = new Thread(task);
+        thread.start();
+
+//        Logs.out("2: " + (System.currentTimeMillis() - time));
+
+        return ok();
     }
 
     public static Result getSettings() {

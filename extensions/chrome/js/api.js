@@ -22,8 +22,8 @@ function add_url(tab, userId) {
 
     var response = request.responseText;
 
-    if (response.length == 0)
-        return; //TODO
+    // if (response.length == 0)
+    //     return; //TODO
 
     var secondsEnd = new Date().getTime() / 1000;
 

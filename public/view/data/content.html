@@ -3,18 +3,18 @@
      ng-controller="contentController">
 
     <ul>
-        <li ng-repeat="item in items" ng-click="showText = ! showText">
+        <li ng-repeat="item in items" ng-click="showText = !showText">
 
             <!--<div class="image" ng-style="{'background-image': 'url(' + item.image + ')'}"></div>-->
 
             <div class="page">
 
                 <div class="title">
-                    <img ng-src="{{favicon(item.url)}}" onerror="imgError(this);">
-                    <a href="{{item.url}}" target="_blank">{{item.title + "  "  + item.main}}</a>
+                    <img ng-src="{{favicon(item.url)}}" onerror="this.src='assets/images/favicon.png';">
+                    <a href="{{item.url}}" target="_blank" title="{{item.url}}">{{item.title + "  "  + item.main}}</a>
                 </div>
 
-                <div class="text" ng-show="showText">{{item.text.substring(0, 1000)}}</div>
+                <div class="text" ng-show="showText">{{item.text.substring(0, 400)}}</div>
 
                 <div class="categories" ng-show="showText">
                     <span ng-repeat="category in item.categories.split(',')">

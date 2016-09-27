@@ -86,6 +86,10 @@
     /*background-color: red;*/
 }
 
+#chat input:hover {
+    opacity: 1;
+}
+
 #chat input[type="text"] {
     font-size: 16px;
 }

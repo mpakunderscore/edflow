@@ -18,4 +18,15 @@ edflow
 
             return url
         }
+
+        $rootScope.imgError = function() {
+
+
+            image.onerror = "";
+            image.src = "/images/noimage.gif";
+
+            console.log(image)
+            return true;
+        }
+
     })

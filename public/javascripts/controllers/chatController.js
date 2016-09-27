@@ -13,6 +13,7 @@ edflow
         console.log("chat");
 
         $rootScope.showChat = function () {
+
             $scope.placeholder = "Write a message...";
             document.querySelector("#chat ul").style.display = "inline";
             document.querySelector("body data").style.display = "none";
