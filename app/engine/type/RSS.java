@@ -1,10 +1,8 @@
-package engine;
+package engine.type;
 
 import java.net.URL;
-import java.io.InputStreamReader;
 
 //import com.rometools.rome.feed.synd.SyndEntryImpl;
-import com.rometools.rome.feed.synd.SyndContent;
 import com.rometools.rome.feed.synd.SyndEntryImpl;
 import com.rometools.rome.feed.synd.SyndFeed;
 import com.rometools.rome.io.SyndFeedInput;
@@ -13,9 +11,9 @@ import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 import utils.Logs;
 
-class RSS {
+public class RSS {
 
-    static void process(String url, Document pageDocument) {
+    public static void read(String url, Document pageDocument) {
 
         String rssUrl = findRSSUrl(url, pageDocument);
 

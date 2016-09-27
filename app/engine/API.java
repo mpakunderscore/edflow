@@ -1,5 +1,6 @@
 package engine;
 
+import engine.type.HTML;
 import models.Page;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -28,7 +29,7 @@ public class API extends Controller {
 
         Logs.out(url);
 
-        Long time = System.currentTimeMillis();
+//        Long time = System.currentTimeMillis();
 
         Runnable task = () -> {
 
@@ -36,22 +37,10 @@ public class API extends Controller {
 
             if (page != null)
                 Logs.debug("Page ok");
-
-//            try {
-//                TimeUnit.SECONDS.sleep(5);
-//            } catch (InterruptedException e) {
-//                e.printStackTrace();
-//            }
-
-//            Logs.out("3: " + (System.currentTimeMillis() - time));
         };
-
-//        Logs.out("1: " + (System.currentTimeMillis() - time));
 
         Thread thread = new Thread(task);
         thread.start();
-
-//        Logs.out("2: " + (System.currentTimeMillis() - time));
 
         return ok();
     }
@@ -75,7 +64,7 @@ public class API extends Controller {
 
         String url = "https://www.reddit.com/r/CompressiveSensing/top/?sort=top&t=year";
 
-        Document document = Crawler.getPageDocument(url);
+        Document document = HTML.getPageDocument(url);
 
         Elements elements = document.body().select(".title");
 

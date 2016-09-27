@@ -54,7 +54,7 @@ public class Logs {
 
         String caller = new Exception().getStackTrace()[2].getClassName();
 
-        int n = 15 - caller.length();
+        int n = 20 - caller.length();
 
         if (n < 0)
             n = 0;
