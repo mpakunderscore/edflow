@@ -26,6 +26,8 @@ edflow
 
         $rootScope.hideChat = function () {
 
+            if (document.querySelector("#chat ul").style.display == "none");
+
             var selected = false;
 
             for (var i = 0, len = $rootScope.categories.length; i < len; i++) {
@@ -37,7 +39,7 @@ edflow
             if (!selected)
                 return;
 
-            // console.log('hideChat')
+            console.log('hideChat')
 
             $scope.placeholder = "";
             document.querySelector("#chat ul").style.display = "none";
@@ -45,7 +47,7 @@ edflow
 
             document.querySelector("#chat i.icon").style.display = "inline";
             document.querySelector("#chat input").style.opacity = "0.8";
-            document.querySelector("#chat input").blur();
+            // document.querySelector("#chat input").blur();
         }
 
         $scope.send = function () {
@@ -57,11 +59,8 @@ edflow
 
             // console.log("send");
 
-            if (value == "show text") {
-                $rootScope.showText = true;
-                document.querySelector("#chat input").value = "";
+            if (commands(value))
                 return;
-            }
 
             $scope.chatItems.push({name: "", message: value, self: true});
             document.querySelector("#chat input").value = "Robot thinking...";
@@ -74,6 +73,35 @@ edflow
             }).error(function () {
                     $rootScope.circleAnimation = "error";
                 });
+        }
+
+        var commands = function (value) {
+
+            if (value == "show text") {
+                $rootScope.showText = true;
+                document.querySelector("#chat input").value = "";
+                return true;
+            }
+
+            if (value == "hide text") {
+                $rootScope.showText = false;
+                document.querySelector("#chat input").value = "";
+                return true;
+            }
+
+            if (value == "show categories") {
+                $rootScope.showCategories = true;
+                document.querySelector("#chat input").value = "";
+                return true;
+            }
+
+            if (value == "hide categories") {
+                $rootScope.showCategories = false;
+                document.querySelector("#chat input").value = "";
+                return true;
+            }
+
+            return false;
         }
 
         $rootScope.showChat();

@@ -23,21 +23,21 @@
     background-color: rgba(56, 153, 255, 0.1);
 }
 
-/*#content ul li div.image {*/
-    /*display: table-cell;*/
-    /*width: 70px;*/
-    /*height: inherit;*/
+#content ul li div.image {
+    display: table-cell;
+    width: 70px;
+    height: inherit;
 
-    /*background-position: center center;*/
-    /*background-repeat: no-repeat;*/
-    /*-webkit-background-size: cover;*/
-    /*-moz-background-size: cover;*/
-    /*-o-background-size: cover;*/
-    /*background-size: cover;*/
+    background-position: center center;
+    background-repeat: no-repeat;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
 
-    /*background-color: rgba(56, 153, 255, 0.6);*/
-    /*!*box-shadow: 4px 4px 10px 0px rgba(0, 0, 0, 0.4);*!*/
-/*}*/
+    background-color: rgba(56, 153, 255, 0.6);
+    /*box-shadow: 4px 4px 10px 0px rgba(0, 0, 0, 0.4);*/
+}
 
 #content ul li .title img {
     width: 22px;
@@ -101,4 +101,16 @@
 
 #content ul li div.page div.categories a:hover {
     color: red;
+}
+
+#content ul li div.page div.stat {
+    position: relative;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 70px;
+    /*height: 100px;*/
+
+    background-color: rgba(0, 255, 4, 0.6);
+    /*box-shadow: 4px 4px 10px 0px rgba(0, 0, 0, 0.4);*/
 }

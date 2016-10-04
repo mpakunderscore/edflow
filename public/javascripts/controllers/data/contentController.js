@@ -15,17 +15,18 @@ edflow
 
         $rootScope.imgError = function() {
 
-
             image.onerror = "";
             image.src = "/images/noimage.gif";
 
-            console.log(image)
+            console.log(image);
             return true;
         }
 
         $rootScope.showText = false;
 
         $rootScope.showCategories = true;
+
+        $rootScope.showImage = true;
 
         $rootScope.clickItem = function() {
             console.log("content item");

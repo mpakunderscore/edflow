@@ -19,13 +19,13 @@ import java.util.*;
 
 public class Crawler {
 
-    static boolean db = false; //for debug
+    static boolean db = true; //for debug
 
     public static final String USER_AGENT = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_5) " +
                                             "AppleWebKit/537.36 (KHTML, like Gecko) " +
                                             "Chrome/31.0.1650.63 Safari/537.36";
 
-    public static Page getPage(String url) {
+    static Page getPage(String url) {
 
         Page page = null;
 

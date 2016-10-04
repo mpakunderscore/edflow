@@ -27,7 +27,7 @@ public class Logs {
             String key = entry.getKey();
             Number value = entry.getValue();
 
-            System.out.println(getCaller() + key + " -> " + value);
+            System.out.println(getCaller() + "    " + key + " -> " + value);
 
             i++;
             if (i == count)
@@ -35,11 +35,9 @@ public class Logs {
         }
     }
 
-    public static void time(long time) {
+    public static void time(String text, long time) {
 
-        String caller = new Exception().getStackTrace()[1].getClassName();
-
-        System.err.println(getCaller() + "TIME " + (System.currentTimeMillis() - time)/1000 + " sec.");
+        System.err.println(getCaller() + text + " TIME " + (System.currentTimeMillis() - time)/1000 + " sec.");
     }
 
     public static void debug(String text) {

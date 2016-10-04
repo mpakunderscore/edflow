@@ -12,22 +12,33 @@ import java.util.stream.Collectors;
  */
 public class Parser {
 
-    private final static Pattern wordPattern = Pattern.compile("[^\\s+\"\\d+(){}, –'\\-=_@:$;#%!<>&\\|\\*\\?\\[\\]\\.\\/\\+\\\\]{2,}");
+    final static Pattern wordPattern = Pattern.compile("[^\\s+\"\\d+(){}, –'\\-=_@:$;#%!<>&\\|\\*\\?\\[\\]\\.\\/\\+\\\\]{2,}");
 
-    private final static boolean bigrams = true;
+    private final static boolean bigrams = false;
 
-    public static Map<String, Integer> getWordsMap(String text) {
+    public static Map<String, Integer> getWordsMap(Page page) {
 
         Map<String, Integer> words = new HashMap<>();
         List<String> wordsList = new ArrayList<>();
 
-        Matcher matcher = wordPattern.matcher(text);
+        Matcher matcher = wordPattern.matcher(page.text);
         while (matcher.find()) {
 
-            String word = matcher.group().toLowerCase();
+            String word = matcher.group().toLowerCase().trim();
 
-            if (words.containsKey(word)) words.put(word, words.get(word) + 1);
-            else words.put(word, 1);
+            if (word.length() == 0)
+                continue;
+
+//            if (word.length() > 15) {
+//                page.text = page.text.replace(word, "");
+//                continue;
+//            }
+
+            if (words.containsKey(word))
+                words.put(word, words.get(word) + 1);
+
+            else
+                words.put(word, 1);
 
             wordsList.add(word);
         }
@@ -88,13 +99,7 @@ public class Parser {
 
     public static Map<String, Integer> getSortedWords(Page page) {
 
-        String text = page.text;
-
-//        int textLength = text.length();
-//        String[] textArray = text.split("\\s+|,\\s+|/.\\s+");
-//        int wordsCount = textArray.length;
-
-        Map<String, Integer> words = getWordsMap(text);
+        Map<String, Integer> words = getWordsMap(page);
 
         LinkedHashMap<String, Integer> sortedWords = (LinkedHashMap<String, Integer>) sortWords(words);
 
