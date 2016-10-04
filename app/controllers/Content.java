@@ -31,7 +31,9 @@ public class Content extends Controller {
 
     public static Result getMain(String language) {
 
-        List<Page> pages = Ebean.find(Page.class).orderBy("time desc").findList().subList(0, 30);
+        List<Page> pages = Ebean.find(Page.class).orderBy("time desc").findList();
+
+//        .subList(0, 30)
 
         List<Category> subCategories = new ArrayList<>();
 

@@ -52,13 +52,14 @@ public class Crawler {
             //TODO Parser
             Map<String, Integer> sortedWords = Parser.getSortedWords(page);
             int words = sortedWords.size();
+            page.wordsCount = words;
             Logs.debug("Sorted words: " + words);
 
 
             //TODO 1.text 2.categories
             List<String> categories = new ArrayList<>();
+            categories.add("none");
             page.categories = String.join(",", categories);
-
 
             if (db)
                 Ebean.save(page);

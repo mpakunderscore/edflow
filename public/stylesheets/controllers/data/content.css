@@ -52,6 +52,7 @@
 }
 
 #content ul li div.page {
+    position: relative;
     padding: 20px;
 }
 
@@ -104,13 +105,11 @@
 }
 
 #content ul li div.page div.stat {
-    position: relative;
+    position: absolute;
     right: 0;
     top: 0;
     bottom: 0;
-    width: 70px;
-    /*height: 100px;*/
+    width: 370px;
 
-    background-color: rgba(0, 255, 4, 0.6);
-    /*box-shadow: 4px 4px 10px 0px rgba(0, 0, 0, 0.4);*/
+    background-color: rgba(0, 255, 4, 0.1);
 }

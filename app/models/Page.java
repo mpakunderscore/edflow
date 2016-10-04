@@ -29,6 +29,9 @@ public class Page extends Model {
     @Column(unique=true)
     public String url;
 
+    @Column
+    public int wordsCount;
+
     //words count
     //unique words count
     //average word complexity

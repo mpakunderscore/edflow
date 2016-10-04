@@ -22,11 +22,11 @@ edflow
             return true;
         }
 
-        $rootScope.showText = false;
+        $rootScope.showText = true;
 
         $rootScope.showCategories = true;
 
-        $rootScope.showImage = true;
+        $rootScope.showImage = false;
 
         $rootScope.clickItem = function() {
             console.log("content item");

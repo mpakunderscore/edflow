@@ -14,7 +14,7 @@ public class Parser {
 
     final static Pattern wordPattern = Pattern.compile("[^\\s+\"\\d+(){}, –'\\-=_@:$;#%!<>&\\|\\*\\?\\[\\]\\.\\/\\+\\\\]{2,}");
 
-    private final static boolean bigrams = false;
+    private final static boolean bigrams = true;
 
     public static Map<String, Integer> getWordsMap(Page page) {
 

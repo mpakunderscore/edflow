@@ -31,8 +31,6 @@ public class API extends Controller {
 
         Logs.out(url);
 
-//        Long time = System.currentTimeMillis();
-
 //        Runnable task = () -> {
 //
 //            Page page = Crawler.getPage(url);

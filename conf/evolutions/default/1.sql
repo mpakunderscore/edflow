@@ -20,6 +20,7 @@ create table page (
   image                     varchar(1000),
   categories                varchar(1000),
   url                       varchar(255),
+  words_count               integer,
   time                      timestamp,
   constraint uq_page_url unique (url),
   constraint pk_page primary key (id))

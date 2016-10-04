@@ -101,6 +101,18 @@ edflow
                 return true;
             }
 
+            if (value == "show image") {
+                $rootScope.showImage = true;
+                document.querySelector("#chat input").value = "";
+                return true;
+            }
+
+            if (value == "hide image") {
+                $rootScope.showImage = false;
+                document.querySelector("#chat input").value = "";
+                return true;
+            }
+
             return false;
         }
 

@@ -8,6 +8,7 @@ import com.rometools.rome.feed.synd.SyndFeed;
 import com.rometools.rome.io.SyndFeedInput;
 import com.rometools.rome.io.XmlReader;
 import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import utils.Logs;
 
@@ -60,7 +61,7 @@ public class RSS {
 
         } catch (Exception ex) {
 
-            ex.printStackTrace();
+//            ex.printStackTrace();
             System.err.println("ERROR: " + ex.getMessage());
         }
     }
@@ -80,14 +81,23 @@ public class RSS {
                 return "";
 
             } else {
+
                 Logs.debug(links.size() + " RSS links");
+
+                for (Element link : links)
+                    Logs.debug(link.attr("href"));
             }
 
             rssUrl = links.first().attr("href");
         }
 
-        if (!rssUrl.startsWith("http"))
-            rssUrl = pageUrl.split("://")[0]  + "://" + pageUrl.split("://")[1].split("/")[0] + rssUrl;
+        if (!rssUrl.startsWith("http")) {
+
+            if (!rssUrl.startsWith("/"))
+                rssUrl = "/" + rssUrl;
+
+            rssUrl = pageUrl.split("://")[0] + "://" + pageUrl.split("://")[1].split("/")[0] + rssUrl;
+        }
 
         Logs.out("RSS url: " + rssUrl);
 
