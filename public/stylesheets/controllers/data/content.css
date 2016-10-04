@@ -40,11 +40,15 @@
 /*}*/
 
 #content ul li .title img {
-    width: 20px;
-    height: 20px;
+    width: 22px;
+    height: 22px;
     float: left;
 
+    vertical-align: middle;
+
     padding-right: 15px;
+
+    /*background-color: green;*/
 }
 
 #content ul li div.page {

@@ -3,7 +3,7 @@
      ng-controller="contentController">
 
     <ul>
-        <li ng-repeat="item in items" ng-click="showText = !showText">
+        <li ng-repeat="item in items" ng-click="clickItem()">
 
             <!--<div class="image" ng-style="{'background-image': 'url(' + item.image + ')'}"></div>-->
 
@@ -14,14 +14,14 @@
                     <a href="{{item.url}}" target="_blank" title="{{item.url}}">{{item.title + "  "  + item.main}}</a>
                 </div>
 
-                <div class="text" ng-show="!showText">{{item.text.substring(0, 400)}}</div>
+                <div class="text" ng-show="showText">{{item.text.substring(0, 400)}}</div>
 
-                <div class="categories" ng-show="!showText">
+                <div class="categories" ng-show="showCategories">
                     <span ng-repeat="category in item.categories.split(',')">
                         <a ng-click="selectOneCategory(category)">{{category}}</a>{{$last ? '' : ', '}}
                     </span>
                     <span>
-                       <a ng-click="addCategory()">add category</a>
+                       <a ng-click="moreCategories()">more..</a>
                     </span>
                 </div>
 

@@ -2,6 +2,8 @@ edflow
 
     .controller("categoriesController", function ($scope, $rootScope, $http, $state) {
 
+
+
         var center = "50%";
         var circle = "135px";
 
@@ -27,7 +29,7 @@ edflow
 
         $rootScope.selectCategory = function (category) {
 
-            // console.log(category);
+            console.log(category);
             
             if (category.selected) {
 
@@ -71,6 +73,12 @@ edflow
 
             // category.selected = true;
         }
+
+        //TODO remember state
+        $rootScope.selectCategory($rootScope.categories[0]);
+
+
+        //TODO UI Design
 
         $scope.moveCategoriesWidth = function (category) {
 

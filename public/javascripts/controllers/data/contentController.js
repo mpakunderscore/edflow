@@ -2,12 +2,6 @@ edflow
 
     .controller("contentController", function ($rootScope, $state) {
 
-        var path = $state.current.name;
-
-        // $rootScope.selectCategory({title: path});
-
-        // console.log("selectCategory: " + path)
-
         $rootScope.favicon = function (url) {
 
             // console.log(url)
@@ -29,4 +23,15 @@ edflow
             return true;
         }
 
+        $rootScope.showText = false;
+
+        $rootScope.showCategories = true;
+
+        $rootScope.clickItem = function() {
+            console.log("content item");
+        }
+
+        $rootScope.moreCategories = function() {
+            console.log("item categories more");
+        }
     })

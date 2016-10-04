@@ -2,6 +2,7 @@ package controllers;
 
 import com.avaje.ebean.Ebean;
 import engine.Crawler;
+import engine.type.HTML;
 import models.Page;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -55,7 +56,7 @@ public class Wikipedia extends Controller {
 
         String url = getWikiUrl(language, categoryPrefix, categoryName);
 
-        Document pageDocument = Crawler.getPageDocument(url);
+        Document pageDocument = HTML.getPageDocument(url);
 
 
         //MAIN PAGE
@@ -139,7 +140,7 @@ public class Wikipedia extends Controller {
 
         List<String> categories = new ArrayList<>();
 
-        Document pageDocument = Crawler.getPageDocument(url);
+        Document pageDocument = HTML.getPageDocument(url);
 
         Elements images = pageDocument.body().select("#mw-content-text img");
         if (images.size() > 1) {

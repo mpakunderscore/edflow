@@ -57,6 +57,12 @@ edflow
 
             // console.log("send");
 
+            if (value == "show text") {
+                $rootScope.showText = true;
+                document.querySelector("#chat input").value = "";
+                return;
+            }
+
             $scope.chatItems.push({name: "", message: value, self: true});
             document.querySelector("#chat input").value = "Robot thinking...";
 

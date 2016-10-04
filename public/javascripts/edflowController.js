@@ -2,13 +2,7 @@ edflow
 
     .controller("edflowController", function ($scope, $rootScope, $http) {
 
-        $("#search").keyup(function (e) {
-            if (e.keyCode == 13) {
-                var category = {};
-                category.title = $("#search").val();
-                $scope.select(category);
-            }
-        });
+        //TODO Utils
 
         $rootScope.getLongest = function (arr) {
 
