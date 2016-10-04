@@ -5,8 +5,6 @@
 # Home page
 GET     /                           controllers.Assets.at(path="/public", file="index.html")
 
-GET     /words                       controllers.Assets.at(path="/public", file="view/mobile/words.html")
-
 # API
 #GET     /api/wikipedia              controllers.Wikipedia.getCategoryTree(category: String, language: String)
 GET     /api/main                   controllers.Content.getMain(language: String)
@@ -22,6 +20,8 @@ GET     /api/page                   engine.API.getPage(url: String)
 GET     /api/settings               engine.API.getSettings
 
 GET     /api/randome                engine.API.randomData
+
+GET     /api/process               engine.API.process
 
 GET     /api/chat                   controllers.Chat.message(message: String)
 

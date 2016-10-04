@@ -22,7 +22,7 @@ import java.util.List;
  */
 public class HTML {
 
-    static boolean depth = true;
+    static boolean depth = false;
 
     public static Page read(String url) {
 
@@ -35,11 +35,24 @@ public class HTML {
         Elements links = pageDocument.body().select("[href]");
 
         int externalLinks = 0;
+        int domainLinks = 0;
+
+        String domain = Analyser.getDomain(url);
 
         for (Element link : links) {
 
-            if (depth)
-                API.getPage(normalize(url, link.attr("href")));
+            if (link.attr("href").equals("/"))
+                continue;
+
+            String linkUrl = normalize(url, link.attr("href"));
+
+
+
+            if (linkUrl.contains(domain))
+                domainLinks++;
+
+            if (depth && linkUrl.length() > 0)
+                API.getPage(linkUrl);
 
             if (link.attr("href").startsWith("http"))
                 externalLinks++;
@@ -47,6 +60,7 @@ public class HTML {
 
         Logs.debug("Links: " + links.size());
         Logs.debug("External links: " + externalLinks);
+        Logs.debug("Domain links: " + domainLinks);
 
         String image = findImage(pageDocument);
 
@@ -57,8 +71,14 @@ public class HTML {
 
     private static String normalize(String pageUrl, String url) {
 
-        if (!url.startsWith("http"))
-            url = pageUrl.split("://")[0]  + "://" + pageUrl.split("://")[1].split("/")[0] + url;
+        if (!url.startsWith("http")) {
+
+            if (url.startsWith("/"))
+                url = pageUrl.split("://")[0] + "://" + pageUrl.split("://")[1].split("/")[0] + url;
+
+            else
+                return "";
+        }
 
         return url;
     }

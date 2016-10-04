@@ -1,5 +1,7 @@
 package engine;
 
+import com.avaje.ebean.Ebean;
+import engine.text.Analyser;
 import engine.type.HTML;
 import models.Page;
 import org.jsoup.nodes.Document;
@@ -31,16 +33,21 @@ public class API extends Controller {
 
 //        Long time = System.currentTimeMillis();
 
-        Runnable task = () -> {
+//        Runnable task = () -> {
+//
+//            Page page = Crawler.getPage(url);
+//
+//            if (page != null)
+//                Logs.debug("Page ok");
+//        };
+//
+//        Thread thread = new Thread(task);
+//        thread.start();
 
-            Page page = Crawler.getPage(url);
+        Page page = Crawler.getPage(url);
 
-            if (page != null)
-                Logs.debug("Page ok");
-        };
-
-        Thread thread = new Thread(task);
-        thread.start();
+        if (page != null)
+            Logs.debug("Page ok");
 
         return ok();
     }
@@ -78,6 +85,17 @@ public class API extends Controller {
             }
         }
         //run get page
+
+        return ok();
+    }
+
+    public static Result process() {
+
+        List<Page> pages = Ebean.find(Page.class).findList();
+
+        Logs.debug("Process " + pages.size() + " pages..");
+
+        Analyser.processPages(pages);
 
         return ok();
     }

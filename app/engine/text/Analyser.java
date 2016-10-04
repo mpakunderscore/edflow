@@ -26,6 +26,10 @@ public class Analyser {
 
         Map<String, Double> wordsIDF = Parser.getWordsIDF(words);
 
+        Logs.debug(wordsIDF.size() + " IDF words");
+
+
+
         //domain idf
 
         Map<String, List<Map<String, Integer>>> domainsPagesWords = new HashMap<>();
@@ -47,6 +51,8 @@ public class Analyser {
 
         Map<String, Map<String, Double>> domainsWordsIDF = new HashMap<>();
 
+        Logs.debug("Domain words");
+
         for (Map.Entry domainPagesWords : domainsPagesWords.entrySet()) {
 
             Map<String, Double> domainWordsIDF = Parser.getWordsIDF((List<Map<String, Integer>>) domainPagesWords.getValue());
@@ -55,7 +61,7 @@ public class Analyser {
             Map<String, Double> sortedProcessedDomainWords = Parser.sortWordsDoubleBack(domainWordsIDF);
 
             Logs.out("http://" + (String) domainPagesWords.getKey() + " " + ((List<Map<String,Integer>>) domainPagesWords.getValue()).size());
-            Logs.first(sortedProcessedDomainWords, 10);
+            Logs.first(sortedProcessedDomainWords, 4);
         }
 
         //page words
@@ -80,11 +86,10 @@ public class Analyser {
 
             Map<String, Double> sortedProcessedDomainPageWords = Parser.sortWordsDouble(processedDomainPageWords);
 
-            Logs.out(page.title + " " + page.url);
-            Logs.out("-");
-            Logs.first(sortedProcessedPageWords, 10);
-            Logs.out("-");
-            Logs.first(sortedProcessedDomainPageWords, 10);
+//            Logs.debug(page.title + " " + page.url);
+//            Logs.first(sortedProcessedPageWords, 10);
+//            Logs.first(sortedProcessedDomainPageWords, 10);
+//            Logs.out("--");
         }
 
         Logs.time(time);

@@ -19,7 +19,7 @@ import java.util.*;
 
 public class Crawler {
 
-    static boolean db = true; //for debug
+    static boolean db = false; //for debug
 
     public static final String USER_AGENT = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_5) " +
                                             "AppleWebKit/537.36 (KHTML, like Gecko) " +
@@ -31,7 +31,7 @@ public class Crawler {
 
         //TODO
         if (db)
-            page = Ebean.find(Page.class).where().where().eq("url", url).findUnique();
+            page = Ebean.find(Page.class).where().eq("url", url).findUnique();
 
         if (page != null)
             return page;
@@ -50,7 +50,8 @@ public class Crawler {
             //text
 
             //TODO Parser
-            int words = Parser.getSortedWords(page).size();
+            Map<String, Integer> sortedWords = Parser.getSortedWords(page);
+            int words = sortedWords.size();
             Logs.debug("Sorted words: " + words);
 
 

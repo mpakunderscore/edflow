@@ -24,7 +24,7 @@ public class PDF {
         PDDocument pdDoc = null;
         COSDocument cosDoc = null;
 
-        File file = new File("file");
+        File file = new File("file.pdf");
 
         String title = "";
         String text = "";
