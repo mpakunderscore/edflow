@@ -5,20 +5,16 @@ import engine.text.Analyser;
 import engine.type.HTML;
 import models.Page;
 import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import play.mvc.Controller;
 import play.mvc.Result;
-import utils.Category;
+import utils.Settings;
+import utils.response.Category;
 import utils.Logs;
-import utils.Response;
+import utils.response.Response;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
-import java.util.concurrent.TimeUnit;
-import java.util.stream.Collectors;
 
 import static play.libs.Json.toJson;
 
@@ -31,21 +27,27 @@ public class API extends Controller {
 
         Logs.out(url);
 
-//        Runnable task = () -> {
-//
-//            Page page = Crawler.getPage(url);
-//
-//            if (page != null)
-//                Logs.debug("Page ok");
-//        };
-//
-//        Thread thread = new Thread(task);
-//        thread.start();
+        if (Settings.getPageThread) {
 
-        Page page = Crawler.getPage(url);
+            Runnable task = () -> {
 
-        if (page != null)
-            Logs.debug("Page ok");
+                Page page = Crawler.getPage(url);
+
+                if (page != null)
+                    Logs.debug("Page ok");
+            };
+
+            Thread thread = new Thread(task);
+            thread.start();
+
+        } else {
+
+            Page page = Crawler.getPage(url);
+
+            if (page != null)
+                Logs.debug("Page ok");
+        }
+
 
         return ok();
     }

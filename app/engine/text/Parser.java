@@ -1,6 +1,7 @@
 package engine.text;
 
 import models.Page;
+import utils.Settings;
 
 import java.util.*;
 import java.util.regex.Matcher;
@@ -12,16 +13,12 @@ import java.util.stream.Collectors;
  */
 public class Parser {
 
-    final static Pattern wordPattern = Pattern.compile("[^\\s+\"\\d+(){}, –'\\-=_@:$;#%!<>&\\|\\*\\?\\[\\]\\.\\/\\+\\\\]{2,}");
-
-    private final static boolean bigrams = true;
-
     public static Map<String, Integer> getWordsMap(Page page) {
 
         Map<String, Integer> words = new HashMap<>();
         List<String> wordsList = new ArrayList<>();
 
-        Matcher matcher = wordPattern.matcher(page.text);
+        Matcher matcher = Settings.wordPattern.matcher(page.text);
         while (matcher.find()) {
 
             String word = matcher.group().toLowerCase().trim();
@@ -43,7 +40,7 @@ public class Parser {
             wordsList.add(word);
         }
 
-        if (bigrams)
+        if (Settings.bigrams)
             setBigrams(wordsList, words);
 
         return words;

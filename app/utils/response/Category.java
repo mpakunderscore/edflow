@@ -1,4 +1,4 @@
-package utils;
+package utils.response;
 
 /**
  * Created by pavelkuzmin on 24/02/16.

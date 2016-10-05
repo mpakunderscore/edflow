@@ -17,80 +17,15 @@ public class Analyser {
         long time = System.currentTimeMillis();
 
         //TODO global words idf
-
-            List<Map<String, Integer>> words = new ArrayList<>();
-
-            for (Page page : pages) {
-
-                Map<String, Integer> pageWords = Parser.getSortedWords(page);
-                words.add(pageWords);
-            }
-
-            Map<String, Double> wordsIDF = Parser.getWordsIDF(words);
-
-            Logs.debug(wordsIDF.size() + " IDF words");
-
+        Map<String, Double> wordsIDF = getWordsIDF(pages);
 
         //TODO domain words idf
         Map<String, List<Map<String, Integer>>> domainsPagesWords = getDomainsPagesWords(pages);
         Map<String, Map<String, Double>> domainsWordsIDF = processDomains(domainsPagesWords);
 
-
-
         //TODO page words
-        for (Page page : pages) {
-
-            Map<String, Integer> pageWords = Parser.getSortedWords(page);
-
-            Map<String, Double> processedPageWords = new HashMap<>();
-            Map<String, Double> processedDomainPageWords = new HashMap<>();
-
-
-            //processedPageWords
-            for (Map.Entry<String, Integer> word : pageWords.entrySet()) {
-
-                Double wordIDF = 1.0;
-                if (wordsIDF.containsKey(word.getKey()))
-                    wordIDF = wordsIDF.get(word.getKey());
-
-                processedPageWords.put(word.getKey(), word.getValue() * wordIDF);
-            }
-
-            Map<String, Double> sortedProcessedPageWords = Parser.sortWordsDouble(processedPageWords);
-
-            //processedDomainPageWords
-            for (Map.Entry<String, Integer> word : pageWords.entrySet()) {
-
-                Double domainWordIDF = 1.0;
-                Map domainWordsIDF = domainsWordsIDF.get(getDomain(page.url));
-
-                if (domainWordsIDF != null && domainWordsIDF.containsKey(word.getKey())) {
-                    domainWordIDF = (Double) domainWordsIDF.get(word.getKey());
-                }
-
-                Double wordIDF = 1.0;
-                if (wordsIDF.containsKey(word.getKey()))
-                    wordIDF = wordsIDF.get(word.getKey());
-
-                processedDomainPageWords.put(word.getKey(), word.getValue() * wordIDF * domainWordIDF);
-            }
-
-            Map<String, Double> sortedProcessedDomainPageWords = Parser.sortWordsDouble(processedDomainPageWords);
-
-            Logs.debug(page.title);
-            Logs.debug(page.url);
-            Logs.debug(page.text.length() + " / " + pageWords.size());
-
-            Logs.debug("Processed page words");
-            Logs.first(sortedProcessedPageWords, 10);
-
-            Logs.debug("With domain and, pages count: " + domainsPagesWords.get(getDomain(page.url)).size());
-            Logs.first(sortedProcessedDomainPageWords, 10);
-
-
-            page.categories = String.join(",", getLastTen(sortedProcessedDomainPageWords));
-            page.text = checkText(page.text);
-        }
+        for (Page page : pages)
+            processPage(page, wordsIDF, domainsWordsIDF);
 
         Logs.time("Process", time);
 
@@ -147,7 +82,7 @@ public class Analyser {
                 Map<String, Double> sortedProcessedDomainWords = Parser.sortWordsDoubleBack(domainWordsIDF);
 
                 Logs.out("http://" + domainPagesWords.getKey() + " " + domainPagesSize);
-                Logs.first(sortedProcessedDomainWords, 4);
+                Logs.first(sortedProcessedDomainWords, 5);
             }
         }
 
@@ -179,5 +114,82 @@ public class Analyser {
         }
 
         return domainsPagesWords;
+    }
+
+    public static Map<String, Double> getWordsIDF(List<Page> pages) {
+
+        //TODO LANGUAGE
+
+        List<Map<String, Integer>> words = new ArrayList<>();
+
+        for (Page page : pages) {
+
+            Map<String, Integer> pageWords = Parser.getSortedWords(page);
+            words.add(pageWords);
+        }
+
+        Map<String, Double> wordsIDF = Parser.getWordsIDF(words);
+        Logs.debug(wordsIDF.size() + " IDF words");
+
+        return wordsIDF;
+    }
+
+    public static void processPage(Page page, Map<String, Double> wordsIDF, Map<String, Map<String, Double>> domainsWordsIDF) {
+
+        Map<String, Integer> pageWords = Parser.getSortedWords(page);
+        Map<String, Double> processedPageWords = new HashMap<>();
+        Map<String, Double> processedDomainPageWords = new HashMap<>();
+
+
+        //processedPageWords
+        for (Map.Entry<String, Integer> word : pageWords.entrySet()) {
+
+            Double wordIDF = 1.0;
+            if (wordsIDF.containsKey(word.getKey()))
+                wordIDF = wordsIDF.get(word.getKey());
+
+            double value = word.getValue() * wordIDF;
+            if (value > 1.0)
+                processedPageWords.put(word.getKey(), value);
+        }
+
+        Map<String, Double> sortedProcessedPageWords = Parser.sortWordsDouble(processedPageWords);
+
+        //processedDomainPageWords
+        for (Map.Entry<String, Integer> word : pageWords.entrySet()) {
+
+            Double domainWordIDF = 1.0;
+            Map domainWordsIDF = domainsWordsIDF.get(getDomain(page.url));
+
+            if (domainWordsIDF != null && domainWordsIDF.containsKey(word.getKey())) {
+                domainWordIDF = (Double) domainWordsIDF.get(word.getKey());
+            }
+
+            Double wordIDF = 1.0;
+            if (wordsIDF.containsKey(word.getKey()))
+                wordIDF = wordsIDF.get(word.getKey());
+
+            double value = word.getValue() * wordIDF * domainWordIDF;
+            if (value > 1.0)
+                processedDomainPageWords.put(word.getKey(), value);
+        }
+
+        Map<String, Double> sortedProcessedDomainPageWords = Parser.sortWordsDouble(processedDomainPageWords);
+
+        Logs.debug(page.title);
+        Logs.debug(page.url);
+        Logs.debug(page.text.length() + " / " +
+                    pageWords.size() + " / " +
+                    sortedProcessedPageWords.size() + " / " +
+                    sortedProcessedDomainPageWords.size());
+
+        Logs.debug("Processed page words");
+        Logs.first(sortedProcessedPageWords, 10);
+
+        Logs.debug("Processed page words with domain");
+        Logs.first(sortedProcessedDomainPageWords, 10);
+
+        page.categories = String.join(",", getLastTen(sortedProcessedDomainPageWords));
+        page.text = checkText(page.text);
     }
 }

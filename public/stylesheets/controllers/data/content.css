@@ -111,5 +111,6 @@
     bottom: 0;
     width: 370px;
 
+    pointer-events: none;
     background-color: rgba(0, 255, 4, 0.1);
 }

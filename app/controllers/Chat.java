@@ -1,12 +1,8 @@
 package controllers;
 
 import play.mvc.Result;
-import utils.Category;
 import utils.Logs;
-import utils.Response;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import static play.libs.Json.toJson;

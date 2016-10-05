@@ -12,6 +12,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import utils.Logs;
+import utils.Settings;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -21,8 +22,6 @@ import java.util.List;
  * Created by pavelkuzmin on 27/09/2016.
  */
 public class HTML {
-
-    static boolean depth = false;
 
     public static Page read(String url) {
 
@@ -51,7 +50,7 @@ public class HTML {
             if (linkUrl.contains(domain))
                 domainLinks++;
 
-            if (depth && linkUrl.length() > 0)
+            if (Settings.depth && linkUrl.length() > 0)
                 API.getPage(linkUrl);
 
             if (link.attr("href").startsWith("http"))
@@ -105,9 +104,9 @@ public class HTML {
 
         try {
 
-            Connection connection = Jsoup.connect(url).timeout(60000);
+            Connection connection = Jsoup.connect(url).timeout(Settings.timeout);
 
-            doc = connection.userAgent(Crawler.USER_AGENT).followRedirects(true).get();
+            doc = connection.userAgent(Settings.USER_AGENT).followRedirects(true).get();
 
         } catch (IOException e) {
             e.printStackTrace();

@@ -13,24 +13,19 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import utils.Logs;
+import utils.Settings;
 
 import java.io.IOException;
 import java.util.*;
 
 public class Crawler {
 
-    static boolean db = true; //for debug
-
-    public static final String USER_AGENT = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_5) " +
-                                            "AppleWebKit/537.36 (KHTML, like Gecko) " +
-                                            "Chrome/31.0.1650.63 Safari/537.36";
-
     static Page getPage(String url) {
 
         Page page = null;
 
         //TODO
-        if (db)
+        if (Settings.getPageDB)
             page = Ebean.find(Page.class).where().eq("url", url).findUnique();
 
         if (page != null)
@@ -47,7 +42,11 @@ public class Crawler {
 
             //TODO check words length
             Logs.debug("Text length: " + page.text.length());
-            //text
+
+            //TODO 1.text 2.categories
+            List<String> categories = new ArrayList<>();
+            categories.add("none");
+            page.categories = String.join(",", categories);
 
             //TODO Parser
             Map<String, Integer> sortedWords = Parser.getSortedWords(page);
@@ -56,12 +55,7 @@ public class Crawler {
             Logs.debug("Sorted words: " + words);
 
 
-            //TODO 1.text 2.categories
-            List<String> categories = new ArrayList<>();
-            categories.add("none");
-            page.categories = String.join(",", categories);
-
-            if (db)
+            if (Settings.getPageDB)
                 Ebean.save(page);
 
         } catch (Exception e) {

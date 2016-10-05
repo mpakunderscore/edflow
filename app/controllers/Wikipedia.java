@@ -1,7 +1,6 @@
 package controllers;
 
 import com.avaje.ebean.Ebean;
-import engine.Crawler;
 import engine.type.HTML;
 import models.Page;
 import org.jsoup.nodes.Document;
@@ -12,8 +11,8 @@ import java.util.*;
 
 import play.mvc.Controller;
 import play.mvc.Result;
-import utils.Category;
-import utils.Response;
+import utils.response.Category;
+import utils.response.Response;
 
 import static play.libs.Json.toJson;
 

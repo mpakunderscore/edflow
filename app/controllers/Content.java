@@ -1,16 +1,12 @@
 package controllers;
 
 import com.avaje.ebean.Ebean;
-import engine.Crawler;
 import models.Flow;
 import models.Page;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
 import play.mvc.Controller;
 import play.mvc.Result;
-import utils.Category;
-import utils.Response;
+import utils.response.Category;
+import utils.response.Response;
 
 import java.util.*;
 import java.util.concurrent.TimeUnit;

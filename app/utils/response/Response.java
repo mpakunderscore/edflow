@@ -1,9 +1,6 @@
-package utils;
-
-import models.Page;
+package utils.response;
 
 import java.util.List;
-import java.util.Map;
 
 public class Response {
 

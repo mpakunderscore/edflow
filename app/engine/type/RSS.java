@@ -71,7 +71,7 @@ public class RSS {
         String rssUrl = "";
         String type = "application/rss+xml";
 
-        Elements links = pageDocument.select("link[type=application/rss+xml],link[type=application/atom+xml]");
+        Elements links = pageDocument.select("link[type=application/rss+xml],link[type=application/atom+xml],a:contains(RSS)");
 
         if (links != null) {
 
