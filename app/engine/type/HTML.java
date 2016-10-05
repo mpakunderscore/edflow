@@ -2,8 +2,7 @@ package engine.type;
 
 import com.avaje.ebean.Ebean;
 import engine.API;
-import engine.Crawler;
-import engine.text.Analyser;
+import engine.text.Utils;
 import models.Flow;
 import models.Page;
 import org.jsoup.Connection;
@@ -14,7 +13,13 @@ import org.jsoup.select.Elements;
 import utils.Logs;
 import utils.Settings;
 
+import javax.imageio.ImageIO;
+import javax.imageio.ImageReader;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,7 +41,7 @@ public class HTML {
         int externalLinks = 0;
         int domainLinks = 0;
 
-        String domain = Analyser.getDomain(url);
+        String domain = Utils.getDomain(url);
 
         for (Element link : links) {
 
@@ -44,8 +49,6 @@ public class HTML {
                 continue;
 
             String linkUrl = normalize(url, link.attr("href"));
-
-
 
             if (linkUrl.contains(domain))
                 domainLinks++;
@@ -61,7 +64,7 @@ public class HTML {
         Logs.debug("External links: " + externalLinks);
         Logs.debug("Domain links: " + domainLinks);
 
-        String image = findImage(pageDocument);
+        String image = normalize(url, findImage(pageDocument));
 
         RSS.read(url, pageDocument);
 
@@ -84,18 +87,46 @@ public class HTML {
 
     private static String findImage(Document pageDocument) {
 
-        String image = "";
+        String imageUrl = "";
 
-        Elements images = pageDocument.body().select("img");
+        Elements images = pageDocument.body().select("img[src]");
 
         Logs.debug("Images: " + images.size());
 
-        Element img = images.first();
+        for (Element image : images) {
 
-        if (img != null)
-            return img.attr("src");
+            String height = image.attr("height");
+            String src = image.attr("src");
 
-        return image;
+            Logs.debug("I: " + image.attr("width") + " / " + height + " / " + src);
+
+            if (height.length() > 0 && src.length() > 0) {
+
+                if (Integer.parseInt(height) > 200 && imageUrl.length() == 0)
+                    imageUrl = src;
+            }
+        }
+
+        Elements imagesAlt = pageDocument.body().select("img[alt]");
+        Logs.debug("With alt: " + imagesAlt.size());
+
+        if (imageUrl.length() == 0)
+            for (Element image : images) {
+
+                String src = image.attr("src");
+                if (src.length() > 0)
+                    imageUrl = src;
+            }
+
+//            String location = image.attr("src");
+//            InputStream stream = new URL(location).openStream();
+//            Object obj = ImageIO.createImageInputStream(stream);
+//            ImageReader reader = ImageIO.getImageReaders(obj).next();
+//            System.out.println(next.getWidth(0));
+//            stream.close();
+
+
+        return imageUrl;
     }
 
     public static Document getPageDocument(String url) {
@@ -117,7 +148,7 @@ public class HTML {
 
     public static Flow checkFlow(String link) {
 
-        String url = "http://" + Analyser.getDomain(link);
+        String url = "http://" + Utils.getDomain(link);
 
         Logs.out(url);
 

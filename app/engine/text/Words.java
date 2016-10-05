@@ -1,17 +1,25 @@
 package engine.text;
 
 import models.Page;
+import utils.Logs;
 import utils.Settings;
 
 import java.util.*;
 import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-import java.util.stream.Collectors;
 
 /**
  * Created by pavelkuzmin on 09/03/16.
  */
-public class Parser {
+public class Words {
+
+    public static Map<String, Integer> getSortedWords(Page page) {
+
+        Map<String, Integer> words = getWordsMap(page);
+
+        LinkedHashMap<String, Integer> sortedWords = (LinkedHashMap<String, Integer>) Utils.sortWords(words);
+
+        return sortedWords;
+    }
 
     public static Map<String, Integer> getWordsMap(Page page) {
 
@@ -61,49 +69,22 @@ public class Parser {
         words.putAll(bigrams);
     }
 
-    public static Map<String, Integer> sortWords(Map<String, Integer> words) {
+    public static Map<String, Double> getWordsIDFFromPages(List<Page> pages) {
 
-        LinkedHashMap<String, Integer> sortedWords = words
-                .entrySet()
-                .stream()
-                .sorted(Map.Entry.<String, Integer>comparingByValue().reversed())
-                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e1, LinkedHashMap::new));
+        //TODO LANGUAGE
 
-        return sortedWords;
-    }
+        List<Map<String, Integer>> words = new ArrayList<>();
 
-    public static Map<String, Double> sortWordsDouble(Map<String, Double> words) {
+        for (Page page : pages) {
 
-        LinkedHashMap<String, Double> sortedWords = words
-                .entrySet()
-                .stream()
-                .sorted(Map.Entry.<String, Double>comparingByValue().reversed())
-                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e1, LinkedHashMap::new));
+            Map<String, Integer> pageWords = Words.getSortedWords(page);
+            words.add(pageWords);
+        }
 
-        return sortedWords;
-    }
+        Map<String, Double> wordsIDF = Words.getWordsIDF(words);
+        Logs.debug(wordsIDF.size() + " IDF words");
 
-    public static Map<String, Double> sortWordsDoubleBack(Map<String, Double> words) {
-
-        LinkedHashMap<String, Double> sortedWords = words
-                .entrySet()
-                .stream()
-                .sorted(Map.Entry.<String, Double>comparingByValue())
-                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e1, LinkedHashMap::new));
-
-        return sortedWords;
-    }
-
-    public static Map<String, Integer> getSortedWords(Page page) {
-
-        Map<String, Integer> words = getWordsMap(page);
-
-        LinkedHashMap<String, Integer> sortedWords = (LinkedHashMap<String, Integer>) sortWords(words);
-
-//        Logs.out(page.title);
-//        Logs.first(sortedWords, 10);
-
-        return sortedWords;
+        return wordsIDF;
     }
 
     public static Map<String, Double> getWordsIDF(List<Map<String, Integer>> pagesWords) {
@@ -136,7 +117,7 @@ public class Parser {
             wordsIDF.put(name, Math.log((double) pagesCount / (double) wordsFrequency.get(name)));
         }
 
-        wordsIDF = sortWordsDouble(wordsIDF);
+        wordsIDF = Utils.sortWordsDouble(wordsIDF);
 
         return wordsIDF;
     }

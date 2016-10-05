@@ -17,7 +17,7 @@ public class Settings {
     //Use DB (read and save) while process get page
     public static boolean getPageDB = true; //for debug
 
-    //Use bigrams in Parser (2 words)
+    //Use bigrams in Words (2 words)
     public final static boolean bigrams = true;
 
     //Use link depth redirect for crawl HTML TODO
@@ -28,4 +28,6 @@ public class Settings {
 
     //API new thread while get page
     public static boolean getPageThread = true;
+
+    static boolean debug = true;
 }

@@ -9,9 +9,6 @@ import java.util.Map;
  */
 public class Logs {
 
-    private static boolean debug = true;
-    private static char caller;
-
     public static void out(String text) {
 
         String caller = new Exception().getStackTrace()[1].getClassName();
@@ -42,7 +39,7 @@ public class Logs {
 
     public static void debug(String text) {
 
-        if (!debug)
+        if (!Settings.debug)
             return;
 
         System.out.println(getCaller() + (char) 27 + "[31m" + text + (char) 27 + "[0m");

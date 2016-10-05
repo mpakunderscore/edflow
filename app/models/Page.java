@@ -32,7 +32,9 @@ public class Page extends Model {
     @Column
     public int wordsCount;
 
-    //words count
+//    @Column
+//    public int uniqueWordsCount;
+
     //unique words count
     //average word complexity
 

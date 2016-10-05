@@ -20,7 +20,7 @@
 #content ul li:hover {
     /*height: auto;*/
 
-    background-color: rgba(56, 153, 255, 0.1);
+    /*background-color: rgba(56, 153, 255, 0.1);*/
 }
 
 #content ul li div.image {
@@ -35,8 +35,8 @@
     -o-background-size: cover;
     background-size: cover;
 
-    background-color: rgba(56, 153, 255, 0.6);
-    /*box-shadow: 4px 4px 10px 0px rgba(0, 0, 0, 0.4);*/
+    background-color: rgba(56, 153, 255, 0.2);
+    box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.15);
 }
 
 #content ul li .title img {
@@ -107,10 +107,11 @@
 #content ul li div.page div.stat {
     position: absolute;
     right: 0;
-    top: 0;
+    /*top: 0;*/
     bottom: 0;
     width: 370px;
+    height: 1px;
 
     pointer-events: none;
-    background-color: rgba(0, 255, 4, 0.1);
+    background-color: rgba(0, 255, 4, 0.9);
 }
