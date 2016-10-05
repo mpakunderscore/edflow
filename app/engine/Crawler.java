@@ -2,6 +2,7 @@ package engine;
 
 import com.avaje.ebean.Ebean;
 import engine.text.Analyser;
+import engine.text.Language;
 import engine.text.Parser;
 import engine.type.HTML;
 import engine.type.PDF;
@@ -39,6 +40,9 @@ public class Crawler {
             else
                 page = HTML.read(url);
 
+
+            //TODO get language
+            Language.getLanguage(page);
 
             //TODO check words length
             Logs.debug("Text length: " + page.text.length());

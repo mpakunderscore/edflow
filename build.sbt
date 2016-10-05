@@ -21,3 +21,5 @@ libraryDependencies += "com.rometools" % "rome" % "1.7.0"
 libraryDependencies += "org.apache.pdfbox" % "pdfbox" % "2.0.3"
 
 libraryDependencies += "org.apache.commons" % "commons-io" % "1.3.2"
+
+libraryDependencies += "com.optimaize.languagedetector" % "language-detector" % "0.5"
