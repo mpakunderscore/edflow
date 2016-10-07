@@ -5,6 +5,7 @@ import engine.text.Utils;
 import engine.text.Words;
 import engine.type.HTML;
 import engine.type.PDF;
+import engine.type.YouTube;
 import models.Page;
 import utils.Logs;
 import utils.Settings;
@@ -29,8 +30,14 @@ public class Crawler {
             if (url.endsWith(".pdf"))
                 page = PDF.read(url);
 
-            else
-                page = HTML.read(url);
+            else {
+
+//                if (youtube)
+//                    YouTube.read(url);
+//                else
+
+                    page = HTML.read(url);
+            }
 
 
             //TODO get language
@@ -50,13 +57,14 @@ public class Crawler {
             page.wordsCount = words;
             Logs.debug("Sorted words: " + words);
 
-
             if (Settings.getPageDB)
                 Ebean.save(page);
 
         } catch (Exception e) {
 
-            Logs.debug("ERROR " + e.getMessage());
+            e.printStackTrace();
+//            Logs.debug("ERROR " + e.getMessage());
+
             return null;
         }
 

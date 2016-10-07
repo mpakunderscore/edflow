@@ -40,6 +40,7 @@ public class HTML {
 
         int externalLinks = 0;
         int domainLinks = 0;
+        int pdfLinks = 0;
 
         String domain = Utils.getDomain(url);
 
@@ -58,13 +59,20 @@ public class HTML {
 
             if (link.attr("href").startsWith("http"))
                 externalLinks++;
+
+            if (link.attr("href").endsWith("pdf"))
+                pdfLinks++;
         }
 
         Logs.debug("Links: " + links.size());
         Logs.debug("External links: " + externalLinks);
         Logs.debug("Domain links: " + domainLinks);
+        Logs.debug("PDF links: " + pdfLinks);
 
         String image = normalize(url, findImage(pageDocument));
+
+        if (image.length() > 0)
+            Logs.debug("Image: " + image);
 
         RSS.read(url, pageDocument);
 
@@ -98,25 +106,25 @@ public class HTML {
             String height = image.attr("height");
             String src = image.attr("src");
 
-            Logs.debug("I: " + image.attr("width") + " / " + height + " / " + src);
+//            Logs.debug("    I: " + image.attr("width") + " / " + height + " / " + src);
 
             if (height.length() > 0 && src.length() > 0) {
 
-                if (Integer.parseInt(height) > 200 && imageUrl.length() == 0)
-                    imageUrl = src;
+//                if (Integer.parseInt(height) > 200 && imageUrl.length() == 0)
+//                    imageUrl = src;
             }
         }
 
         Elements imagesAlt = pageDocument.body().select("img[alt]");
         Logs.debug("With alt: " + imagesAlt.size());
 
-        if (imageUrl.length() == 0)
-            for (Element image : images) {
-
-                String src = image.attr("src");
-                if (src.length() > 0)
-                    imageUrl = src;
-            }
+//        if (imageUrl.length() == 0)
+//            for (Element image : images) {
+//
+//                String src = image.attr("src");
+//                if (src.length() > 0)
+//                    imageUrl = src;
+//            }
 
 //            String location = image.attr("src");
 //            InputStream stream = new URL(location).openStream();

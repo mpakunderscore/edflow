@@ -1,5 +1,6 @@
 package engine.type;
 
+import java.io.Reader;
 import java.net.URL;
 
 //import com.rometools.rome.feed.synd.SyndEntryImpl;
@@ -19,10 +20,10 @@ public class RSS {
         String rssUrl = findRSSUrl(url, pageDocument);
 
         if (rssUrl.length() > 0)
-            RSS.check(rssUrl);
+            RSS.check(rssUrl, pageDocument);
     }
 
-    private static void check(String url) {
+    private static void check(String url, Document pageDocument) {
 
         try {
 
@@ -31,7 +32,14 @@ public class RSS {
 //            SyndEntryImpl entry = new SyndEntryImpl();
 
             SyndFeedInput input = new SyndFeedInput();
+            input.setAllowDoctypes(true);
+
             SyndFeed feed = input.build(new XmlReader(feedUrl));
+//            SyndFeed feed = feedFetcher.retrieveFeed("your-rss-reader-user-agent", feedUrl);
+
+            if (feed.getLink().equals(url + "/")) {
+                Logs.debug("RSS FEED");
+            }
 
             Logs.debug("Title: " + feed.getTitle());
             Logs.debug("Entries: " + feed.getEntries().size() + "");
@@ -41,13 +49,21 @@ public class RSS {
                 try {
 
                     SyndEntryImpl entry = (SyndEntryImpl) feed.getEntries().get(i);
-//                    Logs.debug("Content: " + entry.getDescription().getValue());
+
+                    if (pageDocument.title().contains(entry.getTitle())) {
+
+                        Logs.debug("    T: " + entry.getTitle());
+                        Logs.debug("    D: " + entry.getDescription().getValue());
+
+                    } else
+                        Logs.debug("T: " + entry.getTitle());
 
                 } catch (Exception ignored) {
 
                 }
             }
 
+            Logs.debug("Link: " + feed.getLink());
             Logs.debug("Description: " + feed.getDescription());
             Logs.debug("Author: " + feed.getAuthor());
             Logs.debug("FeedType: " + feed.getFeedType());
@@ -61,8 +77,8 @@ public class RSS {
 
         } catch (Exception ex) {
 
-//            ex.printStackTrace();
-            System.err.println("ERROR: " + ex.getMessage());
+            ex.printStackTrace();
+//            System.err.println("ERROR: " + ex.getMessage());
         }
     }
 

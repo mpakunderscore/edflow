@@ -26,7 +26,7 @@ edflow
 
         $rootScope.showCategories = true;
 
-        $rootScope.showImage = true;
+        $rootScope.showImage = false;
 
         $rootScope.clickItem = function() {
             console.log("content item");

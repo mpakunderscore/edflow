@@ -14,8 +14,8 @@ public class Settings {
     //What is word
     public final static Pattern wordPattern = Pattern.compile("[^\\s+\"\\d+(){}, –'“\\-=_@:$;#%!<>&\\|\\*\\?\\[\\]\\.\\/\\+\\\\]{2,}");
 
-    //Use DB (read and save) while process get page
-    public static boolean getPageDB = true; //for debug
+    //Use DB (read and save) while process get page, for debug
+    public static boolean getPageDB = true;
 
     //Use bigrams in Words (2 words)
     public final static boolean bigrams = true;

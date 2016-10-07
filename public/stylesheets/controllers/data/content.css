@@ -80,7 +80,7 @@
 }
 
 #content ul li div.page div.text {
-    /*font-size: 14px;*/
+    font-size: 15px;
     /*color: gray;*/
     padding-top: 10px;
 }
@@ -107,11 +107,12 @@
 #content ul li div.page div.stat {
     position: absolute;
     right: 0;
-    /*top: 0;*/
     bottom: 0;
-    width: 370px;
-    height: 1px;
+    top: 0;
+
+    /*width: 370px;*/
+    /*height: 1px;*/
 
     pointer-events: none;
-    background-color: rgba(0, 255, 4, 0.9);
+    background-color: rgba(0, 255, 4, 0.08);
 }
