@@ -5,7 +5,6 @@ import engine.text.Utils;
 import engine.text.Words;
 import engine.type.HTML;
 import engine.type.PDF;
-import engine.type.YouTube;
 import models.Page;
 import utils.Logs;
 import utils.Settings;
@@ -14,16 +13,27 @@ import java.util.*;
 
 public class Crawler {
 
+    public static void processPages(List<Page> pages) {
+
+        long time = System.currentTimeMillis();
+
+        for (Page page : pages) {
+            getPage(page.url);
+        }
+
+        Logs.time("Process Crawler", time);
+    }
+
     static Page getPage(String url) {
 
-        Page page = null;
+        Page page = page = Ebean.find(Page.class).where().eq("url", url).findUnique();
 
-        //TODO
-        if (Settings.getPageDB)
-            page = Ebean.find(Page.class).where().eq("url", url).findUnique();
-
+        Long id = null;
         if (page != null)
-            return page;
+             id = page.id;
+
+//        if (page != null)
+//            return page;
 
         try {
 
@@ -37,10 +47,13 @@ public class Crawler {
 //                else
 
                     page = HTML.read(url);
+
+                //TODO Check if Flow (from RSS)
+                if (page == null)
+                    return null;
             }
 
 
-            //TODO get language
             Utils.getLanguage(page);
 
             //TODO check words length
@@ -57,8 +70,14 @@ public class Crawler {
             page.wordsCount = words;
             Logs.debug("Sorted words: " + words);
 
-            if (Settings.getPageDB)
+            if (id == null)
                 Ebean.save(page);
+
+            else if (Settings.updatePage) {
+
+                page.id = id;
+                Ebean.update(page);
+            }
 
         } catch (Exception e) {
 

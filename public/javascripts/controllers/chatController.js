@@ -46,7 +46,7 @@ edflow
             document.querySelector("body data").style.display = "inline";
 
             document.querySelector("#chat i.icon").style.display = "inline";
-            document.querySelector("#chat input").style.opacity = "0.8";
+            document.querySelector("#chat input").style.opacity = "0.0";
             // document.querySelector("#chat input").blur();
         }
 

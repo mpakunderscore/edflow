@@ -56,6 +56,6 @@ public class Logs {
 
         String space = new String(new char[n]).replace('\0', ' ');
 
-        return space + caller + " | ";
+        return space + caller + " | " + new Exception().getStackTrace().length + " ";
     }
 }

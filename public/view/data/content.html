@@ -5,7 +5,10 @@
     <ul>
         <li ng-repeat="item in items" ng-click="clickItem()">
 
-            <div class="image" ng-show="showImage && item.image.length > 0" ng-style="{'background-image': 'url(' + item.image + ')'}"></div>
+            <div class="image"
+                 ng-show="showImage && item.image.length > 0"
+                 ng-style="{'background-image': 'url(' + item.image + ')', 'width': + (item.wordsCount/40 < 10 ? 10 : item.wordsCount/40) + 'px'}">
+            </div>
 
             <div class="page">
 
@@ -14,7 +17,7 @@
                     <a href="{{item.url}}" target="_blank" title="{{item.url}}">{{item.title + "  "  + item.main}}</a>
                 </div>
 
-                <div class="text" ng-show="showText">{{item.text.substring(0, 400)}}</div>
+                <div class="text" ng-show="showText">{{item.text.substring(0, (item.wordsCount/10 > 300 ? item.wordsCount/10 : 300))}}</div>
 
                 <div class="categories" ng-show="showCategories">
                     <span ng-repeat="category in item.categories.split(',')">

@@ -15,19 +15,21 @@ import utils.Logs;
 
 public class RSS {
 
-    public static void read(String url, Document pageDocument) {
+    public static boolean read(String url, Document pageDocument) {
 
         String rssUrl = findRSSUrl(url, pageDocument);
 
         if (rssUrl.length() > 0)
-            RSS.check(rssUrl, pageDocument);
+            RSS.check(url, rssUrl, pageDocument);
+
+        return false;
     }
 
-    private static void check(String url, Document pageDocument) {
+    private static void check(String url, String rssUrl, Document pageDocument) {
 
         try {
 
-            URL feedUrl = new URL(url);
+            URL feedUrl = new URL(rssUrl);
 
 //            SyndEntryImpl entry = new SyndEntryImpl();
 
@@ -37,7 +39,7 @@ public class RSS {
             SyndFeed feed = input.build(new XmlReader(feedUrl));
 //            SyndFeed feed = feedFetcher.retrieveFeed("your-rss-reader-user-agent", feedUrl);
 
-            if (feed.getLink().equals(url + "/")) {
+            if (feed.getLink().equals(url)) {
                 Logs.debug("RSS FEED");
             }
 
@@ -53,7 +55,7 @@ public class RSS {
                     if (pageDocument.title().contains(entry.getTitle())) {
 
                         Logs.debug("    T: " + entry.getTitle());
-                        Logs.debug("    D: " + entry.getDescription().getValue());
+//                        Logs.debug("    D: " + entry.getDescription().getValue());
 
                     } else
                         Logs.debug("T: " + entry.getTitle());
@@ -98,10 +100,10 @@ public class RSS {
 
             } else {
 
-                Logs.debug(links.size() + " RSS links");
+                Logs.debug("RSS links: " + links.size());
 
-                for (Element link : links)
-                    Logs.debug(link.attr("href"));
+//                for (Element link : links)
+//                    Logs.debug(link.attr("href"));
             }
 
             rssUrl = links.first().attr("href");

@@ -12,10 +12,10 @@ public class Settings {
                                             "Chrome/31.0.1650.63 Safari/537.36";
 
     //What is word
-    public final static Pattern wordPattern = Pattern.compile("[^\\s+\"\\d+(){}, –'“\\-=_@:$;#%!<>&\\|\\*\\?\\[\\]\\.\\/\\+\\\\]{2,}");
+    public final static Pattern wordPattern = Pattern.compile("[^\\s+\"\\d+(){}, –'“\\-»«=_@:$;#%!<>&\\|\\*\\?\\[\\]\\.\\/\\+\\\\]{2,}");
 
-    //Use DB (read and save) while process get page, for debug
-    public static boolean getPageDB = true;
+    //Update DB (update()) while process get page, for debug
+    public static boolean updatePage = true;
 
     //Use bigrams in Words (2 words)
     public final static boolean bigrams = true;
@@ -29,5 +29,9 @@ public class Settings {
     //API new thread while get page
     public static boolean getPageThread = true;
 
+    //Logs only
     static boolean debug = true;
+
+    //For process
+    public static boolean processCrawler = false;
 }

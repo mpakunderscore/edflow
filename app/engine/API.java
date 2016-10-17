@@ -95,6 +95,9 @@ public class API extends Controller {
 
         Logs.debug("Process " + pages.size() + " pages..");
 
+        if (Settings.processCrawler)
+            Crawler.processPages(pages);
+
         Analyser.processPages(pages);
 
         return ok();

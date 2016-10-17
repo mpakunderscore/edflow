@@ -36,13 +36,28 @@ public class HTML {
 
         String text = pageDocument.body().text();
 
+//        processLinks(url, pageDocument);
+
+        YouTube.process(pageDocument);
+
+        String image = findImage(url, pageDocument);
+
+        //Check if Flow (from RSS)
+        if (RSS.read(url, pageDocument))
+            return null;
+
+        return new Page(url, title, text, image, null);
+    }
+
+    private static void processLinks(String url, Document pageDocument) {
+
         Elements links = pageDocument.body().select("[href]");
+
+        String domain = Utils.getDomain(url);
 
         int externalLinks = 0;
         int domainLinks = 0;
         int pdfLinks = 0;
-
-        String domain = Utils.getDomain(url);
 
         for (Element link : links) {
 
@@ -68,34 +83,11 @@ public class HTML {
         Logs.debug("External links: " + externalLinks);
         Logs.debug("Domain links: " + domainLinks);
         Logs.debug("PDF links: " + pdfLinks);
-
-        String image = normalize(url, findImage(pageDocument));
-
-        if (image.length() > 0)
-            Logs.debug("Image: " + image);
-
-        RSS.read(url, pageDocument);
-
-        return new Page(url, title, text, image, null);
     }
 
-    private static String normalize(String pageUrl, String url) {
+    private static String findImage(String url, Document pageDocument) {
 
-        if (!url.startsWith("http")) {
-
-            if (url.startsWith("/"))
-                url = pageUrl.split("://")[0] + "://" + pageUrl.split("://")[1].split("/")[0] + url;
-
-            else
-                return "";
-        }
-
-        return url;
-    }
-
-    private static String findImage(Document pageDocument) {
-
-        String imageUrl = "";
+        String mainImage = "";
 
         Elements images = pageDocument.body().select("img[src]");
 
@@ -103,38 +95,63 @@ public class HTML {
 
         for (Element image : images) {
 
-            String height = image.attr("height");
-            String src = image.attr("src");
+            try {
 
-//            Logs.debug("    I: " + image.attr("width") + " / " + height + " / " + src);
+                Logs.debug("1: " + image.attr("src"));
 
-            if (height.length() > 0 && src.length() > 0) {
+                String imgSrc = normalize(url, image.attr("src"));
 
-//                if (Integer.parseInt(height) > 200 && imageUrl.length() == 0)
-//                    imageUrl = src;
+                if (imgSrc.length() == 0)
+                    continue;
+
+                Logs.debug("2: " + imgSrc);
+
+                URL imgUrl = new URL(imgSrc);
+                final BufferedImage bufferedImage = ImageIO.read(imgUrl);
+
+                if (bufferedImage.getHeight() > 200) {
+                    Logs.debug("Height: " + bufferedImage.getHeight());
+                    mainImage = imgSrc;
+                    break;
+                }
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        }
+
+        if (mainImage.length() > 0)
+            Logs.debug("Image: " + mainImage);
+
+        return mainImage;
+    }
+
+    private static String normalize(String pageUrl, String url) {
+
+        if (!url.startsWith("http")) {
+
+            if (url.startsWith("/")) {
+
+                if (url.startsWith("//") && url.split("//")[1].contains("."))
+                    url = url.replaceFirst("//", "http://");
+
+                else if (url.startsWith("//") && !url.split("/")[1].contains("."))
+                    url = url.replaceFirst("//", "");
+
+                else if (url.startsWith("/") && !url.split("/")[1].contains(".")) {
+                    url = pageUrl.split("://")[0] + "://" + pageUrl.split("://")[1].split("/")[0] + url;
+
+                } else
+                    return "";
+
+            } else {
+//                Logs.debug("ERROR link: " + url);
+                return "";
             }
         }
 
-        Elements imagesAlt = pageDocument.body().select("img[alt]");
-        Logs.debug("With alt: " + imagesAlt.size());
-
-//        if (imageUrl.length() == 0)
-//            for (Element image : images) {
-//
-//                String src = image.attr("src");
-//                if (src.length() > 0)
-//                    imageUrl = src;
-//            }
-
-//            String location = image.attr("src");
-//            InputStream stream = new URL(location).openStream();
-//            Object obj = ImageIO.createImageInputStream(stream);
-//            ImageReader reader = ImageIO.getImageReaders(obj).next();
-//            System.out.println(next.getWidth(0));
-//            stream.close();
-
-
-        return imageUrl;
+        return url;
     }
 
     public static Document getPageDocument(String url) {
@@ -154,35 +171,35 @@ public class HTML {
         return doc;
     }
 
-    public static Flow checkFlow(String link) {
-
-        String url = "http://" + Utils.getDomain(link);
-
-        Logs.out(url);
-
-        Flow flow = null;
-
-        flow = Ebean.find(Flow.class).where().where().eq("url", url).findUnique();
-
-        if (flow != null)
-            return flow;
-
-        try {
-
-            Document pageDocument = getPageDocument(url);
-
-            String title = pageDocument.title();
-            String text = pageDocument.body().text();
-            String image = findImage(pageDocument);
-            List<String> categories = new ArrayList<>();
-
-            flow = new Flow(url, title, String.join(",", categories));
-            Ebean.save(flow);
-
-        } catch (Exception e) {
-            return null;
-        }
-
-        return flow;
-    }
+//    public static Flow checkFlow(String link) {
+//
+//        String url = "http://" + Utils.getDomain(link);
+//
+//        Logs.out(url);
+//
+//        Flow flow = null;
+//
+//        flow = Ebean.find(Flow.class).where().where().eq("url", url).findUnique();
+//
+//        if (flow != null)
+//            return flow;
+//
+//        try {
+//
+//            Document pageDocument = getPageDocument(url);
+//
+//            String title = pageDocument.title();
+//            String text = pageDocument.body().text();
+//            String image = findImage(url, pageDocument);
+//            List<String> categories = new ArrayList<>();
+//
+//            flow = new Flow(url, title, String.join(",", categories));
+//            Ebean.save(flow);
+//
+//        } catch (Exception e) {
+//            return null;
+//        }
+//
+//        return flow;
+//    }
 }

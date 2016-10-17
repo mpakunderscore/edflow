@@ -25,7 +25,7 @@
 
 #content ul li div.image {
     display: table-cell;
-    width: 70px;
+    /*width: 70px;*/
     height: inherit;
 
     background-position: center center;
@@ -81,27 +81,30 @@
 
 #content ul li div.page div.text {
     font-size: 15px;
+    font-weight: 300;
     /*color: gray;*/
     padding-top: 10px;
 }
 
 #content ul li div.page div.categories {
-    color: gray;
+    color: black;
     /*line-height: 150%;*/
     padding-top: 10px;
+    font-size: 13px;
     /*vertical-align: middle;*/
     /*background-color: red;*/
 }
 
 #content ul li div.page div.categories a {
-    color: gray;
-    font-size: 14px;
+    color: rgba(128, 128, 128, 0.8);
+
+    /*font-weight: 300;*/
     text-decoration: none;
     cursor: pointer;
 }
 
 #content ul li div.page div.categories a:hover {
-    color: red;
+    color: rgba(255, 0, 0, 0.5);
 }
 
 #content ul li div.page div.stat {

@@ -23,12 +23,13 @@ public class Analyser {
         Map<String, Map<String, Double>> domainsWordsIDF = processDomainsIDF(domainsPagesWords);
 
         //page words
-        for (Page page : pages)
+        for (Page page : pages) {
             processPage(page, wordsIDF, domainsWordsIDF);
+        }
 
-        Logs.time("Process", time);
+        Logs.time("Process Analyser", time);
 
-        pages.forEach(Ebean::save);
+        pages.forEach(Ebean::update);
         Logs.time("Save", time);
     }
 
