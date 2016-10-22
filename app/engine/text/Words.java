@@ -69,22 +69,41 @@ public class Words {
         words.putAll(bigrams);
     }
 
-    public static Map<String, Double> getWordsIDFFromPages(List<Page> pages) {
+    public static Map<String, Map<String, Double>> getWordsIDFFromPages(List<Page> pages) {
 
         //TODO LANGUAGE
 
-        List<Map<String, Integer>> words = new ArrayList<>();
+        Map<String, List<Map<String, Integer>>> languageWords = new HashMap<>();
+
+        Map<String, Map<String, Double>> languageWordsIDF = new HashMap<>();
+
+        List<String> languages = new ArrayList<>();
+
 
         for (Page page : pages) {
 
+            List<Map<String, Integer>> words = languageWords.get(page.language);
+
+            if (words == null) {
+                words = new ArrayList<>();
+                languages.add(page.language);
+            }
+
             Map<String, Integer> pageWords = Words.getSortedWords(page);
             words.add(pageWords);
+
+            languageWords.put(page.language, words);
         }
 
-        Map<String, Double> wordsIDF = Words.getWordsIDF(words);
-        Logs.debug(wordsIDF.size() + " IDF words");
+        for (String language : languages) {
 
-        return wordsIDF;
+            Map<String, Double> wordsIDF = Words.getWordsIDF(languageWords.get(language));
+            Logs.debug(wordsIDF.size() + " IDF words [" + language + "]");
+
+            languageWordsIDF.put(language, wordsIDF);
+        }
+
+        return languageWordsIDF;
     }
 
     public static Map<String, Double> getWordsIDF(List<Map<String, Integer>> pagesWords) {

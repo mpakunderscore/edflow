@@ -40,6 +40,9 @@ public class Page extends Model {
 
     public Date time = new Date();
 
+    @Column(length=10)
+    public String language;
+
     public Page(String url, String title, String text, String image, String categories) {
 
         this.url = url;

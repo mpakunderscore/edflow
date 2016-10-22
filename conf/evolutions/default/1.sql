@@ -22,6 +22,7 @@ create table page (
   url                       varchar(255),
   words_count               integer,
   time                      timestamp,
+  language                  varchar(10),
   constraint uq_page_url unique (url),
   constraint pk_page primary key (id))
 ;

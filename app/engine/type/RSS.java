@@ -4,10 +4,12 @@ import java.io.Reader;
 import java.net.URL;
 
 //import com.rometools.rome.feed.synd.SyndEntryImpl;
+import com.avaje.ebean.Ebean;
 import com.rometools.rome.feed.synd.SyndEntryImpl;
 import com.rometools.rome.feed.synd.SyndFeed;
 import com.rometools.rome.io.SyndFeedInput;
 import com.rometools.rome.io.XmlReader;
+import models.Flow;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
@@ -72,6 +74,8 @@ public class RSS {
             Logs.debug("Language: " + feed.getLanguage());
 
             Logs.debug("Links: " + feed.getLinks().size());
+
+            Ebean.save(new Flow(feed.getLink(), feed.getTitle(), ""));
 
 //            Logs.out(feed.getLinks().toString());
 //            Logs.out(feed.getImage().getLink());

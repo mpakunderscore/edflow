@@ -34,6 +34,10 @@ public class HTML {
         String title = pageDocument.title();
         Logs.debug("Title: " + title);
 
+        //Check if Flow (from RSS)
+        if (RSS.read(url, pageDocument))
+            return null;
+
         String text = pageDocument.body().text();
 
 //        processLinks(url, pageDocument);
@@ -41,10 +45,6 @@ public class HTML {
         YouTube.process(pageDocument);
 
         String image = findImage(url, pageDocument);
-
-        //Check if Flow (from RSS)
-        if (RSS.read(url, pageDocument))
-            return null;
 
         return new Page(url, title, text, image, null);
     }
@@ -99,15 +99,22 @@ public class HTML {
 
                 Logs.debug("1: " + image.attr("src"));
 
+                //TODO
+                if (image.attr("src").equals("/"))
+                    continue;
+
                 String imgSrc = normalize(url, image.attr("src"));
 
-                if (imgSrc.length() == 0)
+                if (imgSrc.length() == 0) // || imgSrc.endsWith("svg") || imgSrc.endsWith(".svg.png")
                     continue;
 
                 Logs.debug("2: " + imgSrc);
 
                 URL imgUrl = new URL(imgSrc);
                 final BufferedImage bufferedImage = ImageIO.read(imgUrl);
+
+                if (bufferedImage == null)
+                    continue;
 
                 if (bufferedImage.getHeight() > 200) {
                     Logs.debug("Height: " + bufferedImage.getHeight());
@@ -116,7 +123,7 @@ public class HTML {
                 }
 
             } catch (IOException e) {
-                e.printStackTrace();
+//                e.printStackTrace();
             }
 
         }
@@ -147,7 +154,7 @@ public class HTML {
 
             } else {
 //                Logs.debug("ERROR link: " + url);
-                return "";
+                return pageUrl + url;
             }
         }
 

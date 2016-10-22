@@ -54,7 +54,8 @@ public class Crawler {
             }
 
 
-            Utils.getLanguage(page);
+            String language = Utils.getLanguage(page);
+            page.language = language;
 
             //TODO check words length
             Logs.debug("Text length: " + page.text.length());

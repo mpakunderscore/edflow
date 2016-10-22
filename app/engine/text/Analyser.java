@@ -16,7 +16,7 @@ public class Analyser {
         long time = System.currentTimeMillis();
 
         //global words idf TODO LANGUAGE
-        Map<String, Double> wordsIDF = Words.getWordsIDFFromPages(pages);
+        Map<String, Map<String, Double>> wordsIDF = Words.getWordsIDFFromPages(pages);
 
         //domain words idf
         Map<String, List<Map<String, Integer>>> domainsPagesWords = getDomainsPagesWords(pages);
@@ -24,7 +24,7 @@ public class Analyser {
 
         //page words
         for (Page page : pages) {
-            processPage(page, wordsIDF, domainsWordsIDF);
+            processPage(page, wordsIDF.get(page.language), domainsWordsIDF);
         }
 
         Logs.time("Process Analyser", time);
