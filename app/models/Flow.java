@@ -27,15 +27,23 @@ public class Flow extends Model {
     @Column(unique=true)
     public String url;
 
+    @Constraints.Required
+    @Column(unique=true)
+    public String rssUrl;
+
+    @Column
+    public String lastPage;
+
     //words count
     //unique words count
     //average word complexity
 
     public Date time = new Date();
 
-    public Flow(String url, String title, String categories) {
+    public Flow(String url, String rssUrl, String title, String categories) {
 
         this.url = url;
+        this.rssUrl = rssUrl;
 
         this.title = title.substring(0, Math.min(title.length(), 100));
         this.categories = categories;

@@ -75,7 +75,10 @@ public class RSS {
 
             Logs.debug("Links: " + feed.getLinks().size());
 
-            Ebean.save(new Flow(feed.getLink(), feed.getTitle(), ""));
+            Flow flow = checkRSSFlow(feed, rssUrl);
+
+            if (flow != null)
+                Ebean.save(flow);
 
 //            Logs.out(feed.getLinks().toString());
 //            Logs.out(feed.getImage().getLink());
@@ -86,6 +89,47 @@ public class RSS {
             ex.printStackTrace();
 //            System.err.println("ERROR: " + ex.getMessage());
         }
+    }
+
+    private static Flow checkRSSFlow(SyndFeed feed, String rssUrl) {
+
+        if (feed.getEntries().size() > 0) {
+
+
+            SyndEntryImpl entry = (SyndEntryImpl) feed.getEntries().get(0);
+            String entryLink = entry.getLink().split("#")[0]; //.split("/?")[0]
+
+            Logs.debug(feed.getLink());
+            Logs.debug(entryLink);
+
+            if (feed.getLink().equals(entryLink))
+                return null;
+
+            return new Flow(feed.getLink(), rssUrl, feed.getTitle(), "");
+        }
+
+        return null;
+
+//        for (int i = 0; i < feed.getEntries().size(); i++) {
+//
+//            try {
+//
+//                SyndEntryImpl entry = (SyndEntryImpl) feed.getEntries().get(i);
+//
+//                String entryLink = entry.getLink().split("#")[0].split("/?")[0];
+//
+//                Logs.debug(feed.getLink());
+//                Logs.debug(entryLink);
+//
+//                if (feed.getLink().equals(entryLink))
+//                    return null;
+//
+//            } catch (Exception ignored) {
+//
+//            }
+//        }
+//
+//        return new Flow(feed.getLink(), rssUrl, feed.getTitle(), "");
     }
 
     private static String findRSSUrl(String pageUrl, Document pageDocument) {

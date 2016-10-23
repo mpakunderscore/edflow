@@ -8,8 +8,11 @@ create table flow (
   title                     varchar(100),
   categories                varchar(1000),
   url                       varchar(255),
+  rss_url                   varchar(255),
+  last_page                 varchar(255),
   time                      timestamp,
   constraint uq_flow_url unique (url),
+  constraint uq_flow_rss_url unique (rss_url),
   constraint pk_flow primary key (id))
 ;
 

@@ -103,6 +103,13 @@ public class API extends Controller {
         return ok();
     }
 
+    public static Result gather() {
+
+        Crawler.processFlows();
+
+        return ok();
+    }
+
 //    public static Result randomData() {
 //
 //        //check sites
