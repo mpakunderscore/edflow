@@ -15,21 +15,21 @@ import static play.libs.Json.toJson;
 
 public class Content extends Controller {
 
-    public static Result getPages(String categoryName, String language) {
-
-        List<Page> pages = Ebean.find(Page.class).findList();
-
-        List<Category> subCategories = new ArrayList<>();
-
-        Response response = new Response(subCategories, pages);
-        return ok(toJson(response));
-    }
+//    public static Result getPages(String categoryName, String language) {
+//
+//        List<Page> pages = Ebean.find(Page.class).findList();
+//
+//        List<Category> subCategories = new ArrayList<>();
+//
+//        Response response = new Response(subCategories, pages);
+//        return ok(toJson(response));
+//    }
 
     public static Result getMain(String language) {
 
-        List<Page> pages = Ebean.find(Page.class).orderBy("time desc").findList();
+        List<Page> pages = Ebean.find(Page.class).where("wordsCount > 2000").orderBy("time desc").findList().subList(0, 30); //wordsCount
 
-//        .subList(0, 30)
+//
 
         List<Category> subCategories = new ArrayList<>();
 

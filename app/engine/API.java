@@ -91,7 +91,7 @@ public class API extends Controller {
 
     public static Result process() {
 
-        List<Page> pages = Ebean.find(Page.class).findList();
+        List<Page> pages = Ebean.find(Page.class).where("wordsCount > 3000").findList();
 
         Logs.debug("Process " + pages.size() + " pages..");
 

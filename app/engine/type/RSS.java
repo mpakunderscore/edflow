@@ -10,6 +10,7 @@ import com.rometools.rome.feed.synd.SyndFeed;
 import com.rometools.rome.io.SyndFeedInput;
 import com.rometools.rome.io.XmlReader;
 import models.Flow;
+import models.Page;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
@@ -77,9 +78,6 @@ public class RSS {
 
             Flow flow = checkRSSFlow(feed, rssUrl);
 
-            if (flow != null)
-                Ebean.save(flow);
-
 //            Logs.out(feed.getLinks().toString());
 //            Logs.out(feed.getImage().getLink());
 //            Logs.out(feed.getCategories().toString());
@@ -91,10 +89,15 @@ public class RSS {
         }
     }
 
+    //TODO FUCK RSS
     private static Flow checkRSSFlow(SyndFeed feed, String rssUrl) {
 
-        if (feed.getEntries().size() > 0) {
+        Flow flow = Ebean.find(Flow.class).where().eq("url", feed.getLink()).findUnique();
 
+        if (flow != null)
+            return flow;
+
+        if (feed.getEntries().size() > 0) {
 
             SyndEntryImpl entry = (SyndEntryImpl) feed.getEntries().get(0);
             String entryLink = entry.getLink().split("#")[0]; //.split("/?")[0]
@@ -102,10 +105,14 @@ public class RSS {
             Logs.debug(feed.getLink());
             Logs.debug(entryLink);
 
-            if (feed.getLink().equals(entryLink))
+            if (feed.getLink().equals(entryLink) || feed.getLink().contains("github.com")) //TODO
                 return null;
 
-            return new Flow(feed.getLink(), rssUrl, feed.getTitle(), "");
+            flow = new Flow(feed.getLink(), rssUrl, feed.getTitle(), "");
+
+            Ebean.save(flow);
+
+            return flow;
         }
 
         return null;

@@ -33,7 +33,7 @@ public class Crawler {
 
     static Page getPage(String url) {
 
-        Page page = page = Ebean.find(Page.class).where().eq("url", url).findUnique();
+        Page page = Ebean.find(Page.class).where().eq("url", url).findUnique();
 
         Long id = null;
         if (page != null)
@@ -98,7 +98,7 @@ public class Crawler {
         return page;
     }
 
-    static void processFlows() {
+    public static void processFlows() {
 
         List<Flow> flows = Ebean.find(Flow.class).findList();
 
@@ -125,6 +125,8 @@ public class Crawler {
 
             if (flow.lastPage != null) {
 
+                Logs.debug("Last page: true");
+
                 for (int i = feed.getEntries().size(); i >= 0; --i) {
 
                     try {
@@ -148,6 +150,8 @@ public class Crawler {
             }
 
             if (flow.lastPage == null || !last) {
+
+                Logs.debug("Last page: false");
 
                 for (int i = feed.getEntries().size(); i >= 0; --i) {
 

@@ -25,3 +25,7 @@ libraryDependencies += "org.apache.commons" % "commons-io" % "1.3.2"
 libraryDependencies += "com.optimaize.languagedetector" % "language-detector" % "0.5"
 
 libraryDependencies += "jdom" % "jdom" % "1.1"
+
+libraryDependencies += "de.l3s.boilerpipe" % "boilerpipe" % "1.1.0"
+
+libraryDependencies += "net.sourceforge.nekohtml" % "nekohtml" % "1.9.22"

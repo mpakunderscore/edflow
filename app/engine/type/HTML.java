@@ -1,6 +1,12 @@
 package engine.type;
 
 import com.avaje.ebean.Ebean;
+import de.l3s.boilerpipe.BoilerpipeProcessingException;
+import de.l3s.boilerpipe.document.TextDocument;
+import de.l3s.boilerpipe.extractors.CommonExtractors;
+import de.l3s.boilerpipe.sax.BoilerpipeSAXInput;
+import de.l3s.boilerpipe.sax.HTMLDocument;
+import de.l3s.boilerpipe.sax.HTMLFetcher;
 import engine.API;
 import engine.text.Utils;
 import models.Flow;
@@ -10,6 +16,7 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.xml.sax.SAXException;
 import utils.Logs;
 import utils.Settings;
 
@@ -19,6 +26,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,6 +38,8 @@ public class HTML {
 
     public static Page read(String url) {
 
+        //TODO HERE boilerpipe
+
         Document pageDocument = getPageDocument(url);
         String title = pageDocument.title();
         Logs.debug("Title: " + title);
@@ -39,6 +49,7 @@ public class HTML {
             return null;
 
         String text = pageDocument.body().text();
+//        String text = getText(url);
 
 //        processLinks(url, pageDocument);
 
@@ -176,6 +187,25 @@ public class HTML {
         }
 
         return doc;
+    }
+
+    public static String getText(String url) {
+
+        String content = null;
+
+        try {
+
+            final HTMLDocument htmlDoc = HTMLFetcher.fetch(new URL(url));
+            final TextDocument doc = new BoilerpipeSAXInput(htmlDoc.toInputSource()).getTextDocument();
+            content = CommonExtractors.ARTICLE_EXTRACTOR.getText(doc);
+//            System.out.println(content);
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return content;
     }
 
 //    public static Flow checkFlow(String link) {
