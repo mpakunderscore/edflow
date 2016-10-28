@@ -79,7 +79,6 @@ public class Words {
 
         List<String> languages = new ArrayList<>();
 
-
         for (Page page : pages) {
 
             List<Map<String, Integer>> words = languageWords.get(page.language);

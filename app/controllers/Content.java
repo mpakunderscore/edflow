@@ -27,7 +27,11 @@ public class Content extends Controller {
 
     public static Result getMain(String language) {
 
-        List<Page> pages = Ebean.find(Page.class).where("wordsCount > 2000").orderBy("time desc").findList().subList(0, 30); //wordsCount
+        List<Page> pages = Ebean.find(Page.class)
+                .where("wordsCount > 3000")
+                .orderBy("time desc")
+                .findList()
+                .subList(0, 30); //wordsCount
 
 //
 

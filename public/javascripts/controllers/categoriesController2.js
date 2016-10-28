@@ -16,9 +16,9 @@ edflow
 
         $rootScope.categories = [
             {title: "Main", name: "Главная"},
-            {title: "Flows", name: "Потоки"},
-            {title: "Robot", name: "Робот"},
-            {title: "Mine", name: "Мое"}
+            {title: "Flows", name: "Потоки"}
+            // {title: "Robot", name: "Робот"},
+            // {title: "Mine", name: "Мое"}
         ];
 
         $scope.subCategories = [];

@@ -24,6 +24,9 @@ GET     /api/randome                engine.API.randomData
 GET     /api/process                engine.API.process
 GET     /api/gather                 engine.API.gather
 
+GET     /api/stat                   engine.API.stat
+GET     /api/words                  engine.API.words
+
 GET     /api/chat                   controllers.Chat.message(message: String)
 
 # Map static resources from the /public folder to the /assets URL path

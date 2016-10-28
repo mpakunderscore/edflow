@@ -1,7 +1,5 @@
 package utils;
 
-import java.util.Date;
-import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
@@ -56,6 +54,6 @@ public class Logs {
 
         String space = new String(new char[n]).replace('\0', ' ');
 
-        return space + caller + " | " + new Exception().getStackTrace().length + " ";
+        return space + caller + " | ";// + new Exception().getStackTrace().length + " ";
     }
 }

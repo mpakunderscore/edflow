@@ -14,7 +14,6 @@ import models.Page;
 import utils.Logs;
 import utils.Settings;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.*;
 
@@ -98,23 +97,12 @@ public class Crawler {
         return page;
     }
 
-    public static void processFlows() {
-
-        List<Flow> flows = Ebean.find(Flow.class).findList();
-
-        for (Flow flow : flows) {
-
-            findNewPages(flow);
-        }
-    }
-
-    private static void findNewPages(Flow flow) {
+    public static void findNewPages(Flow flow) {
 
         try {
 
             Logs.debug("Flow title: " + flow.title);
             Logs.debug("Flow url: " + flow.url);
-            Logs.debug("Flow: " + flow.url);
 
             URL feedUrl = new URL(flow.rssUrl);
             SyndFeedInput input = new SyndFeedInput();
@@ -125,13 +113,15 @@ public class Crawler {
 
             if (flow.lastPage != null) {
 
-                Logs.debug("Last page: true");
+                Logs.debug("Last page: " + flow.lastPage);
 
                 for (int i = feed.getEntries().size(); i >= 0; --i) {
 
                     try {
 
                         SyndEntryImpl entry = (SyndEntryImpl) feed.getEntries().get(i);
+
+                        Logs.debug(entry.getLink());
 
                         if (flow.lastPage.equals(entry.getLink())) {
                             last = true;
