@@ -28,7 +28,8 @@ public class Content extends Controller {
     public static Result getMain(String language) {
 
         List<Page> pages = Ebean.find(Page.class)
-                .where("wordsCount > 3000")
+//                .where("wordsCount > 0")
+                .where("wordsCount > 5000")
                 .orderBy("time desc")
                 .findList()
                 .subList(0, 30); //wordsCount
@@ -54,9 +55,9 @@ public class Content extends Controller {
 
     public static Result getMine(String language) throws InterruptedException {
 
-        TimeUnit.SECONDS.sleep(3);
+//        TimeUnit.SECONDS.sleep(3);
 
-        List<Page> pages = Ebean.find(Page.class).orderBy("time").findList();
+        List<Page> pages = Ebean.find(Page.class).orderBy("time").findList().subList(0, 30);
 
         List<Category> subCategories = new ArrayList<>();
 

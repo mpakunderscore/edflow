@@ -16,6 +16,7 @@ import utils.Logs;
 import utils.response.Response;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -132,7 +133,7 @@ public class API extends Controller {
 
     public static Result words() {
 
-        List<String> out = new ArrayList<>();
+        Map<String, Map<String, Double>> outWords = new HashMap<>();
 
         List<Page> pages = Ebean.find(Page.class).findList();
 
@@ -142,12 +143,16 @@ public class API extends Controller {
         wordsIDF.remove(null);
 
 
-        for (String lang : wordsIDF.keySet())
+        for (String lang : wordsIDF.keySet()) {
+
+            outWords.put(lang, new HashMap<>());
+
             for (String word : wordsIDF.get(lang).keySet())
                 if (wordsIDF.get(lang).get(word) < 1)
-                    out.add(word);
+                    outWords.get(lang).put(word, wordsIDF.get(lang).get(word));
+        }
 
-        return ok(toJson(out));
+        return ok(toJson(outWords));
     }
 
 //    public static Result randomData() {

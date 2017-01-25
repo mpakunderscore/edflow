@@ -9,6 +9,7 @@ import engine.text.Utils;
 import engine.text.Words;
 import engine.type.HTML;
 import engine.type.PDF;
+import engine.type.YouTube;
 import models.Flow;
 import models.Page;
 import utils.Logs;
@@ -48,10 +49,9 @@ public class Crawler {
 
             else {
 
-//                if (youtube)
-//                    YouTube.read(url);
-//                else
-
+                if (url.contains("youtube.com"))
+                    YouTube.read(url);
+                else
                     page = HTML.read(url);
 
                 //TODO Check if Flow (from RSS)

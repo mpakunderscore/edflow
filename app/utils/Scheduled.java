@@ -1,5 +1,6 @@
 package utils;
 
+import engine.API;
 import engine.Crawler;
 
 import java.util.TimerTask;
@@ -14,8 +15,9 @@ public class Scheduled extends TimerTask {
     public void run() {
 
         now = new Date(); // initialize date
-        Logs.debug("Time is: " + now); // Display current time
+        Logs.debug("Scheduled, time: " + now); // Display current time
 
 //        Crawler.processFlows();
+//        API.gather();
     }
 }

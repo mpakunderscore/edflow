@@ -29,3 +29,5 @@ libraryDependencies += "jdom" % "jdom" % "1.1"
 libraryDependencies += "de.l3s.boilerpipe" % "boilerpipe" % "1.1.0"
 
 libraryDependencies += "net.sourceforge.nekohtml" % "nekohtml" % "1.9.22"
+
+//libraryDependencies += "org.python" % "jython-standalone" % "2.5.2"

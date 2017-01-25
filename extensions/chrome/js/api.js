@@ -55,7 +55,7 @@ function notification(iconUrl, title, text) {
 
 function creationCallback(notID) {
 
-    console.log("Succesfully created " + notID + " notification");
+    // console.log("Succesfully created " + notID + " notification");
 
 //    if (document.getElementById("clear").checked) {
 

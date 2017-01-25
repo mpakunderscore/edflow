@@ -15,7 +15,7 @@ public class Settings {
     public final static Pattern wordPattern = Pattern.compile("[^\\s+\"\\d+(){}, –'“\\-»«=_@:$;#%!<>&\\|\\*\\?\\[\\]\\.\\/\\+\\\\]{2,}");
 
     //Update DB (update()) while process get page, for debug
-    public static boolean updatePage = true;
+    public static boolean updatePage = false;
 
     //Use bigrams in Words (2 words)
     public final static boolean bigrams = true;

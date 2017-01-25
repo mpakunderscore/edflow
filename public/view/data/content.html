@@ -5,12 +5,6 @@
     <ul>
         <li ng-repeat="item in items" ng-click="clickItem()">
 
-            <div class="image"
-                 ng-show="showImage && item.image.length > 0"
-                 ng-style="{'background-image': 'url(' + item.image + ')', 'width': + 100 + 'px'}">
-                <!--(item.wordsCount/40 < 10 ? 10 : item.wordsCount/40)-->
-            </div>
-
             <div class="page">
 
                 <div class="title">
@@ -34,6 +28,12 @@
 
                 <div class="stat" ng-style="{'width': item.wordsCount/40 + 'px'}"></div>
 
+            </div>
+
+            <div class="image"
+                 ng-show="showImage && item.image.length > 0"
+                 ng-style="{'background-image': 'url(' + item.image + ')', 'flex': '0 0 ' + (item.wordsCount/40 < 100 ? 100 : item.wordsCount/40) + 'px'}">
+                <!--(item.wordsCount/40 < 10 ? 10 : item.wordsCount/40)-->
             </div>
 
         </li>

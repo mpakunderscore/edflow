@@ -5,7 +5,7 @@ import java.util.Timer;
 
 public class Global extends GlobalSettings {
 
-    private long period = 60*1000;
+    private long period = 60*1000*10;
 
     @Override
     public void onStart(Application app) {

@@ -1,34 +1,33 @@
-//// Saves options to localStorage.
-//function save_options() {
-//  var select = document.getElementById("color");
-//  var color = select.children[select.selectedIndex].value;
-//  localStorage["favorite_color"] = color;
-//
-//  // Update status to let user know options were saved.
-//  var status = document.getElementById("status");
-//  status.innerHTML = "Options Saved.";
-//  setTimeout(function() {
-//    status.innerHTML = "";
-//  }, 750);
-//}
-//
-//// Restores select box state to saved value from localStorage.
-//function restore_options() {
-//  var favorite = localStorage["favorite_color"];
-//  if (!favorite) {
-//    return;
-//  }
-//  var select = document.getElementById("color");
-//  for (var i = 0; i < select.children.length; i++) {
-//    var child = select.children[i];
-//    if (child.value == favorite) {
-//      child.selected = "true";
-//      break;
-//    }
-//  }
-//}
+function printBookmarks(bookmarks, i) {
 
-//document.addEventListener('DOMContentLoaded', restore_options);
-//document.querySelector('#save').addEventListener('click', save_options);
+    i++;
 
-document.querySelector('#domains').innerHTML = localStorage.getItem("domains");
+    var folder = "-&#160;&#160;&#160;&#160;&#160;&#160;";
+
+    bookmarks.forEach(function(bookmark) {
+
+
+
+        if (bookmark.url == null) {
+
+            console.log(bookmark.title)
+
+            // console.debug(bookmark.url);
+
+
+            if (bookmark.title.length > 0) {
+
+                var div = document.createElement("div");
+                div.innerHTML = folder.repeat(i) + "" + bookmark.title;
+                document.querySelector('#bookmarks').appendChild(div);
+            }
+
+            if (bookmark.children)
+                printBookmarks(bookmark.children, i);
+        }
+    });
+}
+
+chrome.bookmarks.getTree(function(bookmarks) {
+    printBookmarks(bookmarks, -2);
+});

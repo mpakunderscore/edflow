@@ -4,6 +4,10 @@ edflow
 
         //TODO Utils
 
+        $rootScope.clicks = 0;
+
+        $rootScope.circleSweep = false;
+
         $rootScope.getLongest = function (arr) {
 
             var length = 0;
@@ -31,7 +35,25 @@ edflow
         };
 
         $rootScope.circle = function () {
-            console.log("circle")
+
+            $rootScope.clicks++;
+
+            if ($rootScope.clicks == 3)
+                $rootScope.send("Stop it.")
+
+            if ($rootScope.clicks == 8)
+                $rootScope.send("Seriously..")
+
+
+            if (!$rootScope.circleSweep) {
+                document.querySelector("#circle").style.background = "rgba(255, 255, 255, 0.9)";
+                document.querySelector("html").style.background = "#37b9ff";
+            } else {
+                document.querySelector("#circle").style.background = "#37b9ff";
+                document.querySelector("html").style.background = "rgba(255, 255, 255, 0.9)";
+            }
+
+            $rootScope.circleSweep = !$rootScope.circleSweep;
         }
     });
 
